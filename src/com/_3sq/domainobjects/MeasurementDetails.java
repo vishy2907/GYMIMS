@@ -12,73 +12,72 @@ import java.util.Date;
  */
 public class MeasurementDetails {
 
-	private Date 				m_MeasurementTakenDate;
-	private int 				m_Height;				//Height in centimeters
-	private float 				m_Chest;
-	private float 				m_Waist;
-	private float 				m_Hips;
-	private	float				m_Thighs;
-	private float 				m_Calf;
-	private float				m_Arms;
-	private	float				m_Foreamrs;
+	private Date 				m_DMeasurementTakenDate;
+	private int 				m_iHeight;				//Height in centimeters
+	private float 				m_fChest;
+	private float 				m_fWaist;
+	private float 				m_fHips;
+	private	float				m_fThighs;
+	private float 				m_fCalf;
+	private float				m_fArms;
+	private	float				m_fForeamrs;
 	
 	
 	
 	public Date getMeasurementTakenDate() {
-		return m_MeasurementTakenDate;
+		return m_DMeasurementTakenDate;
 	}
 	public void setMeasurementTakenDate(Date measurementTakenDate) {
-		m_MeasurementTakenDate = measurementTakenDate;
+		m_DMeasurementTakenDate = measurementTakenDate;
 	}
 	public int getHeight() {
-		return m_Height;
+		return m_iHeight;
 	}
 	public void setHeight(int height) {
-		m_Height = height;
+		m_iHeight = height;
 	}
 	public float getChest() {
-		return m_Chest;
+		return m_fChest;
 	}
 	public void setChest(float chest) {
-		m_Chest = chest;
+		m_fChest = chest;
 	}
 	
 	public float getWaist() {
-		return m_Waist;
+		return m_fWaist;
 	}
 	public void setWaist(float waist) {
-		m_Waist = waist;
+		m_fWaist = waist;
 	}
 	public float getHips() {
-		return m_Hips;
+		return m_fHips;
 	}
 	public void setHips(float hips) {
-		m_Hips = hips;
+		m_fHips = hips;
 	}
 	public float getThig() {
-		return m_Thighs;
+		return m_fThighs;
 	}
 	public void setThig(float thighs) {
-		m_Thighs = thighs;
+		m_fThighs = thighs;
 	}
 	public float getCalf() {
-		return m_Calf;
+		return m_fCalf;
 	}
 	public void setCalf(float calf) {
-		m_Calf = calf;
+		m_fCalf = calf;
 	}
 	public float getArms() {
-		return m_Arms;
+		return m_fArms;
 	}
 	public void setArms(float arms) {
-		m_Arms = arms;
+		m_fArms = arms;
 	}
 	public float getForeamrs() {
-		return m_Foreamrs;
+		return m_fForeamrs;
 	}
 	public void setForeamrs(float foreamrs) {
-		m_Foreamrs = foreamrs;
+		m_fForeamrs = foreamrs;
 	}
-	
-	
+
 }

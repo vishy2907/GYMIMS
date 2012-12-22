@@ -11,29 +11,30 @@ import java.util.Date;
  * @version 1.0
  * Use : Domain Object Class For Members of the gym
  * Naming Convention : m_ represents Class member  
+ * and characters after _ represents the data type 
  */
 public class Member {
-	private int 			m_MemberID;
-	private String 			m_MemberName;
-	private String 			m_MemberAddress;
-	private long 			m_ContactNumber;
-	private Date 			m_DateOfBirth;
-	private String 			m_BloodGroup;	//can be later converted into the enum - bloodgroup
-	private String 			m_Occupation;
-	private String 			m_MedicalHistory;
-	private String 			m_Gender;		//can be later converted into the enum - bloodgroup
+	private int 			m_iMemberID;
+	private String 			m_sMemberName;
+	private String 			m_sMemberAddress;
+	private long 			m_lContactNumber;
+	private Date 			m_dDateOfBirth;
+	private String 			m_sBloodGroup;	//can be later converted into the enum - bloodgroup
+	private String 			m_sOccupation;
+	private String 			m_sMedicalHistory;
+	private String 			m_sGender;		//can be later converted into the enum - bloodgroup
 	/**
 	 * @return MemberID for selected member
 	 */
 	public int getMemberID() {
-		return m_MemberID;
+		return m_iMemberID;
 	}
 	/**
 	 * Set the Member If for Selected Member  
 	 * @param MemberID
 	 */
 	public void setM_MemberID(int MemberID) {
-		this.m_MemberID = MemberID;
+		this.m_iMemberID = MemberID;
 	}
 	
 	/**
@@ -41,7 +42,7 @@ public class Member {
 	 * @return Member Name for Selected Member
 	 */
 	public String getMemberName() {
-		return m_MemberName;
+		return m_sMemberName;
 	}
 	
 	/**
@@ -49,22 +50,22 @@ public class Member {
 	 * @param MemberName
 	 */
 	public void setMemberName(String MemberName) {
-		this.m_MemberName = MemberName;
+		this.m_sMemberName = MemberName;
 	}
 
 	/**
 	 * 	@return member address for Selected Member
 	 */
 	public String getMemberAddress() {
-		return m_MemberAddress;
+		return m_sMemberAddress;
 	}
 	
 	/**
 	 * Set member address for Selected Member
-	 * @param m_MemberAddress
+	 * @param MemberAddress
 	 */
 	public void setMemberAddress(String MemberAddress) {
-		this.m_MemberAddress = MemberAddress;
+		this.m_sMemberAddress = MemberAddress;
 	}
 	
 	/**
@@ -72,7 +73,7 @@ public class Member {
 	 * @return contact number for Selected Member
 	 */
 	public long getContactNumber() {
-		return m_ContactNumber;
+		return m_lContactNumber;
 	}
 	
 	/**
@@ -80,7 +81,7 @@ public class Member {
 	 * @param ContactNumber
 	 */
 	public void setContactNumber(long ContactNumber) {
-		this.m_ContactNumber = ContactNumber;
+		this.m_lContactNumber = ContactNumber;
 	}
 	
 	/**
@@ -88,7 +89,7 @@ public class Member {
 	 * @return DateOfBirth for Selected Member
 	 */
 	public Date getDateOfBirth() {
-		return m_DateOfBirth;
+		return m_dDateOfBirth;
 	}
 	
 	/**
@@ -96,7 +97,7 @@ public class Member {
 	 * @param DateOfBirth
 	 */
 	public void setDateOfBirth(Date DateOfBirth) {
-		this.m_DateOfBirth = DateOfBirth;
+		this.m_dDateOfBirth = DateOfBirth;
 	}
 	
 	/**
@@ -104,15 +105,15 @@ public class Member {
 	 * @return blood group for Selected Member
 	 */
 	public String getBloodGroup() {
-		return m_BloodGroup;
+		return m_sBloodGroup;
 	}
 	
 	/**
-	 * Set the bloof group for Selected Member 
+	 * Set the blood group for Selected Member 
 	 * @param BloodGroup
 	 */
-	public void setBloodGroup(String m_BloodGroup) {
-		this.m_BloodGroup = m_BloodGroup;
+	public void setBloodGroup(String BloodGroup) {
+		this.m_sBloodGroup = BloodGroup;
 	}
 	
 	/**
@@ -120,7 +121,7 @@ public class Member {
 	 * @return Occupation for Selected Member
 	 */
 	public String getOccupation() {
-		return m_Occupation;
+		return m_sOccupation;
 	}
 	
 	/**
@@ -128,7 +129,7 @@ public class Member {
 	 * @param Occupation
 	 */
 	public void setOccupation(String Occupation) {
-		this.m_Occupation = Occupation;
+		this.m_sOccupation = Occupation;
 	}
 	
 	/**
@@ -136,7 +137,7 @@ public class Member {
 	 * @return the medical history of member, which is specified at the time of joining gym
 	 */
 	public String getMedicalHistory() {
-		return m_MedicalHistory;
+		return m_sMedicalHistory;
 	}
 	
 	/**
@@ -144,22 +145,22 @@ public class Member {
 	 * @return gender for selected member
 	 */
 	public String getGender() {
-		return m_Gender;
+		return m_sGender;
 	}
 	
 	/**
 	 * Sets the Gender for member
-	 * @param m_Gender
+	 * @param Gender
 	 */
 	public void setGender(String Gender) {
-		this.m_Gender = Gender;
+		this.m_sGender = Gender;
 	}
 	/**
 	 * set the Medical History for Member
-	 * @param m_MedicalHistory
+	 * @param MedicalHistory
 	 */
 	
-	public void setMedicalHistory(String m_MedicalHistory) {
-		this.m_MedicalHistory = m_MedicalHistory;
+	public void setMedicalHistory(String MedicalHistory) {
+		this.m_sMedicalHistory = MedicalHistory;
 	}
 }
