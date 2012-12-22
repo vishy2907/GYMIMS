@@ -1,4 +1,4 @@
-/**
+ /**
  * 
  */
 package com._3sq.domainobjects;
@@ -10,7 +10,7 @@ import java.util.Date;
  * Date : 22nd Dec 2012
  * @version 1.0
  * Use : Domain Object Class For Members of the gym
- * Naming Convention : M represents Class member  
+ * Naming Convention : m_ represents Class member  
  */
 public class Member {
 	private int 			m_MemberID;
