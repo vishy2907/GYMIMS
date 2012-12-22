@@ -1,4 +1,4 @@
- /**
+ /** 
  * 
  */
 package com._3sq.domainobjects;
