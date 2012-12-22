@@ -24,7 +24,6 @@ public class MeasurementDetails {
 	
 	
 	
-	
 	public Date getMeasurementTakenDate() {
 		return m_MeasurementTakenDate;
 	}
