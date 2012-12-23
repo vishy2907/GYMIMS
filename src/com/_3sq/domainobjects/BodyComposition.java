@@ -18,11 +18,6 @@ public class BodyComposition {
 	private float 				m_fVisceralFat;
 	
 	
-	//Data types of these can be reviewed afterwoard
-	// Confirm with Mahesh and other gym coaches
-	//Array of 2 for SF and SM
-	//Measurements for the Body Area
-	//TODO : generate the getters and setters for them
 	
 	private float[]				m_fWholeBody;
 	private float[] 			m_fTrunk;
