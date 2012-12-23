@@ -2,10 +2,6 @@ package com._3sq.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-
-import com.sun.org.apache.regexp.internal.recompile;
 
 //import com.mysql.jdbc.Connection;
 
