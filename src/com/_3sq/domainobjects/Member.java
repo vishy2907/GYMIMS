@@ -22,7 +22,9 @@ public class Member {
 	private String 			m_sBloodGroup;	//can be later converted into the enum - bloodgroup
 	private String 			m_sOccupation;
 	private String 			m_sMedicalHistory;
-	private String 			m_sGender;		//can be later converted into the enum - bloodgroup
+	private String 			m_sGender;		//can be later converted into the enum - Gender
+	private long			m_lEmergencyContactNo;
+	
 	/**
 	 * @return MemberID for selected member
 	 */
@@ -163,4 +165,21 @@ public class Member {
 	public void setMedicalHistory(String MedicalHistory) {
 		this.m_sMedicalHistory = MedicalHistory;
 	}
+	
+	/**
+	 * 
+	 * @return Emergency contact number for Selected Member
+	 */
+	public long getM_lEmergencyContactNo() {
+		return m_lEmergencyContactNo;
+	}
+	
+	/**
+	 * sets the emergency contact number for Selected Member
+	 * @param EmergencyContactNo 
+	 */
+	public void setM_lEmergencyContactNo(long EmergencyContactNo) {
+		this.m_lEmergencyContactNo = EmergencyContactNo;
+	}
+	
 }

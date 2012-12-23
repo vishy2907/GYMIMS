@@ -24,12 +24,53 @@ public class BodyComposition {
 	//Measurements for the Body Area
 	//TODO : generate the getters and setters for them
 	
-	private String[] 			m_sTrunk;
-	private String[]			m_sLeg;
-	private String[]			m_sArm;
+	private float[]				m_fWholeBody;
+	private float[] 			m_fTrunk;
+	private float[]				m_fLeg;
+	private float[]				m_fArm;
 	
 	
+	/**
+	 * 
+	 * @return 
+	 */
+	public float[] getWholeBody() {
+		return m_fWholeBody;
+	}
 	
+	/**
+	 * 
+	 * @param wholeBody
+	 */
+
+	public void setWholeBody(float[] wholeBody) {
+		m_fWholeBody = wholeBody;
+	}
+
+	public float[] getTrunk() {
+		return m_fTrunk;
+	}
+
+	public void setTrunk(float[] trunk) {
+		m_fTrunk = trunk;
+	}
+
+	public float[] getLeg() {
+		return m_fLeg;
+	}
+
+	public void setLeg(float[] leg) {
+		m_fLeg = leg;
+	}
+
+	public float[] getArm() {
+		return m_fArm;
+	}
+
+	public void setArm(float[] arm) {
+		m_fArm = arm;
+	}
+
 	public float getWeight() {
 		return m_fWeight;
 	}
