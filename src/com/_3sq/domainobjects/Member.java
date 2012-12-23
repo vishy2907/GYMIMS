@@ -54,7 +54,7 @@ public class Member {
 	}
 
 	/**
-	 * 	@return member address for Selected Member
+	 *  	@return member address for Selected Member
 	 */
 	public String getMemberAddress() {
 		return m_sMemberAddress;
