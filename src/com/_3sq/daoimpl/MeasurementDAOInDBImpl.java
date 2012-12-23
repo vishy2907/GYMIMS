@@ -9,7 +9,7 @@ import com._3sq.daos.MeasurementDAO;
 import com._3sq.domainobjects.MeasurementInfo;
 
 /**
- * @author shani
+ * @author Vishal B
  *
  */
 public class MeasurementDAOInDBImpl implements MeasurementDAO {

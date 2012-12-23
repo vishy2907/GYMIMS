@@ -9,7 +9,7 @@ import com._3sq.daos.MemberDAO;
 import com._3sq.domainobjects.Member;
 
 /**
- * @author shani
+ * @author Vishal B
  *
  */
 public class MemberDAOInDBImpl implements MemberDAO {
