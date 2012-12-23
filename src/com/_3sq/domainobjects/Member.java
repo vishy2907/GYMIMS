@@ -170,7 +170,7 @@ public class Member {
 	 * 
 	 * @return Emergency contact number for Selected Member
 	 */
-	public long getM_lEmergencyContactNo() {
+	public long getEmergencyContactNo() {
 		return m_lEmergencyContactNo;
 	}
 	
@@ -178,7 +178,7 @@ public class Member {
 	 * sets the emergency contact number for Selected Member
 	 * @param EmergencyContactNo 
 	 */
-	public void setM_lEmergencyContactNo(long EmergencyContactNo) {
+	public void setEmergencyContactNo(long EmergencyContactNo) {
 		this.m_lEmergencyContactNo = EmergencyContactNo;
 	}
 	
