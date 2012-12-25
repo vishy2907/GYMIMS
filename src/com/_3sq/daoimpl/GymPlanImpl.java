@@ -10,7 +10,7 @@ import com._3sq.domainobjects.GymPlan;
  * @author Vishal B
  *
  */
-public class GymPlanDAOInDBImpl implements GymPlanDAO {
+public class GymPlanImpl implements GymPlanDAO {
 
 	/* (non-Javadoc)
 	 * @see com._3sq.daos.GymPlanDAO#addGymPlan(com._3sq.domainobjects.GymPlan)

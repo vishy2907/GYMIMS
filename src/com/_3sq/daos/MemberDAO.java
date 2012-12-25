@@ -10,8 +10,8 @@ import com._3sq.domainobjects.Member;
  */
 
 public interface MemberDAO {
-	public boolean AddMember(Member member);
-	public boolean RemoveMember(Member member);
+	public boolean addMember(Member member);
+	public boolean removeMember(Member member);
 	public boolean updateMember(Member member);
 	
 	public HashMap<Integer,String> getAllMemberNamesWithIDs();

@@ -26,6 +26,36 @@ public class Member {
 	private long			m_lEmergencyContactNo;
 
 	
+	
+	public Member(		String 			MemberName, 
+						String 			MemberAddress,
+						long 			ContactNumber, 
+						Date 			DateOfBirth, 
+						String 			BloodGroup,
+						String 			Occupation, 
+						String 			MedicalHistory, 
+						String 			Gender,
+						long 			EmergencyContactNo) 				{
+		super();
+		this.m_sMemberName = MemberName;
+		this.m_sMemberAddress = MemberAddress;
+		this.m_lContactNumber = ContactNumber;
+		this.m_dDateOfBirth = DateOfBirth;
+		this.m_sBloodGroup = BloodGroup;
+		this.m_sOccupation = Occupation;
+		this.m_sMedicalHistory = MedicalHistory;
+		this.m_sGender = Gender;
+		this.m_lEmergencyContactNo = EmergencyContactNo;
+	}
+	
+	public Member(){
+		
+	}
+
+
+
+
+	
 	/**
 	 * @return MemberID for selected member
 	 */

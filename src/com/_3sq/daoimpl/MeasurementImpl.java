@@ -12,7 +12,7 @@ import com._3sq.domainobjects.MeasurementInfo;
  * @author Vishal B
  *
  */
-public class MeasurementDAOInDBImpl implements MeasurementDAO {
+public class MeasurementImpl implements MeasurementDAO {
 
 	/* (non-Javadoc)
 	 * @see com._3sq.daos.MeasurementDAO#addBodyMeasurement(int, com._3sq.domainobjects.MeasurementInfo)
