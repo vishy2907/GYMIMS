@@ -24,6 +24,7 @@ public class Member {
 	private String 			m_sMedicalHistory;
 	private String 			m_sGender;		//can be later converted into the enum - Gender
 	private long			m_lEmergencyContactNo;
+
 	
 	/**
 	 * @return MemberID for selected member
@@ -31,6 +32,9 @@ public class Member {
 	public int getMemberID() {
 		return m_iMemberID;
 	}
+	
+	
+	
 	/**
 	 * Set the Member If for Selected Member  
 	 * @param MemberID
@@ -38,6 +42,9 @@ public class Member {
 	public void setM_MemberID(int MemberID) {
 		this.m_iMemberID = MemberID;
 	}
+	
+	
+	
 	
 	/**
 	 * 
@@ -47,6 +54,9 @@ public class Member {
 		return m_sMemberName;
 	}
 	
+	
+	
+	
 	/**
 	 * Set Member Name for Selected Member
 	 * @param MemberName
@@ -55,12 +65,18 @@ public class Member {
 		this.m_sMemberName = MemberName;
 	}
 
+	
+	
+	
 	/**
 	 *  	@return member address for Selected Member
 	 */
 	public String getMemberAddress() {
 		return m_sMemberAddress;
 	}
+	
+	
+	
 	
 	/**
 	 * Set member address for Selected Member
@@ -70,6 +86,9 @@ public class Member {
 		this.m_sMemberAddress = MemberAddress;
 	}
 	
+	
+	
+	
 	/**
 	 * 
 	 * @return contact number for Selected Member
@@ -77,6 +96,9 @@ public class Member {
 	public long getContactNumber() {
 		return m_lContactNumber;
 	}
+	
+	
+	
 	
 	/**
 	 * Set contact number for Selected Member
@@ -86,6 +108,9 @@ public class Member {
 		this.m_lContactNumber = ContactNumber;
 	}
 	
+	
+	
+	
 	/**
 	 * 
 	 * @return DateOfBirth for Selected Member
@@ -93,6 +118,8 @@ public class Member {
 	public Date getDateOfBirth() {
 		return m_dDateOfBirth;
 	}
+	
+	
 	
 	/**
 	 * Set DateOfBirth for Selected Member
@@ -102,6 +129,9 @@ public class Member {
 		this.m_dDateOfBirth = DateOfBirth;
 	}
 	
+	
+	
+	
 	/**
 	 * 
 	 * @return blood group for Selected Member
@@ -109,6 +139,9 @@ public class Member {
 	public String getBloodGroup() {
 		return m_sBloodGroup;
 	}
+	
+	
+	
 	
 	/**
 	 * Set the blood group for Selected Member 
@@ -118,6 +151,9 @@ public class Member {
 		this.m_sBloodGroup = BloodGroup;
 	}
 	
+	
+	
+	
 	/**
 	 * 
 	 * @return Occupation for Selected Member
@@ -125,6 +161,9 @@ public class Member {
 	public String getOccupation() {
 		return m_sOccupation;
 	}
+	
+	
+	
 	
 	/**
 	 * Set the occupation for the member
@@ -134,6 +173,10 @@ public class Member {
 		this.m_sOccupation = Occupation;
 	}
 	
+	
+	
+	
+	
 	/**
 	 * 
 	 * @return the medical history of member, which is specified at the time of joining gym
@@ -141,6 +184,9 @@ public class Member {
 	public String getMedicalHistory() {
 		return m_sMedicalHistory;
 	}
+	
+	
+	
 	
 	/**
 	 * 
@@ -150,6 +196,9 @@ public class Member {
 		return m_sGender;
 	}
 	
+	
+	
+	
 	/**
 	 * Sets the Gender for member
 	 * @param Gender
@@ -157,6 +206,9 @@ public class Member {
 	public void setGender(String Gender) {
 		this.m_sGender = Gender;
 	}
+	
+	
+	
 	/**
 	 * set the Medical History for Member
 	 * @param MedicalHistory
@@ -166,6 +218,9 @@ public class Member {
 		this.m_sMedicalHistory = MedicalHistory;
 	}
 	
+	
+	
+	
 	/**
 	 * 
 	 * @return Emergency contact number for Selected Member
@@ -173,6 +228,9 @@ public class Member {
 	public long getEmergencyContactNo() {
 		return m_lEmergencyContactNo;
 	}
+	
+	
+	
 	
 	/**
 	 * sets the emergency contact number for Selected Member
