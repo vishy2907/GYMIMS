@@ -3,7 +3,7 @@
  */
 package com._3sq.domainobjects;
 
-import java.util.Date;
+//import java.util.Date;
 
 /**
  * @author Vishal b.
@@ -18,7 +18,7 @@ public class Member {
 	private String 			m_sMemberName;
 	private String 			m_sMemberAddress;
 	private long 			m_lContactNumber;
-	private Date 			m_dDateOfBirth;
+	private String 			m_dDateOfBirth;  //temporarily changed the data type
 	private String 			m_sBloodGroup;	//can be later converted into the enum - bloodgroup
 	private String 			m_sOccupation;
 	private String 			m_sMedicalHistory;
@@ -30,7 +30,7 @@ public class Member {
 	public Member(		String 			MemberName, 
 						String 			MemberAddress,
 						long 			ContactNumber, 
-						Date 			DateOfBirth, 
+						String 			DateOfBirth, 
 						String 			BloodGroup,
 						String 			Occupation, 
 						String 			MedicalHistory, 
@@ -145,7 +145,7 @@ public class Member {
 	 * 
 	 * @return DateOfBirth for Selected Member
 	 */
-	public Date getDateOfBirth() {
+	public String getDateOfBirth() {
 		return m_dDateOfBirth;
 	}
 	
@@ -155,7 +155,7 @@ public class Member {
 	 * Set DateOfBirth for Selected Member
 	 * @param DateOfBirth
 	 */
-	public void setDateOfBirth(Date DateOfBirth) {
+	public void setDateOfBirth(String DateOfBirth) {
 		this.m_dDateOfBirth = DateOfBirth;
 	}
 	

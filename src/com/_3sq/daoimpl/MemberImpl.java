@@ -4,8 +4,7 @@
 package com._3sq.daoimpl;
 
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.util.HashMap;
 
 import com._3sq.connection.OrclConnection;
@@ -18,20 +17,37 @@ import com._3sq.domainobjects.Member;
  */
 public class MemberImpl implements MemberDAO {
 
-	/* (non-Javadoc)
-	 * @see com._3sq.daos.MemberDAO#AddMember(com._3sq.domainobjects.Member)
+	/**
+	 *
+	 * @author Pradip K
 	 */
-	@Override
 	public boolean addMember(Member member) {
 		// TODO Auto-generated method stub
 		
 	
 		try {
-			Connection oracleConn = OrclConnection.getOrclConnection();
-	
-			String query = "Insert into asdasdasd";
 			
-					
+	
+			Connection oracleConn = OrclConnection.getOrclConnection();	
+			String sql = " insert into MEMBER (MEMBERID,MEMBERNAME,MEMBERADDRESS,CONTACTNUMBER,DATEOFBIRTH,BLOODGROUP,OCCUPATION,MEDICALHISTORY,GENDER,EMERGENCYCONTACTNO ) values  (?,?,?,?,?,?,?,?,?,?) ";
+			
+			PreparedStatement preStatement = oracleConn.prepareStatement(sql);
+			
+			
+			preStatement.setInt(1,member.getMemberID());
+     		preStatement.setString(2, member.getMemberName());
+     		preStatement.setString(3, member.getMemberAddress());
+     		preStatement.setLong(4, member.getContactNumber());
+     		preStatement.setString(5,  member.getDateOfBirth());
+     		preStatement.setString(6, member.getBloodGroup());
+     		preStatement.setString(7, member.getOccupation());
+     		preStatement.setString(8, member.getMedicalHistory());
+     		preStatement.setString(9, member.getGender());
+     		preStatement.setLong(10, member.getEmergencyContactNo());
+     		
+     		
+			preStatement.executeQuery();			
+			
 					
 		} catch (Exception e) {
 			System.out.println("MemberDAOinDBImple.java: AddMember() : ");
@@ -39,10 +55,6 @@ public class MemberImpl implements MemberDAO {
 		}
 
 		
-		
-		
-		
-		
 		return false;
 	}
 
@@ -50,26 +62,79 @@ public class MemberImpl implements MemberDAO {
 	
 	
 	
-	/* (non-Javadoc)
-	 * @see com._3sq.daos.MemberDAO#RemoveMember(com._3sq.domainobjects.Member)
+	/**
+	 * @author PRADIP K
 	 */
-	@Override
 	public boolean removeMember(Member member) {
 		// TODO Auto-generated method stub
+			
+		
+		try {
+			
+			
+			Connection oracleConn = OrclConnection.getOrclConnection();	
+			String sql = " DELETE FROM MEMBER WHERE MEMBERID = ?";
+			
+			PreparedStatement preStatement = oracleConn.prepareStatement(sql);
+			
+			
+			preStatement.setInt(1,1);
+     		     		
+			preStatement.executeQuery();			
+			
+					
+		} catch (Exception e) {
+			System.out.println("MemberDAOinDBImple.java: removeMember() : ");
+			e.printStackTrace();
+		}
+		
+		
 		return false;
 	}
 
 	
 	
 	
-	
-	
-	/* (non-Javadoc)
-	 * @see com._3sq.daos.MemberDAO#updateMember(com._3sq.domainobjects.Member)
+	/**
+	 * @author PRADIP K
 	 */
-	@Override
+	
 	public boolean updateMember(Member member) {
-		// TODO Auto-generated method stub
+			// TODO Auto-generated method stub
+		
+		
+
+		try {
+			
+	
+			Connection oracleConn = OrclConnection.getOrclConnection();	
+			String sql = " update MEMBER set MEMBERNAME = ? ,MEMBERADDRESS = ?, CONTACTNUMBER = ? ,DATEOFBIRTH = ? ,BLOODGROUP = ? ,OCCUPATION = ? ,MEDICALHISTORY = ? ,GENDER = ? ,EMERGENCYCONTACTNO = ? where MEMBERID = ? ";
+			
+			PreparedStatement preStatement = oracleConn.prepareStatement(sql);
+			
+			
+			preStatement.setString(1, member.getMemberName());
+     		preStatement.setString(2, member.getMemberAddress());
+     		preStatement.setLong(3, member.getContactNumber());
+     		preStatement.setString(4,  member.getDateOfBirth());
+     		preStatement.setString(5, member.getBloodGroup());
+     		preStatement.setString(6, member.getOccupation());
+     		preStatement.setString(7, member.getMedicalHistory());
+     		preStatement.setString(8, member.getGender());
+     		preStatement.setLong(9, member.getEmergencyContactNo());
+     		preStatement.setInt(10, 5);   // Update recordNo = 5
+      		
+     		
+     		
+			preStatement.executeQuery();			
+			
+					
+		} catch (Exception e) {
+			System.out.println("MemberDAOinDBImple.java: updateMember() : ");
+			e.printStackTrace();
+		}
+
+		
 		return false;
 	}
 
@@ -92,9 +157,24 @@ public class MemberImpl implements MemberDAO {
 	public static void main(String args[]){
 		
 		Member obj = new Member();
+		
+		obj.setM_MemberID(1);
 		obj.setMemberName("Pradip");
-		MemberImpl memberDBImpl = new MemberImpl();
+		obj.setMemberAddress("Sr No 31/2/8");
+	    obj.setContactNumber(9850303441L);
+	    obj.setDateOfBirth("10-9-10");
+	    obj.setBloodGroup("b+ve");
+	    obj.setOccupation("engg");
+	    obj.setMedicalHistory("no");
+	    obj.setGender("male");
+	    obj.setEmergencyContactNo(9923059380L);
+
+		
+		
+		
+		MemberImpl memberDBImpl = new MemberImpl();													
 		memberDBImpl.addMember(obj);
+		
 		
 	}
 	
