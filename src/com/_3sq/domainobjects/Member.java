@@ -3,6 +3,8 @@
  */
 package com._3sq.domainobjects;
 
+import java.util.Date;
+
 //import java.util.Date;
 
 /**
@@ -18,19 +20,20 @@ public class Member {
 	private String 			m_sMemberName;
 	private String 			m_sMemberAddress;
 	private long 			m_lContactNumber;
-	private String 			m_dDateOfBirth;  //temporarily changed the data type
+	private Date 			m_dDateOfBirth;  //temporarily changed the data type from date to int 
 	private String 			m_sBloodGroup;	//can be later converted into the enum - bloodgroup
 	private String 			m_sOccupation;
 	private String 			m_sMedicalHistory;
 	private String 			m_sGender;		//can be later converted into the enum - Gender
 	private long			m_lEmergencyContactNo;
-
+	private	Object			m_oImage;
+	private Date			m_dRegistrationDate;			
 	
 	
 	public Member(		String 			MemberName, 
 						String 			MemberAddress,
 						long 			ContactNumber, 
-						String 			DateOfBirth, 
+						Date 			DateOfBirth, 
 						String 			BloodGroup,
 						String 			Occupation, 
 						String 			MedicalHistory, 
@@ -69,7 +72,7 @@ public class Member {
 	 * Set the Member If for Selected Member  
 	 * @param MemberID
 	 */
-	public void setM_MemberID(int MemberID) {
+	public void setMemberID(int MemberID) {
 		this.m_iMemberID = MemberID;
 	}
 	
@@ -145,7 +148,7 @@ public class Member {
 	 * 
 	 * @return DateOfBirth for Selected Member
 	 */
-	public String getDateOfBirth() {
+	public Date getDateOfBirth() {
 		return m_dDateOfBirth;
 	}
 	
@@ -155,13 +158,14 @@ public class Member {
 	 * Set DateOfBirth for Selected Member
 	 * @param DateOfBirth
 	 */
-	public void setDateOfBirth(String DateOfBirth) {
+	public void setDateOfBirth(Date DateOfBirth) {
 		this.m_dDateOfBirth = DateOfBirth;
 	}
 	
 	
 	
 	
+
 	/**
 	 * 
 	 * @return blood group for Selected Member
@@ -268,6 +272,24 @@ public class Member {
 	 */
 	public void setEmergencyContactNo(long EmergencyContactNo) {
 		this.m_lEmergencyContactNo = EmergencyContactNo;
+	}
+	
+	
+
+	public Object getImage() {
+		return m_oImage;
+	}
+
+	public void setImage(Object Image) {
+		this.m_oImage = Image;
+	}
+
+	public Date getRegistrationDate() {
+		return m_dRegistrationDate;
+	}
+
+	public void setRegistrationDate(Date RegistrationDate) {
+		this.m_dRegistrationDate = RegistrationDate;
 	}
 	
 }
