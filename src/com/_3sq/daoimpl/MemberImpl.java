@@ -40,25 +40,10 @@ public class MemberImpl implements MemberDAO {
 	 * @author Pradip K
 	 */
 	public boolean addMember(Member member) {
-		// TODO Auto-generated method stub
 		
 	
 		try {
 			
-	/*
-	 * MEMBERID	NUMBER	No	- 	1
-NAME	VARCHAR2(60)	No	- 	-
-ADDRESS	VARCHAR2(200)	Yes	- 	-
-CONTACTNUMBER	VARCHAR2(67)	Yes	- 	-
-DATEOFBIRTH	VARCHAR2(20)	Yes	- 	-
-BLOODGROUP	VARCHAR2(10)	Yes	- 	-
-OCCUPATION	VARCHAR2(30)	Yes	- 	-
-MEDICALHISTORY	VARCHAR2(1000)	Yes	- 	-
-EMERGENCYCONTACTNO	VARCHAR2(67)	Yes	- 	-
-REGISTRATIONDATE	VARCHAR2(20)	Yes	- 	-
-IMAGE
-GENDER
-	 */
 			Connection oracleConn = OrclConnection.getOrclConnection();	
 			String sql = " insert into MEMBER (MEMBERID,NAME,ADDRESS,CONTACTNUMBER,DATEOFBIRTH,BLOODGROUP,OCCUPATION,MEDICALHISTORY," +
 					"EMERGENCYCONTACTNO,REGISTRATIONDATE,IMAGE,GENDER ) values  (?,?,?,?,?,?,?,?,?,?,?,?) ";
@@ -70,16 +55,19 @@ GENDER
      		preStatement.setString(2, member.getMemberName());
      		preStatement.setString(3, member.getMemberAddress());
      		preStatement.setLong(4, member.getContactNumber());
+    
      		//Conversion Logic For Date
      		//Java Default Dae Format : MM/DD/YYYY
      		//So, store it first with date.getTime() : which is of long datatype
+     		     		preStatement.setString(5,""+  member.getDateOfBirth().getTime());
      		
-     		preStatement.setString(5,""+  member.getDateOfBirth().getTime());
      		preStatement.setString(6, member.getBloodGroup());
      		preStatement.setString(7, member.getOccupation());
      		preStatement.setString(8, member.getMedicalHistory());
      		preStatement.setLong(9, member.getEmergencyContactNo());
+     		
      		preStatement.setString(10, ""+member.getRegistrationDate().getTime());     		
+     		
      		preStatement.setObject(11, member.getImage());
      		preStatement.setString(12, member.getGender());
      		ResultSet rs = preStatement.executeQuery();			
@@ -194,6 +182,7 @@ GENDER
 	}
 
 	
+	@SuppressWarnings("deprecation")
 	public static void main(String args[]){
 		
 		
@@ -201,7 +190,7 @@ GENDER
 		//ALL BELOW THINGS ARE FOR TEMPORATILY
 		Member obj = new Member();
 		
-		obj.setMemberID(3);
+		obj.setMemberID(4);
 		obj.setMemberName("Vishal");
 		obj.setMemberAddress("Sr No 31/2/8");
 	    obj.setContactNumber(9850303441L);
@@ -220,6 +209,7 @@ GENDER
 		
 	boolean bResult = memberDBImpl.addMember(obj);
 	System.out.println("Operation Result : "+bResult);
+	
 		//memberDBImpl.removeMember(obj);
 		//memberDBImpl.updateMember(obj);
 		
