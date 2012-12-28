@@ -24,6 +24,11 @@ public class MeasurementImpl implements MeasurementDAO {
 		return false;
 	}
 
+	
+	
+	
+	
+	
 	/* (non-Javadoc)
 	 * @see com._3sq.daos.MeasurementDAO#getLatestBodyMeasurement(int)
 	 */
@@ -33,6 +38,11 @@ public class MeasurementImpl implements MeasurementDAO {
 		return null;
 	}
 
+	
+	
+	
+	
+	
 	/* (non-Javadoc)
 	 * @see com._3sq.daos.MeasurementDAO#getBodyMeasurementHistory(int)
 	 */
@@ -41,5 +51,12 @@ public class MeasurementImpl implements MeasurementDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
+
+
+
+
 
 }
