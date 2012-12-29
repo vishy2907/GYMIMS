@@ -9,7 +9,7 @@ import java.util.Date;
  * @author Vishal B
  * @version 1.0
  * Use : Main Domain Object class for storing the Measurement details for the member 
- */
+ */	
 public class MeasurementInfo {
 
 	private Date 				m_DMeasurementTakenDate;
@@ -26,17 +26,25 @@ public class MeasurementInfo {
 	private int 				m_iFatInPer;
 	private int					m_iBodyAge;
 	private int 				m_iBMI;
+	
+	
+
 	private int					m_iRM;
 	private float 				m_fVisceralFat;
+	private float				m_fWholeBodySF;
+	private float				m_fWholeBodySM;
+	private float	 			m_fTrunkSF;
+	private float 				m_fTrunkSM;
+	private float				m_fLegSF;
+	private float				m_fLegSM;
+	private float				m_fArmSF;
+	private float				m_fArmSM;
 	
-	private float[]				m_fWholeBody;
-	private float[] 			m_fTrunk;
-	private float[]				m_fLeg;
-	private float[]				m_fArm;
 	
 	
 	
 	
+
 	public Date getMeasurementTakenDate() {
 		return m_DMeasurementTakenDate;
 	}
@@ -148,68 +156,112 @@ public class MeasurementInfo {
 	}
 	
 
-	/**
-	 * 
-	 * @return 
-	 */
-	public float[] getWholeBody() {
-		return m_fWholeBody;
-	}
-	
-	
-	
-	/**
-	 * 
-	 * @param wholeBody
-	 */
-
-	public void setWholeBody(float[] wholeBody) {
-		m_fWholeBody = wholeBody;
+	public float get_WholeBodySF() {
+		return m_fWholeBodySF;
 	}
 
-	
-	
-	
-	public float[] getTrunk() {
-		return m_fTrunk;
+
+
+
+	public void setWholeBodySF(float WholeBodySF) {
+		m_fWholeBodySF = WholeBodySF;
 	}
 
+
+
+	public float get_WholeBodySM() {
+		return m_fWholeBodySM;
+	}
+
+
+
+
+	public void setWholeBodySM(float WholeBodySM) {
+		m_fWholeBodySM = WholeBodySM;
+	}	
 	
 	
-	
-	public void setTrunk(float[] trunk) {
-		m_fTrunk = trunk;
+	public float getTrunkSF() {
+		return m_fTrunkSF;
 	}
 
 	
 	
 	
-	public float[] getLeg() {
-		return m_fLeg;
+	public void setTrunkSF(float trunkSF) {
+		m_fTrunkSF = trunkSF;
+	}
+
+
+	
+	public float getTrunkSM() {
+		return m_fTrunkSM;
 	}
 
 	
 	
 	
-	public void setLeg(float[] leg) {
-		m_fLeg = leg;
+	public void setTrunkSM(float trunkSM) {
+		m_fTrunkSM = trunkSM;
 	}
 
 	
 	
 	
-	public float[] getArm() {
-		return m_fArm;
+	
+	public float getLegSF() {
+		return m_fLegSF;
 	}
 
 	
 	
 	
-	public void setArm(float[] arm) {
-		m_fArm = arm;
+	public void setLegSF(float legSF) {
+		m_fLegSF = legSF;
+	}
+
+
+	public float getLegSM() {
+		return m_fLegSM;
 	}
 
 	
+	
+	
+	public void setLegSM(float legSM) {
+		m_fLegSM = legSM;
+	}
+
+
+	
+	
+	
+	
+	public float getArmSF() {
+		return m_fArmSF;
+	}
+
+	
+	
+	
+	public void setArmSF(float armSF) {
+		m_fArmSF = armSF;
+	}
+
+	public float getArmSM() {
+		return m_fArmSM;
+	}
+
+	
+	
+	
+	public void setArmSM(float armSM) {
+		m_fArmSM = armSM;
+	}
+	
+	
+	
+
 	
 	
 	

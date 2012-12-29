@@ -51,6 +51,7 @@ public class MemberImpl implements MemberDAO {
 			PreparedStatement preStatement = oracleConn.prepareStatement(sql);
 			
 			
+			
 			preStatement.setInt(1,member.getMemberID());
      		preStatement.setString(2, member.getMemberName());
      		preStatement.setString(3, member.getMemberAddress());
@@ -106,7 +107,7 @@ public class MemberImpl implements MemberDAO {
 			PreparedStatement preStatement = oracleConn.prepareStatement(sql);
 			
 			
-			preStatement.setInt(1,1);
+			preStatement.setInt(1,1); //remove record no = 1 
      		     		
 			preStatement.executeQuery();			
 			
@@ -130,13 +131,15 @@ public class MemberImpl implements MemberDAO {
 	public boolean updateMember(Member member) {
 			// TODO Auto-generated method stub
 		
-		
-
 		try {
 			
 	
 			Connection oracleConn = OrclConnection.getOrclConnection();	
-			String sql = " update MEMBER set MEMBERNAME = ? ,MEMBERADDRESS = ?, CONTACTNUMBER = ? ,DATEOFBIRTH = ? ,BLOODGROUP = ? ,OCCUPATION = ? ,MEDICALHISTORY = ? ,GENDER = ? ,EMERGENCYCONTACTNO = ? where MEMBERID = ? ";
+
+			
+			String sql = " update MEMBER set NAME = ? ,ADDRESS = ?, CONTACTNUMBER = ? ,DATEOFBIRTH = ? ," +
+					"BLOODGROUP = ? ,OCCUPATION = ? ,MEDICALHISTORY = ? ,EMERGENCYCONTACTNO = ?, REGISTRATIONDATE = ?," +
+					"IMAGE=? , GENDER = ?  where MEMBERID = ? ";
 			
 			PreparedStatement preStatement = oracleConn.prepareStatement(sql);
 			
@@ -148,9 +151,11 @@ public class MemberImpl implements MemberDAO {
      		preStatement.setString(5, member.getBloodGroup());
      		preStatement.setString(6, member.getOccupation());
      		preStatement.setString(7, member.getMedicalHistory());
-     		preStatement.setString(8, member.getGender());
-     		preStatement.setLong(9, member.getEmergencyContactNo());
-     		preStatement.setInt(10, 31);   // Update recordNo = 5
+     		preStatement.setLong(8, member.getEmergencyContactNo());
+     		preStatement.setString(9,  ""+member.getRegistrationDate().getTime());
+     		preStatement.setObject(10, member.getImage());
+     		preStatement.setString(11, member.getGender());
+     		preStatement.setInt(12, 3);   // Update recordNo = 3
       		
      		
      		
@@ -190,7 +195,7 @@ public class MemberImpl implements MemberDAO {
 		//ALL BELOW THINGS ARE FOR TEMPORATILY
 		Member obj = new Member();
 		
-		obj.setMemberID(4);
+		obj.setMemberID(3);
 		obj.setMemberName("Vishal");
 		obj.setMemberAddress("Sr No 31/2/8");
 	    obj.setContactNumber(9850303441L);
@@ -210,8 +215,8 @@ public class MemberImpl implements MemberDAO {
 	boolean bResult = memberDBImpl.addMember(obj);
 	System.out.println("Operation Result : "+bResult);
 	
-		//memberDBImpl.removeMember(obj);
-		//memberDBImpl.updateMember(obj);
+	//memberDBImpl.removeMember(obj);
+	//memberDBImpl.updateMember(obj);
 		
 	}
 	
