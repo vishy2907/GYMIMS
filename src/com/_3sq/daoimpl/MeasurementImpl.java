@@ -6,6 +6,7 @@ package com._3sq.daoimpl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -110,26 +111,57 @@ public class MeasurementImpl implements MeasurementDAO {
 			
 		Connection oracleConn = OrclConnection.getOrclConnection();	
 		
-		String sql = "select * from MEASUREMENTDETAILLS where MEMBERID = ? ";
+		String sql = "select max(MEASUREMENTTAKENDATE) from MEASUREMENTDETAILLS where MEMBERID = ? ";
 		PreparedStatement preStatement = oracleConn.prepareStatement(sql);
 		preStatement.setInt(1,memberId);  
-		
-		
 		ResultSet rs = preStatement.executeQuery();
-	    rs.first();
-		while(rs.last())
-		{
-			if( < rs.next("MEASUREMENTTAKENDATE"))
-			{
-				
-			}
-			
-		}
-	    
-	    System.out.println("Member ID : " + memberId);
-		System.out.println(rs.getInt("HEIGHT"));
+		rs.next();
 		
-		} 
+		/*String sql1 = "select * from MEASUREMENTDETAILLS where MEMBERID = ? and MEASUREMENTTAKENDATE = '?' ";
+		PreparedStatement preStatement1 = oracleConn.prepareStatement(sql1);
+		String temp = rs.getString(1);
+		//long temp_date = Long.parseLong(temp);
+		preStatement1.setInt(1,memberId);  
+	    preStatement1.setString(2,temp);  
+		
+		ResultSet rs1 = preStatement.executeQuery();
+		rs1.next();
+		System.out.println("Asooooooooo"+rs1.getRow());  //prints how many rows in result
+		*/
+		ResultSetMetaData rsmd = rs.getMetaData();
+
+		int columnsNumber = rsmd.getColumnCount();
+		System.out.println(columnsNumber);
+		
+		
+		//System.out.println("Asooo"+rs1.getInt(1));
+		
+	    
+		
+/*		  long id = rs1.getLong(1);
+		System.out.println(id);
+			
+	*/	
+		
+		
+		
+	/*	while (rs1.next()) {
+             // Read values using column name
+            // int id = rs1.getInt("MEMBERID");
+			 int id = rs1.getInt(1);
+			 
+             //String mesuredate = rs1.getString("MEASUREMENTTAKENDATE");
+			String mesuredate = rs1.getString(2);
+             
+			 
+			 //int height = rs1.getInt("HEIGHT");
+			int height = rs1.getInt(3);
+              
+              
+             System.out.printf("%d %s %d \n" + id, mesuredate, height);
+         }*/
+	
+		}
 		
 		
 		catch (Exception e) {
@@ -191,8 +223,8 @@ public class MeasurementImpl implements MeasurementDAO {
 		obj_MeasurementInfo.setArmSM(1);
 		
 				
-		boolean bresult = measurementDBImpl.addBodyMeasurement(2, obj_MeasurementInfo);
-		System.out.println("Insertion of Measurement " + bresult);
+	//	boolean bresult = measurementDBImpl.addBodyMeasurement(2, obj_MeasurementInfo);
+		//System.out.println("Insertion of Measurement " + bresult);
 			
 	    measurementDBImpl.getLatestBodyMeasurement(2);
 
