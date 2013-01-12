@@ -228,10 +228,6 @@ public class MeasurementImpl implements MeasurementDAO {
 			
 	    measurementDBImpl.getLatestBodyMeasurement(2);
 
-
-	
-	}	
-	
-
+	}		
 
 }

@@ -11,6 +11,8 @@ import java.util.HashMap;
 
 import com._3sq.connection.OrclConnection;
 import com._3sq.daos.MemberDAO;
+import com._3sq.datatransporter.LightWeightMember;
+import com._3sq.datatransporter.ProFitness;
 import com._3sq.domainobjects.Member;
 
 /**
@@ -39,9 +41,43 @@ public class MemberImpl implements MemberDAO {
 	 *
 	 * @author Pradip K
 	 */
+	public boolean addLightMember(LightWeightMember member) {
+		Connection oracleConn = OrclConnection.getOrclConnection();
+		String sql = " insert into MEMBER (MEMBERID,NAME,DATEOFBIRTH,CONTACTNUMBER) values  (?,?,?,?) ";
+		PreparedStatement preStatement;
+		ResultSet rs ;
+		try {
+			
+			
+			preStatement = oracleConn.prepareStatement(sql);		
+			
+			preStatement.setInt(1,member.getMemberId());
+     		preStatement.setString(2, member.getMemberName());
+     		preStatement.setString(3, member.getDateOfBirth());
+     		preStatement.setString(4, member.getMobileNumber());
+    
+     		 rs = preStatement.executeQuery();			
+			
+     		preStatement.close();
+     		rs.close();
+     		
+     		if(rs!=null)
+     			return true;
+     		else
+     			return false;
+			
+			
+		} catch (Exception e) {
+			System.out.println("MemberImple.java: AddMember() : ");
+			e.printStackTrace();
+		}
+
+		
+		return false;
+	}
 	public boolean addMember(Member member) {
 		
-	
+		
 		try {
 			
 			Connection oracleConn = OrclConnection.getOrclConnection();	
@@ -79,7 +115,7 @@ public class MemberImpl implements MemberDAO {
      			return false;
 					
 		} catch (Exception e) {
-			System.out.println("MemberDAOinDBImple.java: AddMember() : ");
+			System.out.println("MemberImpl.java: AddMember() : ");
 			e.printStackTrace();
 		}
 
@@ -113,7 +149,7 @@ public class MemberImpl implements MemberDAO {
 			
 					
 		} catch (Exception e) {
-			System.out.println("MemberDAOinDBImple.java: removeMember() : ");
+			System.out.println("MemberImpl.java: removeMember() : ");
 			e.printStackTrace();
 		}
 		
@@ -163,7 +199,7 @@ public class MemberImpl implements MemberDAO {
 			
 					
 		} catch (Exception e) {
-			System.out.println("MemberDAOinDBImple.java: updateMember() : ");
+			System.out.println("MemberImpl.java: updateMember() : ");
 			e.printStackTrace();
 		}
 
@@ -193,31 +229,27 @@ public class MemberImpl implements MemberDAO {
 		
 		
 		//ALL BELOW THINGS ARE FOR TEMPORATILY
-		Member obj = new Member();
-		
-		obj.setMemberID(3);
-		obj.setMemberName("Vishal");
-		obj.setMemberAddress("Sr No 31/2/8");
-	    obj.setContactNumber(9850303441L);
-	    obj.setDateOfBirth(new Date("07/29/1991"));
-	    obj.setBloodGroup("b+ve");
-	    obj.setOccupation("engg");
-	    obj.setMedicalHistory("no");
-	    obj.setGender("male");
-	    obj.setRegistrationDate(new Date("12/28/2012"));
-	    obj.setEmergencyContactNo(24369233L);
-	    obj.setImage(null);
 		
 		
 		
-		MemberImpl memberDBImpl = MemberImpl.getmemberImpl();
 		
-	boolean bResult = memberDBImpl.addMember(obj);
-	System.out.println("Operation Result : "+bResult);
+		MemberImpl memberImpl = MemberImpl.getmemberImpl();
+		HashMap<Integer, LightWeightMember>allMembers= memberImpl.getAllMemberDetails();
+		
+		for(Integer memberId : allMembers.keySet())
+		{
+			System.out.println("Member : "+memberId);
+			memberImpl.addLightMember(allMembers.get(memberId));
+		}
+		
+		//memberDBImpl.removeMember(obj);
+		//memberDBImpl.updateMember(obj);
+		
+	}
 	
-	//memberDBImpl.removeMember(obj);
-	//memberDBImpl.updateMember(obj);
-		
+	public HashMap<Integer, LightWeightMember> getAllMemberDetails()
+	{
+		return ProFitness.getObject().getAllMembers();
 	}
 	
 	
