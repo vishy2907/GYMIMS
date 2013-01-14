@@ -1,0 +1,9 @@
+<?page title="Welcome to GYM-IMS" contentType="text/html;charset=UTF-8"?>
+<zk>
+<borderlayout>
+	<north height="10%"></north>
+	
+</borderlayout>
+
+
+</zk>

@@ -1,0 +1,29 @@
+<?page title="ProFitness GYM"?>
+<zk>
+	<borderlayout >
+		<north height="10%" border="none">
+			Welcome to GYM - IMS
+		</north>
+		<center border="none">
+			<tabbox width="100%" height="100%">
+				<tabs>
+					<tab label="Membership Mgmt." />
+					<tab label="Fess Mgmt." />
+				</tabs>
+				<tabpanels>
+					<!-- 		//Member Ship management Tab -->
+					<tabpanel>
+		
+						<zk>
+    						<include src="http://localhost:8085/GYM-IMS/UI/MemberShip.zul"/>
+    					</zk>
+					</tabpanel>
+
+					<tabpanel></tabpanel>
+				</tabpanels>
+			</tabbox>
+
+		</center>
+	</borderlayout>
+
+</zk>

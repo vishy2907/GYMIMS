@@ -234,23 +234,63 @@ public class MemberImpl implements MemberDAO {
 		
 		
 		MemberImpl memberImpl = MemberImpl.getmemberImpl();
-		HashMap<Integer, LightWeightMember>allMembers= memberImpl.getAllMemberDetails();
-		
-		for(Integer memberId : allMembers.keySet())
-		{
-			System.out.println("Member : "+memberId);
-			memberImpl.addLightMember(allMembers.get(memberId));
-		}
-		
-		//memberDBImpl.removeMember(obj);
-		//memberDBImpl.updateMember(obj);
+		memberImpl.loadPartialData();
 		
 	}
 	
+	/**
+	 * 
+	 * @return HashMap
+	 */
 	public HashMap<Integer, LightWeightMember> getAllMemberDetails()
 	{
 		return ProFitness.getObject().getAllMembers();
 	}
+	
+	/**
+	 * use : At the start of appliocation this will return the All Light Weight Member Information
+	 * @return
+	 */
+	public HashMap<Integer, LightWeightMember> loadPartialData()
+	{
+		HashMap<Integer, LightWeightMember> allLightMembers  = new HashMap<Integer, LightWeightMember>();
+		Connection oracleConn = OrclConnection.getOrclConnection();
+		//This is going to be the important query.
+		// have to be optimized...
+		
+		String sql = " Select MEMBERID,NAME,DATEOFBIRTH FROM MEMBER";
+		PreparedStatement preStatement;
+		ResultSet rs ;
+		try {
+			
+			
+			preStatement = oracleConn.prepareStatement(sql);		
+			rs = preStatement.executeQuery();
+			
+			int i=0;
+			while(rs.next())
+			{   
+				int mId = rs.getInt("MEMBERID");
+				String name = rs.getString("NAME");
+				String dob = rs.getString("DATEOFBIRTH");
+				LightWeightMember temp = new LightWeightMember( mId, name, dob,"");
+			
+				allLightMembers.put(mId,temp);
+			}
+			
+     		preStatement.close();
+     		rs.close();
+     		
+			
+		} catch (Exception e) {
+			System.out.println("MemberImple.java: AddMember() : ");
+			e.printStackTrace();
+		}
+
+		
+		return allLightMembers;
+	}
+	
 	
 	
 	
