@@ -24,8 +24,7 @@ public class MemberImpl implements MemberDAO {
 	
 	private static MemberImpl m_miMemberImpl;
 
-	private MemberImpl()
-	{
+	private MemberImpl()	{
 		
 	}
 	
@@ -36,12 +35,13 @@ public class MemberImpl implements MemberDAO {
 			return m_miMemberImpl;
 	}
 	
+	private HashMap<Integer, LightWeightMember> m_hmAllMembers;
 	
 	/**
-	 *
 	 * @author Pradip K
 	 */
 	public boolean addLightMember(LightWeightMember member) {
+		
 		Connection oracleConn = OrclConnection.getOrclConnection();
 		String sql = " insert into MEMBER (MEMBERID,NAME,DATEOFBIRTH,CONTACTNUMBER) values  (?,?,?,?) ";
 		PreparedStatement preStatement;
@@ -75,8 +75,18 @@ public class MemberImpl implements MemberDAO {
 		
 		return false;
 	}
+	
 	public boolean addMember(Member member) {
+		//logical insertion : 
 		
+		LightWeightMember mMember = new  LightWeightMember();
+		mMember.setMemberId(member.getMemberID());
+		mMember.setMobileNumber(""+member.getContactNumber());
+		mMember.setMemberName(member.getMemberName());
+		mMember.setDateOfBirth(member.getDateOfBirth().toLocaleString().substring(0, 10));
+		m_hmAllMembers.put(member.getMemberID(), mMember);
+		
+		//physical insertion
 		
 		try {
 			
@@ -131,22 +141,22 @@ public class MemberImpl implements MemberDAO {
 	 * @author PRADIP K
 	 */
 	public boolean removeMember(Member member) {
-		// TODO Auto-generated method stub
-			
+		//logical deletion
+		m_hmAllMembers.remove(member.getMemberID());
+		
+		//physical deletion
 		
 		try {
-			
-			
 			Connection oracleConn = OrclConnection.getOrclConnection();	
 			String sql = " DELETE FROM MEMBER WHERE MEMBERID = ?";
 			
 			PreparedStatement preStatement = oracleConn.prepareStatement(sql);
 			
-			
 			preStatement.setInt(1,1); //remove record no = 1 
      		     		
 			preStatement.executeQuery();			
-			
+		
+			preStatement.close();	
 					
 		} catch (Exception e) {
 			System.out.println("MemberImpl.java: removeMember() : ");
@@ -166,7 +176,14 @@ public class MemberImpl implements MemberDAO {
 	
 	public boolean updateMember(Member member) {
 			// TODO Auto-generated method stub
+		//logical update
+ 
+		LightWeightMember mMember = m_hmAllMembers.get(member.getMemberID());
+		mMember.setMobileNumber(""+member.getContactNumber());
+		mMember.setMemberName(member.getMemberName());
+		mMember.setDateOfBirth(member.getDateOfBirth().toLocaleString().substring(0, 10));
 		
+		//physical update
 		try {
 			
 	
@@ -208,33 +225,13 @@ public class MemberImpl implements MemberDAO {
 	}
 
 	
-	
-	
-	
-	
-	
-	/* (non-Javadoc)
-	 * @see com._3sq.daos.MemberDAO#getAllMemberNamesWithIDs()
-	 */
-	@Override
-	public HashMap<Integer, String> getAllMemberNamesWithIDs() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	
-	@SuppressWarnings("deprecation")
 	public static void main(String args[]){
-		
-		
-		
+	
 		//ALL BELOW THINGS ARE FOR TEMPORATILY
 		
-		
-		
-		
 		MemberImpl memberImpl = MemberImpl.getmemberImpl();
-		memberImpl.loadPartialData();
+		memberImpl.loadPartialMembers();
 		
 	}
 	
@@ -251,47 +248,45 @@ public class MemberImpl implements MemberDAO {
 	 * use : At the start of appliocation this will return the All Light Weight Member Information
 	 * @return
 	 */
-	public HashMap<Integer, LightWeightMember> loadPartialData()
+	public HashMap<Integer, LightWeightMember> loadPartialMembers()
 	{
-		HashMap<Integer, LightWeightMember> allLightMembers  = new HashMap<Integer, LightWeightMember>();
-		Connection oracleConn = OrclConnection.getOrclConnection();
-		//This is going to be the important query.
-		// have to be optimized...
-		
-		String sql = " Select MEMBERID,NAME,DATEOFBIRTH FROM MEMBER";
-		PreparedStatement preStatement;
-		ResultSet rs ;
-		try {
-			
-			
-			preStatement = oracleConn.prepareStatement(sql);		
-			rs = preStatement.executeQuery();
-			
-			int i=0;
-			while(rs.next())
-			{   
-				int mId = rs.getInt("MEMBERID");
-				String name = rs.getString("NAME");
-				String dob = rs.getString("DATEOFBIRTH");
-				LightWeightMember temp = new LightWeightMember( mId, name, dob,"");
-			
-				allLightMembers.put(mId,temp);
+		//This logic is to fill the all members map only once...
+		if(m_hmAllMembers == null)	
+		{
+			m_hmAllMembers = new HashMap<Integer, LightWeightMember>();
+			Connection oracleConn = OrclConnection.getOrclConnection();
+			// This is going to be the important query.
+			// have to be optimized...
+
+			String sql = " Select MEMBERID,NAME,DATEOFBIRTH FROM MEMBER";
+			PreparedStatement preStatement;
+			ResultSet rs;
+			try {
+
+				preStatement = oracleConn.prepareStatement(sql);
+				rs = preStatement.executeQuery();
+
+				int i = 0;
+				while (rs.next()) {
+					int mId = rs.getInt("MEMBERID");
+					String name = rs.getString("NAME");
+					String dob = rs.getString("DATEOFBIRTH");
+					LightWeightMember temp = new LightWeightMember(mId, name,
+							dob, "");
+					System.out.println(i++);
+					m_hmAllMembers.put(mId, temp);
+				}
+
+				preStatement.close();
+				rs.close();
+
+			} catch (Exception e) {
+				System.out.println("MemberImple.java: AddMember() : ");
+				e.printStackTrace();
 			}
-			
-     		preStatement.close();
-     		rs.close();
-     		
-			
-		} catch (Exception e) {
-			System.out.println("MemberImple.java: AddMember() : ");
-			e.printStackTrace();
 		}
 
-		
-		return allLightMembers;
+		return m_hmAllMembers;
 	}
-	
-	
-	
-	
+
 }

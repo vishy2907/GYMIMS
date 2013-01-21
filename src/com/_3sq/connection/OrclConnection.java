@@ -35,17 +35,21 @@ public class OrclConnection {
 			String password = "root";
 
 			m_cOrclConnection = DriverManager.getConnection( url, username, password );
+			System.out.println("Connection Established...");
 						
 		} catch (Exception e) {
-				System.err.println("OrclConnection.java : ");
+				System.err.println("OrclConnection.java : "+e.toString());
 			e.printStackTrace();
 		}
 		return m_cOrclConnection;
 	}
 
 	public static Connection getOrclConnection() {
-		if (m_cOrclConnection == null)
+		if (m_cOrclConnection == null)	{
+			System.out.println("Returning new oracle connection");
 			return new OrclConnection().CreateNewConnection();
+			
+		}
 		else
 			return m_cOrclConnection;
 	}

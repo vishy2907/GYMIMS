@@ -38,6 +38,10 @@ public class LightWeightMember {
 		this.dateOfBirth = dateOfBirth;
 		this.mobileNumber = mobileNumber;
 	}
+	public LightWeightMember()
+	{
+		
+	}
 	
 	
 }

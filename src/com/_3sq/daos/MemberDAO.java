@@ -2,6 +2,7 @@ package com._3sq.daos;
 
 import java.util.HashMap;
 
+import com._3sq.datatransporter.LightWeightMember;
 import com._3sq.domainobjects.Member;
 /**
  * 
@@ -14,6 +15,8 @@ public interface MemberDAO {
 	public boolean removeMember(Member member);
 	public boolean updateMember(Member member);
 	
-	public HashMap<Integer,String> getAllMemberNamesWithIDs();
+	
+	public HashMap<Integer, LightWeightMember> loadPartialMembers();
+
 	
 }
