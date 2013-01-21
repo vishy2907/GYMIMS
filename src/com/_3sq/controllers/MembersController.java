@@ -45,12 +45,14 @@ public class MembersController extends GenericForwardComposer{
 	}
 	
 	public List<LightWeightMember> getAllMembers()	{
-		HashMap<Integer, LightWeightMember> memList = members.loadPartialMembers();
-		List<LightWeightMember> temp = new ArrayList<LightWeightMember>();
-		for(LightWeightMember loc : memList.values())	{
-			temp.add(loc);
+		if(tempList==null)	{
+			tempList = new ArrayList<LightWeightMember>();
+			HashMap<Integer, LightWeightMember> memList = members.loadPartialMembers();
+			for(LightWeightMember loc : memList.values())	{
+				tempList.add(loc);
+			}
 		}
-		return temp;
+		return tempList;
 	}
 	
 	
@@ -67,8 +69,11 @@ public class MembersController extends GenericForwardComposer{
 					item.appendChild(new Listcell(data.getDateOfBirth()));
 				}
 	        });
-	         
-	        lb.setModel(new ListModelList<LightWeightMember>(getAllMembers()));
+		 	getAllMembers();
+		 	ListModelList<LightWeightMember> tempModel =new ListModelList<LightWeightMember>(tempList); 
+	        lb.setModel(tempModel);
+	        
+	        System.out.println("Do After Compose call 1");
 }
 	
 }

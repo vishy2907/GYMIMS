@@ -1,0 +1,8 @@
+
+			<listbox id="lb" vflex="1" apply="com._3sq.controllers.MembersController">
+				<listhead sizable="true">
+					<listheader width="30%" align="center" 	label="MemberID" sort="auto" />
+					<listheader width="40%" label="Name" sort="auto" />
+					<listheader width="30%" label="D.O.B." />
+				</listhead>
+			</listbox>

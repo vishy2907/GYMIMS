@@ -5,35 +5,27 @@
 		<north height="10%" border="none">
 			Welcome to GYM - IMS
 		</north>
-		<center border="none">
-			<tabbox width="100%" height="100%">
+		<center border="none" >
+			<tabbox height="100%">
 				<tabs>
 					<tab label="Membership Mgmt." />
 					<tab label="Fess Mgmt." />
 				</tabs>
 				<tabpanels>
 					<!-- 		//Member Ship management Tab -->
-					<tabpanel>
-						<borderlayout width="30%" height="100%" vflex="1" >
-						<north splittable="true" collapsible="true" vflex="1" border="none">
-						<zk>
-							<window id="GymMembers" border="none"  apply="com._3sq.controllers.MembersController" height="100%" >
-							 	 <listbox id="lb" vflex="1">
-							 	 	<listhead sizable="true">
-							 	 		<listheader width="30%" align="center" label="MemberID"  sort="auto"/>
-							 	 		<listheader width="40%" label="Name"  sort="auto"/>
-							 	 		<listheader width="30%" label="D.O.B." />
-							 	 	</listhead>
-							 	 </listbox>
-							</window>
-						</zk>
-						</north>
-						<center>
-						HIiii
-						</center>
+					<tabpanel >
+					
+						<borderlayout>
+						<north></north>
+						<west width="30%" flex="true" collapsible="true" splittable="true"> 
+							<div>
+								<include src="MemberList.zul" mode="defer"/>
+							</div>
+						</west>
+						
 						<south></south>
 						</borderlayout>
-						
+				
 					</tabpanel>
 
 					<tabpanel>
