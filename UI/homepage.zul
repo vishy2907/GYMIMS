@@ -17,7 +17,7 @@
 					
 						<borderlayout>
 						<north></north>
-						<west width="30%" flex="true" collapsible="true" splittable="true"> 
+						<west width="25%" flex="true" collapsible="true" splittable="true"> 
 							<div>
 								<include src="MemberList.zul" mode="defer"/>
 							</div>

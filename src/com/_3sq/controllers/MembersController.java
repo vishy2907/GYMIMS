@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.UiException;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
@@ -60,20 +62,28 @@ public class MembersController extends GenericForwardComposer{
 		super.doAfterCompose(comp);
 		
 		 lb.setItemRenderer(new ListitemRenderer<LightWeightMember>() {
-				@Override
-				public void render(Listitem item, LightWeightMember data, int index)
-						throws Exception {
-					
-					item.appendChild(new Listcell(""+data.getMemberId()));
-					item.appendChild(new Listcell(data.getMemberName()));
-					item.appendChild(new Listcell(data.getDateOfBirth()));
-				}
-	        });
-		 	getAllMembers();
-		 	ListModelList<LightWeightMember> tempModel =new ListModelList<LightWeightMember>(tempList); 
-	        lb.setModel(tempModel);
-	        
-	        System.out.println("Do After Compose call 1");
+			@Override
+			public void render(Listitem item, LightWeightMember data, int index)
+					throws Exception {
+				
+				item.appendChild(new Listcell(""+data.getMemberId()));
+				item.appendChild(new Listcell(data.getMemberName()));
+				item.appendChild(new Listcell(data.getDateOfBirth()));
+			}
+	     });
+		 
+		 getAllMembers();
+		 ListModelList<LightWeightMember> tempModel =new ListModelList<LightWeightMember>(tempList); 
+	     lb.setModel(tempModel);
+	     
+	     lb.addEventListener("onClick", new MyListener());
+	     
+	     System.out.println("Do After Compose call 1");
 }
 	
+	class MyListener implements org.zkoss.zk.ui.event.EventListener {
+	    public void onEvent(Event event) throws UiException {
+	    	System.out.println(event.getTarget());
+	    }
+	}
 }
