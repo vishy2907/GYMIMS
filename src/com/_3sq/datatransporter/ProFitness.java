@@ -3,6 +3,7 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -14,6 +15,8 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.format.CellDateFormatter;
+
+import com._3sq.daoimpl.MemberImpl;
 
 public class ProFitness {
 
@@ -104,12 +107,7 @@ public class ProFitness {
 				allMembers.put(i+1, temp);
 				
 			}
-
-
 			System.out.println(allMembers.get(0));
-			
-			
-
 		} catch (Exception e) {
 			System.err.println(e.toString());
 		} finally {
@@ -128,6 +126,22 @@ public class ProFitness {
 		// TODO Auto-generated constructor stub
 	}
 		
+	public static void main(String[] args) {
+		
+		 HashMap<Integer,LightWeightMember> allMembers = getObject().getAllMembers();
+		 System.out.println(allMembers.size());
+		 MemberImpl member = MemberImpl.getmemberImpl();
+		 
+		 for(LightWeightMember temp : allMembers.values()){
+			System.out.println(temp.getMemberId());
+			 try {
+				member.addLightMember(temp);
+			} catch (SQLException e) {
+				System.out.println("*****************"+temp.getMemberId()+" NAME : "+temp.getMemberName()+" DOB "+temp.getDateOfBirth()+" MOB : "+temp.getMobileNumber());
+				e.printStackTrace();
+			}
+		 }
+	}
 
 	public static ProFitness getObject() {
 		if(pObj==null)

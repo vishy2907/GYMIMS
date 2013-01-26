@@ -48,7 +48,6 @@ public class OrclConnection {
 		if (m_cOrclConnection == null)	{
 			System.out.println("Returning new oracle connection");
 			return new OrclConnection().CreateNewConnection();
-			
 		}
 		else
 			return m_cOrclConnection;

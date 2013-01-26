@@ -14,6 +14,7 @@ public interface MemberDAO {
 	public boolean addMember(Member member);
 	public boolean removeMember(Member member);
 	public boolean updateMember(Member member);
+	public Member getMember(int memberId);
 	
 	
 	public HashMap<Integer, LightWeightMember> loadPartialMembers();
