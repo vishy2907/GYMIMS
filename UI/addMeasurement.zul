@@ -17,49 +17,45 @@
 		
 		
 		<rows>
-		
-		<row>	
-			Member ID <intbox id="memberId" width= "95px"/>
-		</row>
-		
+		 
 		<row>	
 			Measurement Taken Date <datebox id="measurementTakenDate" />
 		</row>
 		
 		<row>	
-			Height <textbox id="memberHeight" width= "95px"/>
+			Height <decimalbox id="memberHeight" width= "95px"/>
 		</row>
 
 		<row>	
-			Weight <textbox id="memberWeight" width= "95px"/>
+			Weight <decimalbox id="memberWeight" width= "95px"/>
 		</row>
 		
 		<row>	
-			Chest <textbox id="memberChest" width= "95px"/>
+			Chest <decimalbox id="memberChest" width= "95px"/>
 		</row>
 		
 		<row>	
-			Waist <textbox id="memberWaist" width= "95px"/>
+			Waist <decimalbox id="memberWaist" width= "95px"/>
 		</row>
 		
 		<row>	
-			Hips <textbox id="memberHips" width= "95px"/>
+			Hips <decimalbox id="memberHips" width= "95px"/>
 		</row>
 		
 		<row>	
-			Thighs <textbox id="memberThighs" width= "95px"/>
+			Thighs <decimalbox id="memberThighs" width= "95px"/>
 		</row>
 		
 		<row>	
-			Calfs <textbox id="memberCalfs" width= "95px"/>
+			Calfs <decimalbox id="memberCalfs" width= "95px"/>
 		</row>
 		
 		<row>	
-			Arms <textbox id="memberArms" width= "95px"/>
+			Arms <decimalbox id="memberArms" width= "95px"/>
 		</row>
 		
 		<row>	
-			Forearms <textbox id="memberForearms" width= "95px"/>
+			Forearms <decimalbox id="memberForearms" width= "95px"/>
 		</row>
 		
 		
@@ -80,24 +76,24 @@
 				<rows>
 		
 					<row>	
-						Fat in % <textbox id="memberFatInPer" width= "95px"/>
+						Fat in % <decimalbox id="memberFatInPer" width= "95px"/>
 					</row>
 	
 					<row>	
-						Body Age <textbox id="memberBodyAge" width= "95px"/>
+						Body Age <decimalbox id="memberBodyAge" width= "95px"/>
 					</row>
 	
 	
 					<row>	
-						B.M.I <textbox id="memberBMI" width= "95px"/>
+						B.M.I <decimalbox id="memberBMI" width= "95px"/>
 					</row>
 	
 					<row>	
-						R.M <textbox id="memberRM" width= "95px"/>
+						R.M <decimalbox id="memberRM" width= "95px"/>
 					</row>
 	
 					<row>	
-						Visceral Fat <textbox id="memberVisceral" width= "95px"/>
+						Visceral Fat <decimalbox id="memberVisceral" width= "95px"/>
 					</row>
 
 				</rows>
@@ -114,44 +110,40 @@
 					<rows>
 		
 					<row>	
-						Whole Body <textbox id="memberWholeBodySF" width= "95px"/> <textbox id="memberWholeBodySM" width= "95px"/>
+						Whole Body <decimalbox id="memberWholeBodySF" width= "95px"/> <decimalbox id="memberWholeBodySM" width= "95px"/>
 		
 					</row>
 					
 					
 					<row>	
-						Trunk <textbox id="memberTrunkSF" width= "95px"/> <textbox id="memberTrunkSM" width= "95px"/>
+						Trunk <decimalbox id="memberTrunkSF" width= "95px"/> <decimalbox id="memberTrunkSM" width= "95px"/>
 		
 					</row>
 					
 					
 					<row>	
-						Leg <textbox id="memberLegSF" width= "95px"/> <textbox id="memberLegSM" width= "95px"/>
+						Leg <decimalbox id="memberLegSF" width= "95px"/> <decimalbox id="memberLegSM" width= "95px"/>
 		
 					</row>
 					
 					<row>	
-						Arm <textbox id="memberArmSF" width= "95px"/> <textbox id="memberArmSM" width= "95px"/>
+						Arm <decimalbox id="memberArmSF" width= "95px"/> <decimalbox id="memberArmSM" width= "95px"/>
 		
 					</row>
-					
-					
+							
 
 					<row>	
 					</row>
-	
-
-		
 					</rows>
 				</grid>
-				
 		
 		</column>
-		
-		
-		</columns>
+		</columns>		
+		<foot >
+          <footer align="center">  <button  id="addMeasurementToDB" label="Submit Measurement" /> </footer>
+        </foot>
+			
 	</grid>
-
 
 </window>
 </zk>
