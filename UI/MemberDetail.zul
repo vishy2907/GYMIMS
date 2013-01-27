@@ -1,0 +1,219 @@
+<?page title="Member Details" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Member Details" border="normal">
+
+<grid>
+		<columns>
+			<column label="" width="20%"/>
+			<column label=""/>
+		</columns>
+		<rows>
+			<row>	
+			Member ID <intbox id="memberId" disabled="true"/>
+			</row>
+			
+			<row>	
+			Name <textbox id="memberName" width="300px"/>
+			</row>
+			
+			<row>	
+			Address <textbox id="memberAddress" rows="2" width="300px"/>
+			</row>
+			
+			<row>	
+			Contact Number <longbox id="memberContactNumber" width="300px"/>
+			</row>
+
+			<row>	
+			Emergency Contact Number <longbox id="memberEmergencyContactNumber" width="300px"/>
+			</row> 
+			
+			<row>	
+			 Date of Birth <datebox id="memberDOB" width="300px"/>
+			</row>
+			
+			<row>	
+			Blood Group <combobox id= "memberBloodGroup" autocomplete="false" readonly="true" width="300px"> 
+				<comboitem label="A +ve"/> 
+				<comboitem label="A -ve"/>
+				<comboitem label="B +ve"/> 
+				<comboitem label="B -ve"/>
+				<comboitem label="AB+ve"/> 
+				<comboitem label="AB-ve"/>
+				<comboitem label="O +ve"/> 
+				<comboitem label="O -ve"/>
+				  </combobox>
+			</row>
+
+			<row>	
+			Gender  <radiogroup id="memberGender" width="300px"> 
+			<radio label="Male" /> 
+			<radio label="Female"/>
+			</radiogroup>
+			</row>
+			
+			<row>	
+			Occupation <textbox id="memberOccupation" width="300px"/>
+			</row>
+			
+			<row>	
+			Medical History <textbox id="memberMedicalHistory" rows="2" width="300px"/>
+			</row>
+			
+<!-- 			<row>	 -->
+<!-- 			Image <textbox id="memberImage" width="300px"/>  -->
+<!--  			//TODO search better solution to insert image   -->
+<!-- 			</row>  -->
+			
+			<row>	
+			Registration Date <datebox id="memberRegDate" width="300px" />
+			</row>
+			
+		</rows>
+
+		
+	</grid>
+
+
+<grid>
+		<columns>
+		
+			<column label="Measurements" align="center">
+			
+		<grid>
+		<columns>
+			<column label=""/>
+			<column label=""/>
+		</columns>
+		
+		
+		<rows>
+		 
+		<row>	
+			Measurement Taken Date <datebox id="measurementTakenDate" />
+		</row>
+		
+		<row>	
+			Height <decimalbox id="memberHeight" width= "95px"/>
+		</row>
+
+		<row>	
+			Weight <decimalbox id="memberWeight" width= "95px"/>
+		</row>
+		
+		<row>	
+			Chest <decimalbox id="memberChest" width= "95px"/>
+		</row>
+		
+		<row>	
+			Waist <decimalbox id="memberWaist" width= "95px"/>
+		</row>
+		
+		<row>	
+			Hips <decimalbox id="memberHips" width= "95px"/>
+		</row>
+		
+		<row>	
+			Thighs <decimalbox id="memberThighs" width= "95px"/>
+		</row>
+		
+		<row>	
+			Calfs <decimalbox id="memberCalfs" width= "95px"/>
+		</row>
+		
+		<row>	
+			Arms <decimalbox id="memberArms" width= "95px"/>
+		</row>
+		
+		<row>	
+			Forearms <decimalbox id="memberForearms" width= "95px"/>
+		</row>
+		
+		
+		</rows>
+	</grid>
+		
+			</column>
+
+			
+		<column label="Body Composition" align="center">
+		
+		
+				<grid>
+				<columns>
+					<column label=""/>
+					<column label=""/>
+				</columns>
+				<rows>
+		
+					<row>	
+						Fat in % <decimalbox id="memberFatInPer" width= "95px"/>
+					</row>
+	
+					<row>	
+						Body Age <decimalbox id="memberBodyAge" width= "95px"/>
+					</row>
+	
+	
+					<row>	
+						B.M.I <decimalbox id="memberBMI" width= "95px"/>
+					</row>
+	
+					<row>	
+						R.M <decimalbox id="memberRM" width= "95px"/>
+					</row>
+	
+					<row>	
+						Visceral Fat <decimalbox id="memberVisceral" width= "95px"/>
+					</row>
+
+				</rows>
+				</grid>
+				
+		
+				
+				<grid>
+					<columns>
+						<column label="Area" align="center"/>
+						<column label="SF" align="center"/>
+						<column label="SM" align="center"/>
+					</columns>
+					<rows>
+		
+					<row>	
+						Whole Body <decimalbox id="memberWholeBodySF" width= "95px"/> <decimalbox id="memberWholeBodySM" width= "95px"/>
+		
+					</row>
+					
+					
+					<row>	
+						Trunk <decimalbox id="memberTrunkSF" width= "95px"/> <decimalbox id="memberTrunkSM" width= "95px"/>
+		
+					</row>
+					
+					
+					<row>	
+						Leg <decimalbox id="memberLegSF" width= "95px"/> <decimalbox id="memberLegSM" width= "95px"/>
+		
+					</row>
+					
+					<row>	
+						Arm <decimalbox id="memberArmSF" width= "95px"/> <decimalbox id="memberArmSM" width= "95px"/>
+		
+					</row>
+							
+
+					<row>	
+					</row>
+					</rows>
+				</grid>
+		
+		</column>
+		</columns>		
+			
+	</grid>
+
+
+
+</window>
+</zk>
