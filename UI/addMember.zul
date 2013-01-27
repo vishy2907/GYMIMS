@@ -23,6 +23,10 @@
 			<row>	
 			Contact Number <longbox id="memberContactNumber" width="300px"/>
 			</row>
+
+			<row>	
+			Emergency Contact Number <longbox id="memberEmergencyContactNumber" width="300px"/>
+			</row> 
 			
 			<row>	
 			 Date of Birth <datebox id="memberDOB" width="300px"/>
