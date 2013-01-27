@@ -28,7 +28,7 @@ public class MemberDetailsController extends GenericForwardComposer<Component> {
 		 int memberId = 0;
 		 Object memId = Executions.getCurrent().getAttribute("memberId"); 
 		 if(memId != null)	{
-			 memberId = (int)memId;
+			 memberId = (Integer)memId;
 			 Member member = MemberImpl.getmemberImpl().getMember(memberId);
 			 mdWindow = (Window)comp.getFirstChild();
 			 mdWindow.setVisible(true);
