@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -89,6 +90,7 @@ public class MembersController extends GenericForwardComposer<Component>{
 				int memberId = tempList.get(lb.getSelectedIndex()).getMemberId();
 				
 				if(memberId!=0)	{
+					
 					Component memDetails = temp.getFellowIfAny("memDetails");
 					if(memDetails!=null)	{
 						memDetails.removeChild(memDetails.getFirstChild());
@@ -100,7 +102,7 @@ public class MembersController extends GenericForwardComposer<Component>{
 						includeTag.setDynamicProperty("memberId",memberId);
 						//includeTag.setId("memDetailsPage");
 						memDetails.appendChild(includeTag);
-						System.out.println("Added");
+						System.out.println("Added Member ID: "+memberId);
 					}
 				}
 			}
