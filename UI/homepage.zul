@@ -28,11 +28,8 @@
 								</listbox>
 								<button id="addNewMember" label="Add New Member" width="100%" />
 							</div>
-							
 						</west>
-			
 						<south>
-										
 						</south>
 						<center>
 								<!-- or keep conditions for this part -->
@@ -43,7 +40,6 @@
 						</center>
 						</borderlayout>
 					</tabpanel>
-
 					<tabpanel>
 					</tabpanel>
 				</tabpanels>
