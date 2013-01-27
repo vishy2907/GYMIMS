@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import com._3sq.connection.OrclConnection;
 import com._3sq.daos.GymPlanDAO;
@@ -67,6 +68,42 @@ public class GymPlanImpl implements GymPlanDAO {
 		return true;
 		
 	
+	}
+	public int getNextPlanID()
+	{
+		Connection oracleConn = OrclConnection.getOrclConnection();
+		Statement st=null;
+		ResultSet rs=null;
+		int temp=1;
+		try {
+			st=oracleConn.createStatement();
+			String sql = " Select MAX(PLANID) FROM GYMPLAN ";
+			rs=st.executeQuery(sql);
+			
+			if(rs.next())
+			{
+				temp = rs.getInt(1);
+									
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally
+		{
+			try {
+				st.close();
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+				return temp+1;
+
 	}
 
 	@Override
