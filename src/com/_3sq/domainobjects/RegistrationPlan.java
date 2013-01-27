@@ -13,6 +13,9 @@ public class RegistrationPlan {
 		this.m_dEndDate = endDate;
 		this.m_iPlanID = planID;
 	}
+	public RegistrationPlan() {
+		// TODO Auto-generated constructor stub
+	}
 	public Date getStartDate() {
 		return m_dStartDate;
 	}
