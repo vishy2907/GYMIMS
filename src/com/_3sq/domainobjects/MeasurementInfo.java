@@ -14,6 +14,7 @@ public class MeasurementInfo {
 
 	private Date 				m_DMeasurementTakenDate;
 	private int 				m_iHeight;				//Height in centimeters
+	private float 				m_fWeight;
 	private float 				m_fChest;
 	private float 				m_fWaist;
 	private float 				m_fHips;
@@ -22,7 +23,7 @@ public class MeasurementInfo {
 	private float				m_fArms;
 	private	float				m_fForeamrs;
 	
-	private float 				m_fWeight;
+	
 	private int 				m_iFatInPer;
 	private int					m_iBodyAge;
 	private int 				m_iBMI;
@@ -39,9 +40,6 @@ public class MeasurementInfo {
 	private float				m_fLegSM;
 	private float				m_fArmSF;
 	private float				m_fArmSM;
-	
-	
-	
 	
 	
 

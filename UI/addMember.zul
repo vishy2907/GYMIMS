@@ -69,7 +69,7 @@
 	
 		
 		 <foot >
-            <footer align="center">  <button label="Submit Details"   /> </footer>
+            <footer align="center">  <button id="addMemberToDB" label="Submit Details"   /> </footer>
         </foot>
 		
 		

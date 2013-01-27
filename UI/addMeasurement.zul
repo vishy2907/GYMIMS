@@ -1,0 +1,157 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Add Measurement Details of the Member" border="normal">
+
+
+
+<grid>
+		<columns>
+		
+			<column label="Measurements" align="center">
+			
+		<grid>
+		<columns>
+			<column label=""/>
+			<column label=""/>
+		</columns>
+		
+		
+		<rows>
+		
+		<row>	
+			Member ID <intbox id="memberId" width= "95px"/>
+		</row>
+		
+		<row>	
+			Measurement Taken Date <datebox id="measurementTakenDate" />
+		</row>
+		
+		<row>	
+			Height <textbox id="memberHeight" width= "95px"/>
+		</row>
+
+		<row>	
+			Weight <textbox id="memberWeight" width= "95px"/>
+		</row>
+		
+		<row>	
+			Chest <textbox id="memberChest" width= "95px"/>
+		</row>
+		
+		<row>	
+			Waist <textbox id="memberWaist" width= "95px"/>
+		</row>
+		
+		<row>	
+			Hips <textbox id="memberHips" width= "95px"/>
+		</row>
+		
+		<row>	
+			Thighs <textbox id="memberThighs" width= "95px"/>
+		</row>
+		
+		<row>	
+			Calfs <textbox id="memberCalfs" width= "95px"/>
+		</row>
+		
+		<row>	
+			Arms <textbox id="memberArms" width= "95px"/>
+		</row>
+		
+		<row>	
+			Forearms <textbox id="memberForearms" width= "95px"/>
+		</row>
+		
+		
+		</rows>
+	</grid>
+		
+			</column>
+
+			
+		<column label="Body Composition" align="center">
+		
+		
+				<grid>
+				<columns>
+					<column label=""/>
+					<column label=""/>
+				</columns>
+				<rows>
+		
+					<row>	
+						Fat in % <textbox id="memberFatInPer" width= "95px"/>
+					</row>
+	
+					<row>	
+						Body Age <textbox id="memberBodyAge" width= "95px"/>
+					</row>
+	
+	
+					<row>	
+						B.M.I <textbox id="memberBMI" width= "95px"/>
+					</row>
+	
+					<row>	
+						R.M <textbox id="memberRM" width= "95px"/>
+					</row>
+	
+					<row>	
+						Visceral Fat <textbox id="memberVisceral" width= "95px"/>
+					</row>
+
+				</rows>
+				</grid>
+				
+		
+				
+				<grid>
+					<columns>
+						<column label="Area" align="center"/>
+						<column label="SF" align="center"/>
+						<column label="SM" align="center"/>
+					</columns>
+					<rows>
+		
+					<row>	
+						Whole Body <textbox id="memberWholeBodySF" width= "95px"/> <textbox id="memberWholeBodySM" width= "95px"/>
+		
+					</row>
+					
+					
+					<row>	
+						Trunk <textbox id="memberTrunkSF" width= "95px"/> <textbox id="memberTrunkSM" width= "95px"/>
+		
+					</row>
+					
+					
+					<row>	
+						Leg <textbox id="memberLegSF" width= "95px"/> <textbox id="memberLegSM" width= "95px"/>
+		
+					</row>
+					
+					<row>	
+						Arm <textbox id="memberArmSF" width= "95px"/> <textbox id="memberArmSM" width= "95px"/>
+		
+					</row>
+					
+					
+
+					<row>	
+					</row>
+	
+
+		
+					</rows>
+				</grid>
+				
+		
+		</column>
+		
+		
+		</columns>
+	</grid>
+
+
+</window>
+</zk>
