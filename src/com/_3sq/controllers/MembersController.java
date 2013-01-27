@@ -98,7 +98,7 @@ public class MembersController extends GenericForwardComposer<Component>{
 						
 						Include includeTag = new Include();
 						
-						includeTag.setSrc("memDetails.zul");
+						includeTag.setSrc("MemberDetail.zul");
 						includeTag.setMode("defer");
 						includeTag.setDynamicProperty("memberId",memberId);
 						//includeTag.setId("memDetailsPage");
