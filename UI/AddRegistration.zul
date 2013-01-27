@@ -1,0 +1,36 @@
+<?page title="Add Registration Information" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Add Registration Information" border="normal">
+
+
+<grid>
+		<columns>
+			<column label="" width="20%"/>
+			<column label=""/>
+		</columns>
+		<rows>
+
+			<row>	
+			Member ID <intbox id="memberId" />
+			</row>
+	
+			<row>	
+			Plan ID <intbox id="memberPlanId" />
+			</row>	
+		
+			<row>	
+			Plan Start Date <datebox id="planStartDate" />
+			</row>
+
+			<row>	
+			Plan End Date <datebox id="planEndDate" />
+			</row>
+		</rows>
+ <foot >
+            <footer align="center">  <button id="addregToDB" label="Submit Registration Details"   /> </footer>
+        </foot>
+
+	</grid>
+
+</window>
+</zk>
