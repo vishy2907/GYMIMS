@@ -11,7 +11,6 @@ import java.sql.Statement;
 
 import com._3sq.connection.OrclConnection;
 import com._3sq.daos.GymPlanDAO;
-import com._3sq.datatransporter.LightWeightMember;
 import com._3sq.domainobjects.GymPlan;
 
 /**
@@ -20,6 +19,21 @@ import com._3sq.domainobjects.GymPlan;
  */
 public class GymPlanImpl implements GymPlanDAO {
 
+	private static GymPlanImpl m_miGymPlanImpl;
+
+	private GymPlanImpl()	{
+	}
+	
+	public static GymPlanImpl getgymImpl() {
+		if (m_miGymPlanImpl==null)
+			return new GymPlanImpl();
+		else
+			return m_miGymPlanImpl;
+	}
+	
+
+	
+	
 	/* (non-Javadoc)
 	 * @see com._3sq.daos.GymPlanDAO#addGymPlan(com._3sq.domainobjects.GymPlan)
 	 */
