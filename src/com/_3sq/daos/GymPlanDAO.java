@@ -10,5 +10,5 @@ public interface GymPlanDAO {
 	public boolean addGymPlan(GymPlan gymPlan);
 	public boolean removeGymPlan(int planId);
 	public boolean updateGymPlan(int planId, GymPlan gymPlan);
-	
+	public int getNextPlanID();
 }
