@@ -13,6 +13,20 @@ import com._3sq.domainobjects.RegistrationPlan;
 
 public class RegistrationPlanImpl implements RegistrationPlanDAO{
 
+
+	private static RegistrationPlanImpl m_miRegistrationPlanImpl;
+
+	private RegistrationPlanImpl()	{
+	}
+	
+	public static RegistrationPlanImpl getmemberImpl() {
+		if (m_miRegistrationPlanImpl==null)
+			return new RegistrationPlanImpl();
+		else
+			return m_miRegistrationPlanImpl;
+	}
+	
+	
 	@Override
 	public boolean addRegistrationInfo(int memberid,
 			RegistrationPlan registrationplan) {
