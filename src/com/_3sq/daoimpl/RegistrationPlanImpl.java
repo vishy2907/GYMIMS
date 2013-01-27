@@ -64,19 +64,6 @@ public class RegistrationPlanImpl implements RegistrationPlanDAO{
 	}
 	public static void main(String args[])
 	{
-		Connection oracleConn = OrclConnection.getOrclConnection();	
-		String sql = " insert into REGISTRATIONINFO(MEMBERID,PLANID,STARTDATE,ENDDATE) values  (?,?,?,?) ";
-		
-		preStatement = oracleConn.prepareStatement(sql);
-		
-		
-		
-		preStatement.setInt(1,gymPlan.getPlanID());
- 		preStatement.setString(2, gymPlan.getPlanName());
- 		preStatement.setInt(4, gymPlan.getDurationInMonths());
- 		preStatement.setInt(3, gymPlan.getFees());
-
- 		rs = preStatement.executeQuery();	
 		
 		
 	}
