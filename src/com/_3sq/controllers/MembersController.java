@@ -54,16 +54,10 @@ public class MembersController extends GenericForwardComposer<Component>{
 	public List<LightWeightMember> getAllMembers()	{
 		if(tempList==null)	{
 			tempList = new ArrayList<LightWeightMember>();
-//			HashMap<Integer, LightWeightMember> memList = members.loadPartialMembers();
-//			for(LightWeightMember loc : memList.values())	{
-//				tempList.add(loc);
-//			}
-			tempList.add(new LightWeightMember(1, "VB", "25 jan 1990", "9850303441"));
-			tempList.add(new LightWeightMember(2, "pk", "25 jan 1990", "9850303441"));
-			tempList.add(new LightWeightMember(3, "sd", "25 jan 1990", "9850303441"));
-			tempList.add(new LightWeightMember(4, "jj", "25 jan 1990", "9850303441"));
-			
-			
+			HashMap<Integer, LightWeightMember> memList = members.loadPartialMembers();
+			for(LightWeightMember loc : memList.values())	{
+				tempList.add(loc);
+			}			
 		}
 		
 		return tempList;

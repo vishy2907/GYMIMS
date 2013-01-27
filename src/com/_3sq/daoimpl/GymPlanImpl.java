@@ -21,4 +21,16 @@ public class GymPlanImpl implements GymPlanDAO {
 		return false;
 	}
 
+	@Override
+	public boolean removeGymPlan(int planId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateGymPlan(int planId, GymPlan gymPlan) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -15,9 +15,15 @@ public class GymPlan {
 	private int				m_iPlanID;
 	private String 			m_sPlanName;
 	private int				m_iFees;
+	private int 			m_idurationInMonths;
 	
 	
-	
+	public int getDurationInMonths() {
+		return m_idurationInMonths;
+	}
+	public void setDurationInMonths(int durationInMonths) {
+		this.m_idurationInMonths = durationInMonths;
+	}
 	public int getPlanID() {
 		return m_iPlanID;
 	}

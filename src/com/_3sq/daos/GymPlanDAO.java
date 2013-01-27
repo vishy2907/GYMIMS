@@ -8,4 +8,7 @@ import com._3sq.domainobjects.GymPlan;
  */
 public interface GymPlanDAO {
 	public boolean addGymPlan(GymPlan gymPlan);
+	public boolean removeGymPlan(int planId);
+	public boolean updateGymPlan(int planId, GymPlan gymPlan);
+	
 }
