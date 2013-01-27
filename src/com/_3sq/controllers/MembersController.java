@@ -92,7 +92,10 @@ public class MembersController extends GenericForwardComposer<Component>{
 				if(memberId!=0)	{
 					Component memDetails = temp.getFellowIfAny("memDetails");
 					if(memDetails!=null)	{
-						memDetails.removeChild(memDetails.getFirstChild());
+						Component firstChild = memDetails.getFirstChild();
+						if(firstChild!= null)	{
+							memDetails.removeChild(firstChild);
+						}
 						
 						Include includeTag = new Include();
 						
