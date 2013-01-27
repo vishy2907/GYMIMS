@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -214,8 +215,9 @@ public class MemberImpl implements MemberDAO {
 	
 		//ALL BELOW THINGS ARE FOR TEMPORATILY
 		MemberImpl memberImpl = MemberImpl.getmemberImpl();
-		memberImpl.loadPartialMembers();
-		
+		//memberImpl.loadPartialMembers();
+		int id=memberImpl.getNextMemberID();
+		System.out.print("Member Return ID"+id);
 	}
 	
 	/**
@@ -364,6 +366,41 @@ public class MemberImpl implements MemberDAO {
 
 	return member;
 	}
+	public int getNextMemberID()
+	{
+		Connection oracleConn = OrclConnection.getOrclConnection();
+		Statement st=null;
+		ResultSet rs=null;
+		int temp=1;
+		try {
+			st=oracleConn.createStatement();
+			String sql = " Select MAX(MEMBERID) FROM MEMBER ";
+			rs=st.executeQuery(sql);
+			
+			if(rs.next())
+			{
+				temp = rs.getInt(1);
+									
+			}
 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally
+		{
+			try {
+				st.close();
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+				return temp+1;
+		
+	}
 }
 
