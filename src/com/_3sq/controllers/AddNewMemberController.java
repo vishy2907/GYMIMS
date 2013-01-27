@@ -22,6 +22,7 @@ public class AddNewMemberController extends GenericForwardComposer<Component> {
 	private Textbox memberName;
 	private Textbox memberAddress;
 	private Longbox memberContactNumber;
+	private Longbox memberEmergencyContactNumber;
 	private Datebox memberDOB;
 	private Combobox memberBloodGroup;
 	private Radio membergender;
@@ -41,9 +42,20 @@ public class AddNewMemberController extends GenericForwardComposer<Component> {
 			@Override
 			public void onEvent(MouseEvent arg0) throws Exception {
 				Member newMember = new Member();
+				
+				newMember.setMemberID(memberId.getValue());
+				newMember.setMemberName(memberName.getText());
 				newMember.setMemberAddress(memberAddress.getText());
-				
-				
+				newMember.setContactNumber(memberContactNumber.getValue());
+				newMember.setDateOfBirth(memberDOB.getValue());
+				newMember.setBloodGroup(memberBloodGroup.getValue());
+				newMember.setOccupation(memberOccupation.getText());
+				newMember.setMedicalHistory(memberMedicalHistory.getText());
+				newMember.setGender(membergender.getLabel());
+				newMember.setEmergencyContactNo(memberEmergencyContactNumber.getValue());
+				newMember.setRegistrationDate(memberRegDate.getValue());
+	//			newMember.setImage(memmemberImage.getValue());
+		
 				MemberImpl.getmemberImpl().addMember(newMember);
 			}
 			
