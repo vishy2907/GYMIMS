@@ -1,0 +1,40 @@
+<?page title="AddGymPlan" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Adding A New Gym Plan" border="normal">
+
+
+
+
+<grid>
+		<columns  >
+			<column label="" width="30%" />
+			<column label=""/>
+		</columns>
+		<rows>
+			
+			<row>			
+			Plan ID <intbox id="planID" width="300px"/>
+			</row>
+
+			<row>			
+			Plan Name <textbox id="planName" width="300px"/>
+			</row>
+
+
+			<row>			
+			Plan Fees <intbox id="planFees" width="300px"/>
+			</row>
+
+			<row>			
+			Plan Duration(In Months) <intbox id="planDuration" width="300px"/>
+			</row>
+
+		</rows>
+		
+		 <foot >
+            <footer align="center">  <button id="addPlanToDB" label="Add New Plan"   /> </footer>
+        </foot>		
+	</grid>
+
+</window>
+</zk>
