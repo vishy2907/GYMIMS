@@ -2,7 +2,6 @@ package com._3sq.datatransporter;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
@@ -26,7 +25,7 @@ public class ProFitness {
 		FileInputStream input = null;
 		BufferedInputStream binput = null;
 		POIFSFileSystem poifs = null;
-		HashMap<Integer,LightWeightMember> allMembers = new HashMap<>();
+		HashMap<Integer,LightWeightMember> allMembers = new HashMap<Integer,LightWeightMember>();
 		try {
 			input = new FileInputStream(fname);
 			binput = new BufferedInputStream(input);
