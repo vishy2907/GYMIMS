@@ -9,9 +9,11 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.MouseEvent;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
@@ -35,8 +37,7 @@ public class MembersController extends GenericForwardComposer<Component>{
 	 */
 	
 	private Listbox lb;
-	private int selectedItemIndex;
-	private LightWeightMember lwMember;
+	private Button addNewMember;
 	
 	private static final long serialVersionUID = -6528261260274326242L;
 	private MemberDAO members;
@@ -93,21 +94,39 @@ public class MembersController extends GenericForwardComposer<Component>{
 						memDetails.removeChild(memDetails.getFirstChild());
 						
 						Include includeTag = new Include();
+						
 						includeTag.setSrc("memDetails.zul");
 						includeTag.setMode("defer");
 						includeTag.setDynamicProperty("memberId",memberId);
 						//includeTag.setId("memDetailsPage");
 						memDetails.appendChild(includeTag);
-//						System.out.println("Added");
+						System.out.println("Added");
 					}
-					else
-					{
-//						System.out.println("sorry");
-					}
-						
-					
 				}
 			}
 		});
+		
+		addNewMember.addEventListener("onClick", new EventListener<MouseEvent>() {
+			@Override
+			public void onEvent(MouseEvent event) throws Exception {
+				Component memDetails = temp.getFellowIfAny("memDetails");
+				if(memDetails!=null)	{
+					memDetails.removeChild(memDetails.getFirstChild());
+					System.out.println("I am removed...");
+				}
+				else
+					System.out.println("No need to remove");
+
+				Include includeTag = new Include();
+				includeTag.setSrc("addMember.zul");
+				includeTag.setMode("defer");
+				//includeTag.setId("memDetailsPage");
+				memDetails.appendChild(includeTag);
+				System.out.println("Added Zul page");
+			}
+		});
 	}
+	
+
+
 }
