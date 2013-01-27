@@ -1,8 +1,6 @@
 <?page title="" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="ADDING A NEW MEMBER" border="normal">
-
-
+<window title="ADDING A NEW MEMBER" border="normal" apply="com._3sq.controllers.AddNewMemberController">
 
 <grid>
 		<columns>
@@ -71,7 +69,7 @@
 	
 		
 		 <foot >
-            <footer align="center">  <button label="Submit Details" onClick=""  /> </footer>
+            <footer align="center">  <button label="Submit Details"   /> </footer>
         </foot>
 		
 		
