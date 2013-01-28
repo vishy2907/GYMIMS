@@ -2,7 +2,7 @@
 <?page title="ProFitness GYM"?>
 <zk>
 	<borderlayout >
-		<north height="10%" border="none">
+		<north height="5%" border="none">
 			Welcome to GYM - IMS
 		</north>
 		<center border="none" >
@@ -34,8 +34,8 @@
 						<center>
 								<!-- or keep conditions for this part -->
 							<div id="memDetails">
+<!-- 								<include src="MemberDetail.zul" mode="defer"></include> -->
 								<!-- keep only one child here.. which is src -->
-								<include src="memDetails.zul" mode="defer" /> 
 							</div>
 						</center>
 						</borderlayout>

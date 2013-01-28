@@ -21,7 +21,7 @@ public class ProFitness {
 
 	public HashMap<Integer,LightWeightMember> getAllMembers() {
 	
-		String fname = "F:\\ALl GYm Data\\Book1.xls";
+		String fname = "E:\\vishal\\VIshal Data\\ALl Gym Data\\Book1.xls";
 		FileInputStream input = null;
 		BufferedInputStream binput = null;
 		POIFSFileSystem poifs = null;
@@ -125,22 +125,22 @@ public class ProFitness {
 		// TODO Auto-generated constructor stub
 	}
 		
-	public static void main(String[] args) {
-		
-		 HashMap<Integer,LightWeightMember> allMembers = getObject().getAllMembers();
-		 System.out.println(allMembers.size());
-		 MemberImpl member = MemberImpl.getmemberImpl();
-		 
-		 for(LightWeightMember temp : allMembers.values()){
-			System.out.println(temp.getMemberId());
-			 try {
-				member.addLightMember(temp);
-			} catch (SQLException e) {
-				System.out.println("*****************"+temp.getMemberId()+" NAME : "+temp.getMemberName()+" DOB "+temp.getDateOfBirth()+" MOB : "+temp.getMobileNumber());
-				e.printStackTrace();
-			}
-		 }
-	}
+//	public static void main(String[] args) {
+//		
+//		 HashMap<Integer,LightWeightMember> allMembers = getObject().getAllMembers();
+//		 System.out.println(allMembers.size());
+//		 MemberImpl member = MemberImpl.getmemberImpl();
+//		 
+//		 for(LightWeightMember temp : allMembers.values()){
+//			System.out.println(temp.getMemberId());
+//			 try {
+//				member.addLightMember(temp);
+//			} catch (SQLException e) {
+//				System.out.println("*****************"+temp.getMemberId()+" NAME : "+temp.getMemberName()+" DOB "+temp.getDateOfBirth()+" MOB : "+temp.getMobileNumber());
+//				e.printStackTrace();
+//			}
+//		 }
+//	}
 
 	public static ProFitness getObject() {
 		if(pObj==null)
@@ -149,7 +149,7 @@ public class ProFitness {
 			return pObj;
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		
 		 HashMap<Integer,LightWeightMember> allMembers = getObject().getAllMembers();
 		 System.out.println(allMembers.size());

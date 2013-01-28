@@ -1,15 +1,16 @@
-<?page title="Member Details" contentType="text/html;charset=UTF-8"?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit"?> 
+<?page title="Member Details"?>
 <zk>
-<window title="Member Details" border="normal">
+<window id="memDetailWindow" title="Member Details" border="none" closable="true" apply="com._3sq.controllers.MemberDetailsController">
 
-<grid>
+<grid id="mdGrid" >
 		<columns>
 			<column label="" width="20%"/>
 			<column label=""/>
 		</columns>
 		<rows>
 			<row>	
-			Member ID <intbox id="memberId" disabled="true"/>
+			Member ID <intbox id="memberId" disabled="true" value="${memDetailWindow$composer.currMember.memberId}"/>
 			</row>
 			
 			<row>	
