@@ -21,7 +21,7 @@ public class ProFitness {
 
 	public HashMap<Integer,LightWeightMember> getAllMembers() {
 	
-		String fname = "E:\\vishal\\VIshal Data\\ALl GYm Data\\Book1.xls";
+		String fname = "F:\\ALl GYm Data\\Book1.xls";
 		FileInputStream input = null;
 		BufferedInputStream binput = null;
 		POIFSFileSystem poifs = null;
@@ -149,4 +149,16 @@ public class ProFitness {
 			return pObj;
 	}
 	
+	public static void main(String[] args) {
+		
+		 HashMap<Integer,LightWeightMember> allMembers = getObject().getAllMembers();
+		 System.out.println(allMembers.size());
+		 MemberImpl member = MemberImpl.getmemberImpl();
+		 
+		 for(LightWeightMember temp : allMembers.values()){
+			System.out.println(temp.getMemberId());
+			 member.addLightMember(temp);
+		 }
+	}
+
 }
