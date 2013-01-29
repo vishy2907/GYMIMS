@@ -1,9 +1,11 @@
 package com._3sq.datatransporter;
 
+import java.util.Date;
+
 public class LightWeightMember {
 	int memberId;
 	String memberName;
-	String dateOfBirth;
+	Date dateOfBirth;
 	String mobileNumber;
 	public int getMemberId() {
 		return memberId;
@@ -17,10 +19,10 @@ public class LightWeightMember {
 	public void setMemberName(String memberName) {
 		this.memberName = memberName;
 	}
-	public String getDateOfBirth() {
+	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
-	public void setDateOfBirth(String dateOfBirth) {
+	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 	public String getMobileNumber() {
@@ -31,7 +33,7 @@ public class LightWeightMember {
 	}
 	
 	public LightWeightMember(int memberId, String memberName,
-			String dateOfBirth, String mobileNumber) {
+			Date dateOfBirth, String mobileNumber) {
 		super();
 		this.memberId = memberId;
 		this.memberName = memberName;

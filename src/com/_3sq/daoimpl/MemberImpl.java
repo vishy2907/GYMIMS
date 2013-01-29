@@ -17,6 +17,8 @@ import com._3sq.datatransporter.LightWeightMember;
 import com._3sq.datatransporter.ProFitness;
 import com._3sq.domainobjects.Member;
 
+import com._3sq.util.*;
+
 /**
  * @author Vishal B
  *
@@ -51,8 +53,8 @@ public class MemberImpl implements MemberDAO {
 			preStatement = oracleConn.prepareStatement(sql);		
 			
 			preStatement.setInt(1,member.getMemberId());
-     		preStatement.setString(2, member.getMemberName());
-     		preStatement.setString(3, member.getDateOfBirth());
+			preStatement.setString(2, member.getMemberName());
+			preStatement.setDate(3, _3sqDate.utilDateToSqlDate(member.getDateOfBirth()));
      		preStatement.setString(4, member.getMobileNumber());
     
      		rs = preStatement.executeQuery();			
@@ -80,7 +82,7 @@ public class MemberImpl implements MemberDAO {
 		mMember.setMemberId(member.getMemberID());
 		mMember.setMobileNumber(""+member.getContactNumber());
 		mMember.setMemberName(member.getMemberName());
-		mMember.setDateOfBirth(member.getDateOfBirth().toLocaleString().substring(0, 10));
+		mMember.setDateOfBirth(member.getDateOfBirth());
 		
 		//physical insertion
 		PreparedStatement preStatement	= null;
@@ -99,18 +101,15 @@ public class MemberImpl implements MemberDAO {
      		preStatement.setString(2, member.getMemberName());
      		preStatement.setString(3, member.getMemberAddress());
      		preStatement.setLong(4, member.getContactNumber());
-    
-     		//Conversion Logic For Date
-     		//Java Default Dae Format : MM/DD/YYYY
-     		//So, store it first with date.getTime() : which is of long datatype
-     		     		preStatement.setString(5,""+  member.getDateOfBirth().getTime());
+     		
+     		preStatement.setDate(5,_3sqDate.utilDateToSqlDate(member.getDateOfBirth()));
      		
      		preStatement.setString(6, member.getBloodGroup());
      		preStatement.setString(7, member.getOccupation());
      		preStatement.setString(8, member.getMedicalHistory());
      		preStatement.setLong(9, member.getEmergencyContactNo());
      		
-     		preStatement.setString(10, ""+member.getRegistrationDate().getTime());     		
+     		preStatement.setDate(10, _3sqDate.utilDateToSqlDate(member.getRegistrationDate()));     		
      		
      		preStatement.setObject(11, member.getImage());
      		preStatement.setString(12, member.getGender());
@@ -187,21 +186,18 @@ public class MemberImpl implements MemberDAO {
 			preStatement.setString(1, member.getMemberName());
      		preStatement.setString(2, member.getMemberAddress());
      		preStatement.setLong(3, member.getContactNumber());
-     		preStatement.setString(4,  ""+member.getDateOfBirth().getTime());
+     		preStatement.setDate(4,  _3sqDate.utilDateToSqlDate(member.getDateOfBirth()));
      		preStatement.setString(5, member.getBloodGroup());
      		preStatement.setString(6, member.getOccupation());
      		preStatement.setString(7, member.getMedicalHistory());
      		preStatement.setLong(8, member.getEmergencyContactNo());
-     		preStatement.setString(9,  ""+member.getRegistrationDate().getTime());
-     		preStatement.setObject(10, member.getImage());
+     		preStatement.setDate(9,  _3sqDate.utilDateToSqlDate(member.getRegistrationDate()));
+     		//preStatement.setObject(10, member.getImage());
      		preStatement.setString(11, member.getGender());
-     		preStatement.setInt(12, 3);   // Update recordNo = 3
-      		
-     		
-     		
-			preStatement.executeQuery();			
+
+     		preStatement.setInt(12, member.getMemberID());   // Update recordNo = 3
+			preStatement.executeQuery();
 			
-					
 		} catch (Exception e) {
 			System.out.println("MemberImpl.java: updateMember() : ");
 			e.printStackTrace();
@@ -255,7 +251,7 @@ public class MemberImpl implements MemberDAO {
 				while (rs.next()) {
 					int mId = rs.getInt("MEMBERID");
 					String name = rs.getString("NAME");
-					String dob = rs.getString("DATEOFBIRTH");
+					Date dob = _3sqDate.sqlDateToUtilDate(rs.getDate("DATEOFBIRTH"));
 					LightWeightMember temp = new LightWeightMember(mId, name,dob, "");
 					System.out.println(i++);
 					m_hmAllMembers.put(mId, temp);
@@ -308,9 +304,9 @@ public class MemberImpl implements MemberDAO {
 				else
 					member.setContactNumber(0l);
 				
-				String dob = rs.getString("DATEOFBIRTH");
+				Date dob = _3sqDate.sqlDateToUtilDate(rs.getDate("DATEOFBIRTH"));
 				if(dob!=null)
-					member.setDateOfBirth(new Date(dob));
+					member.setDateOfBirth(dob);
 				else
 					member.setDateOfBirth(null);
 				

@@ -3,12 +3,15 @@
  */
 package com._3sq.controllers;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.MouseEvent;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
@@ -41,12 +44,13 @@ public class MembersController extends GenericForwardComposer<Component> {
 	private static final long serialVersionUID = -6528261260274326242L;
 	private MemberDAO members;
 
-	List<LightWeightMember> tempList;
+	private static List<LightWeightMember> tempList;
 
 	Window memberDetails;
 
 	public MembersController() {
 		members = MemberImpl.getmemberImpl();
+		getAllMembers();
 	}
 
 	public List<LightWeightMember> getAllMembers() {
@@ -64,21 +68,27 @@ public class MembersController extends GenericForwardComposer<Component> {
 
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
-
+		final DateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
 		lb.setItemRenderer(new ListitemRenderer<LightWeightMember>() {
 			@Override
+			
 			public void render(Listitem item, LightWeightMember data, int index)
 					throws Exception {
 
 				item.appendChild(new Listcell("" + data.getMemberId()));
 				item.appendChild(new Listcell(data.getMemberName()));
-				item.appendChild(new Listcell(data.getDateOfBirth()));
+				Date testDate = data.getDateOfBirth();
+				
+				if(testDate!=null)
+					item.appendChild(new Listcell(""+df.format(testDate)));
+				else
+					item.appendChild(new Listcell("NA"));
+
 			}
 		});
 
-		getAllMembers();
-		ListModelList<LightWeightMember> tempModel = new ListModelList<LightWeightMember>(
-				tempList);
+
+		ListModelList<LightWeightMember> tempModel = new ListModelList<LightWeightMember>(tempList);
 		tempModel.setMultiple(false);
 
 		lb.setModel(tempModel);
@@ -93,7 +103,7 @@ public class MembersController extends GenericForwardComposer<Component> {
 					Component memDetails = temp.getFellowIfAny("memDetails");
 					if (memDetails != null) {
 						Component firstChild = memDetails.getFirstChild();
-						System.out.println("First Child :" + firstChild);
+						//System.out.println("First Child :" + firstChild);
 						if (firstChild != null) {
 							//memDetails.removeChild(firstChild);
 							((Include)firstChild).setDynamicProperty("memberId", memberId);
@@ -108,7 +118,7 @@ public class MembersController extends GenericForwardComposer<Component> {
 
 							memDetails.appendChild(includeTag);
 
-							System.out.println("Added");
+							//System.out.println("Added");
 						}
 					}
 				}
