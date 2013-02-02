@@ -10,6 +10,8 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
+
+import com._3sq.GymImsImpl;
  
 public class LoginController extends SelectorComposer<Window> {
  
@@ -36,18 +38,24 @@ public class LoginController extends SelectorComposer<Window> {
     		errorLabel.setStyle("color:rgb(255,0,0);");
     	}
     	else	{
-    		
     		errorLabel.setValue("");
     		//Temp. I am assuming UID and PASSWORDS are
     		// mahesh mahesh
+    		GymImsImpl gym = GymImsImpl.getGymImsImpl();
+    		if(gym.validateUser(uId, pass))	{
+    			Executions.sendRedirect("/UI/homepage.zul");
+    		}
+    		else	{
+    			errorLabel.setValue("Invalid Credentials.");
+    			userId.setValue("");
+    			pwd.setValue("");
+        		errorLabel.setStyle("color:rgb(255,0,0);");
+    		}
     		
-    		
-				Executions.sendRedirect("/UI/homepage.zul");
-			
-    	
     	}
     }
 
+    
     @Listen("onClick=#cancel")
     public void cancel() {
         pwd.setText("");

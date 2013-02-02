@@ -48,8 +48,8 @@
 
 			<row>	
 			Gender  <radiogroup id="memberGender" width="300px"> 
-			<radio label="Male" /> 
-			<radio label="Female"/>
+			<radio id="male" label="Male" /> 
+			<radio id="female" label="Female"/>
 			</radiogroup>
 			</row>
 			

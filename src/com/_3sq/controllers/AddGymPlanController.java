@@ -54,7 +54,7 @@ public class AddGymPlanController extends GenericForwardComposer<Component> {
 	
 ///////////////////////////////////////////////////////////////////
 				
-				GymPlanImpl.getgymImpl().addGymPlan(newPlan);
+				GymPlanImpl.getGymPlanImpl().addGymPlan(newPlan);
 				
 				
 			}

@@ -54,7 +54,7 @@ counter++;
 					}
 					//System.out.println("\n"+memberID+ ": " +name +" : "+dob+" : "+mobNo );	
 
-					LightWeightMember temp = new LightWeightMember(memberID, name, dob, ""+mobNo);
+					LightWeightMember temp = new LightWeightMember(memberID, name, dob,true, ""+mobNo);
 					allMembers.put(memberID, temp);
 					memberID++;
 			}

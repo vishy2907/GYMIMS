@@ -19,19 +19,24 @@ import com._3sq.domainobjects.GymPlan;
  */
 public class GymPlanImpl implements GymPlanDAO {
 
-	private static GymPlanImpl m_miGymPlanImpl;
-
-	private GymPlanImpl()	{
-	}
 	
-	public static GymPlanImpl getgymImpl() {
-		if (m_miGymPlanImpl==null)
-			return new GymPlanImpl();
-		else
-			return m_miGymPlanImpl;
-	}
 	
-
+	  private static GymPlanImpl singleInstance;
+	  
+	  public static GymPlanImpl  getGymPlanImpl() {
+	    if (singleInstance == null) {
+	      synchronized (GymPlanImpl.class) {
+	        if (singleInstance == null) {
+	          singleInstance = new  GymPlanImpl();
+	        }
+	      }
+	    }
+	    return singleInstance;
+	  }
+	
+	  private GymPlanImpl()	{
+		  
+	  }
 	
 	
 	/* (non-Javadoc)

@@ -1,173 +1,69 @@
-<?page title="3SQ - GYM IMS" contentType="text/html;charset=UTF-8"?>
-<zk >
+<?page title="Welcome to GYM - IMS" contentType="text/html;charset=UTF-8"?>
+<zk>
 
-	<window id="wndouterlogin" mode="overlapped" height="375px"
-		apply="com._3sq.controllers.SampleTestController"
-		
-		width="600px" shadow="embedded" position="center,middle"
-		xmlns:zk="http://www.zkoss.org/2005/zk"
-		xmlns:h="http://www.w3.org/1999/xhtml" 
-	>
-	
-	<div style="background-image:url(images/3sqTestImg3.jpg);">  	
-		<h:table border="0" height="100%">
-		 	<custom-attributes org.zkoss.zul.image.preload='true'/>
-	
-			<h:tr>
-				<h:td width="600px" height="60px" align="center"
-					valign="bottom">
-					<h:font
-						style="font-size: 12pt;font-family: verdana, arial, helvetica;font-weight: bold;">
-						<h:b>GYM Information Management Solution</h:b>
-					</h:font>
-				</h:td>
+<window  border="none" height="100%" width="100%" xmlns:h="http://www.w3.org/1999/xhtml" >
+<custom-attributes org.zkoss.zul.image.preload='true'/>
+	<borderlayout >
+		<east width="30%" border="none"></east>
+		<north height="30%" border="none"></north>
+		<center border="normal"  flex="true" >
 
-			</h:tr>
-			<h:tr>
-				<h:td valign="top" align="center">
-					<window sclass="loginwin" id="wndLogin">		
-				
-			<vbox sclass="loginVbox" spacing="0">
-				<hbox sclass="loginHbox">
-					<div sclass="leftTopCorner"></div>
-					<div sclass="centerTop" width="365px">
-						<label value="Login"></label>
-					</div>
-					<div sclass="rightTopCorner"></div>
-				</hbox>
-
-				<hbox sclass="loginHbox" style="background:rgb(247,247,247);">
-					<div sclass="middleLeft"></div>
-					<div width="365px">
-						<grid style="border:none;background:rgb(247,247,247)">
-							<columns>
-								<column width="5%" align="right" />
-								<column width="20%" align="left" />
-								<column width="65%" align="left" />
-								<column align="left" />
-							</columns>
-							<rows>
-								<row style="border:none;background:rgb(247,247,247)">
-									<label style="font-size: 8pt;color: red" value="*" />
-									<label style="font-size: 8pt;color: black;align:center"
-										sclass="label" id="lblLoginuser" value="User Name" />
-									<textbox id="txtUserName" focus="true" width="100%" />
-									<label></label>
-								</row>
-							</rows>
-						</grid>
-					</div>
-					<div sclass="middleRight"></div>
-				</hbox>
-				<hbox sclass="loginHbox"
-					style="background:rgb(247,247,247)">
-					<div sclass="middleLeft"></div>
-					<div width="365px">
-
-						<grid
-							style="border:none;background:rgb(247,247,247)">
-							<columns>
-								<column width="5%" align="right" />
-								<column width="20%" align="left" />
-								<column width="65%" align="left" />
-								<column align="left" />
-
-							</columns>
-							<rows>
-								<row style="border:none;background:rgb(247,247,247)">
-									<label style="font-size: 8pt;color: red" sclass="label" value="" />
-									<label style="font-size: 8pt;color: black;" sclass="label" id="lblLoginpassword" value="Password" />
-									<textbox id="txtUserPass" type="password" width="100%" />
-									<cell></cell>
-								</row>
-							</rows>
-						</grid>
-
-					</div>
-					<div sclass="middleRight"></div>
-				</hbox>
-				<hbox sclass="loginHbox" 	style="background:rgb(247,247,247)">
-					<div sclass="middleLeft"></div>
-					<div width="365px">
-						<grid
-							style="border:none;background:rgb(247,247,247)">
-							<columns>
-								<column width="5%" align="right" />
-								<column width="20%" align="left" />
-								<column width="65%" align="left" />
-								<column align="left" />
-
-							</columns>
-							<rows>
-								<row
-									style="border:none;background:rgb(247,247,247)">
-									<label></label>
-									<cell colspan="3" align="left">
-										<checkbox id="chk" width="400px"
-											label="" />
-										<label
-											style="font-size: 8pt;color: black;" sclass="label"
-											width="550px" value="Remember Credential(s)" />
-									</cell>
-								</row>
-							</rows>
-						</grid>
-					</div>
-					<div sclass="middleRight"></div>
-				</hbox>	
-				<hbox sclass="loginHbox"
-					style="background:rgb(247,247,247)">
-					<div sclass="middleLeft"></div>
-					<div width="365px" align="right">
-
-						<button id="login" label="Submit" ></button>
-						<space width="2%" />
-						<button id="reset" label="Reset" ></button>
-						<space width="2%" />
-					</div>
-					<div sclass="middleRight"></div>
-				</hbox>
-
-
-				<hbox sclass="loginHbox">
-					<div sclass="leftBottomCorner"></div>
-					<div sclass="centerBottom" width="365px">
-
-					</div>
-					<div sclass="rightBottomCorner"></div>
-				</hbox>
-			</vbox>
-		</window>
-					
-				</h:td>
-			</h:tr>
-			<h:tr>
-				<h:td width="600px" align="center" valign="top">
+		<div >
+			<div style="background-image:url(images/3sqTestImg3s.jpg);"/>
+				<borderlayout>
+					<north height="20%" border="none" >
+						<div align="center">
+						<h:font
+							style="font-size: 12pt;font-family: verdana, arial, helvetica;font-weight: bold;">
+							<h:br/>
+							<h:b>GYM Information Management Solution</h:b>
+						</h:font>
+						</div>
+					</north>
+					<center border="none">
+						<!-- 	User input Fields  gonna come in center part.. -->
+						<window border="none" apply="com._3sq.controllers.LoginController"> 
+						<listbox>
+								<listhead>
+									<listheader label="" width="30%"/>
+									<listheader label="" />
+								</listhead>
+								<listitem>
+								<listcell > <div align="center"> User Name : </div></listcell>
+								<listcell > <div > 	<textbox id="userId"  width="60%"/> </div></listcell>
+							</listitem>
+							
+							<listitem>
+								<listcell > <div align="center"> Password : </div></listcell>
+								<listcell > <div > 	<textbox id="pwd" type="password" width="60%"/></div></listcell>
+							</listitem>
+							<listitem>
+								<listcell>	</listcell> <listcell><label id="errorLabel"> </label>  </listcell>
+							</listitem>
+						</listbox>
+						<listbox>
+							<listitem>
+								<listcell><div align="center"><button id="ok" label="Login" mold="trendy"/> </div> </listcell> 
+								<listcell><div align="left"><button id="cancel" label="Reset" mold="trendy"/> </div> </listcell>
+							</listitem>
+						</listbox>
+						</window>
+					</center>
+					<south height="20%" border="none">
+					<div align="center">
 					<h:font
 						style="font-size: 10pt;font-family: verdana, arial, helvetica;font-weight: bold;">
 						<h:b>
 							Develped and Managed By 3Square Soft-Tech<h:sup>©</h:sup> 
 						</h:b>
 					</h:font>
-				</h:td>
-			</h:tr>
-			<h:tr>
-				<h:td>
-					<space height="24px" />
-				</h:td>
-			</h:tr>
-			<h:tfoot>
-				<h:tr>
-					<h:td width="100%" align="center" valign="top">
-						<h:font>
-							<label zclass="copyright"
-								style="font-size: 8pt;font-family: verdana, arial, helvetica;font-weight: normal;"
-								id="lblCopyright" width="150px" />
-						</h:font>
-					</h:td>
-				</h:tr>
-			</h:tfoot>
-		</h:table>
-	</div>
+					</div>
+					</south>
+				</borderlayout>
+			</div>
+		</center>
+		<south height="30%" border="none"></south>
+		<west width="30%" border="none"></west>
+	</borderlayout>
 	</window>
 </zk>

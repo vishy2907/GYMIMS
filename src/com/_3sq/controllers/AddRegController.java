@@ -54,7 +54,7 @@ public class AddRegController extends GenericForwardComposer<Component> {
 	
 ////////////////////////////////////////////////////////////////////////////////
 				
-				RegistrationPlanImpl.getmemberImpl().addRegistrationInfo(memId, newRegPlan);
+				RegistrationPlanImpl.getRegistrationPlanImpl().addRegistrationInfo(memId, newRegPlan);
 			}
 			
 		});

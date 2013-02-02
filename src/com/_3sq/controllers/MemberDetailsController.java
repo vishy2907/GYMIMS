@@ -19,6 +19,7 @@ import org.zkoss.zul.Radio;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
+import com._3sq.GymImsImpl;
 import com._3sq.daoimpl.MemberImpl;
 import com._3sq.domainobjects.Member;
 
@@ -54,7 +55,10 @@ public class MemberDetailsController extends SelectorComposer<Component>  {
 	@Wire
 	private Combobox 	memberBloodGroup;
 	@Wire
-	private Radio 		membergender;
+	private Radio 		male;
+	@Wire
+	private Radio 		female;
+	
 	@Wire
 	private Textbox 	memberOccupation;
 	@Wire
@@ -133,7 +137,6 @@ public class MemberDetailsController extends SelectorComposer<Component>  {
 		 System.out.println("Member ID : "+memberId );
 //		 	memberId.setValue(3);
 //		 
-		 
 		 if(memId != null)	{
 			 mId = (Integer)memId;
 			 System.out.println(memId);
@@ -154,7 +157,11 @@ public class MemberDetailsController extends SelectorComposer<Component>  {
 				memberDOB.setValue(d);
 				
 				memberBloodGroup.setSelectedIndex(1);	//TODO...
-				//membergender.setSelected(selected)
+				if(currMember.getGender().equalsIgnoreCase("Male"))
+					male.setSelected(true);
+				else
+					female.setSelected(true);
+				
 				memberOccupation.setValue(currMember.getOccupation());
 				memberMedicalHistory.setValue(currMember.getMedicalHistory());
 //				private Textbox memberImage;

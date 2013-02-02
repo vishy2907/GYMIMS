@@ -18,14 +18,17 @@ public class RegistrationPlanImpl implements RegistrationPlanDAO{
 
 	private RegistrationPlanImpl()	{
 	}
-	
-	public static RegistrationPlanImpl getmemberImpl() {
-		if (m_miRegistrationPlanImpl==null)
-			return new RegistrationPlanImpl();
-		else
-			return m_miRegistrationPlanImpl;
+	public static RegistrationPlanImpl getRegistrationPlanImpl() {
+		if (m_miRegistrationPlanImpl == null) {
+			synchronized (RegistrationPlanImpl.class) {
+				if (m_miRegistrationPlanImpl == null) {
+					m_miRegistrationPlanImpl = new  RegistrationPlanImpl();
+				}
+			}
+		}
+		return m_miRegistrationPlanImpl;
 	}
-	
+
 	
 	@Override
 	public boolean addRegistrationInfo(int memberid,

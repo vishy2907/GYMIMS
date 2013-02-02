@@ -21,20 +21,24 @@ import com._3sq.domainobjects.MeasurementInfo;
 public class MeasurementImpl implements MeasurementDAO {
 	
 	
-	private static MeasurementImpl m_miMeasurementImpl;
 
 	private MeasurementImpl()
 	{
 		
 	}
 	
-	public static MeasurementImpl getMeasurementImpl() {
-		if (m_miMeasurementImpl==null)
-			return new MeasurementImpl();
-		else
-			return m_miMeasurementImpl;
-	}
-
+	  private static MeasurementImpl singleInstance;
+	  
+	  public static MeasurementImpl getMeasurementImpl() {
+	    if (singleInstance == null) {
+	      synchronized (MeasurementImpl.class) {
+	        if (singleInstance == null) {
+	          singleInstance = new  MeasurementImpl();
+	        }
+	      }
+	    }
+	    return singleInstance;
+	  }
 	
 	
 	

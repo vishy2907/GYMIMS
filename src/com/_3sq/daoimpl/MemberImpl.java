@@ -32,11 +32,22 @@ public class MemberImpl implements MemberDAO {
 	}
 	
 	public static MemberImpl getmemberImpl() {
-		if (m_miMemberImpl==null)
-			return new MemberImpl();
-		else
-			return m_miMemberImpl;
+		if (m_miMemberImpl == null) {
+			synchronized (MemberImpl.class) {
+				if (m_miMemberImpl == null) {
+					m_miMemberImpl = new  MemberImpl();
+				}
+			}
+		}
+		return m_miMemberImpl;
 	}
+
+	
+	
+	
+	
+	
+	
 	
 	private HashMap<Integer, LightWeightMember> m_hmAllMembers;
 	
@@ -241,7 +252,7 @@ public class MemberImpl implements MemberDAO {
 			// This is going to be the important query.
 			// have to be optimized...
 
-			String sql = " Select MEMBERID,NAME,DATEOFBIRTH FROM MEMBER";
+			String sql = " Select MEMBERID,NAME,DATEOFBIRTH,IS_ACTIVE FROM MEMBER";
 			
 			try {
 				preStatement = oracleConn.prepareStatement(sql);
@@ -252,8 +263,8 @@ public class MemberImpl implements MemberDAO {
 					int mId = rs.getInt("MEMBERID");
 					String name = rs.getString("NAME");
 					Date dob = _3sqDate.sqlDateToUtilDate(rs.getDate("DATEOFBIRTH"));
-					LightWeightMember temp = new LightWeightMember(mId, name,dob, "");
-					System.out.println(i++);
+					boolean isActive = rs.getInt("IS_ACTIVE") != -1 ? true : false;
+					LightWeightMember temp = new LightWeightMember(mId, name,dob,isActive, "");
 					m_hmAllMembers.put(mId, temp);
 				}
 
@@ -334,9 +345,9 @@ public class MemberImpl implements MemberDAO {
 				else
 					member.setEmergencyContactNo(0l);
 				
-				String regDate = rs.getString("REGISTRATIONDATE");
+				Date regDate = _3sqDate.sqlDateToUtilDate(rs.getDate("REGISTRATIONDATE"));
 				if(regDate!=null)
-					member.setRegistrationDate(new Date(Long.parseLong(regDate)));
+					member.setRegistrationDate(regDate);
 				else
 					member.setRegistrationDate(null);
 				
@@ -350,7 +361,7 @@ public class MemberImpl implements MemberDAO {
 				if(gen!=null)
 					member.setGender(gen);
 				else
-					member.setGender("");
+					member.setGender("Male");
 			}
 			preStatement.close();
 			rs.close();

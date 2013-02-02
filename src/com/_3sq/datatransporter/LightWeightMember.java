@@ -7,6 +7,18 @@ public class LightWeightMember {
 	String memberName;
 	Date dateOfBirth;
 	String mobileNumber;
+	boolean isActive;				// null means active member and -1 means membership active
+	
+	public boolean isMemberActive() {
+		return isActive;
+	}
+	/**
+	 * 
+	 * @param isActive if true, membership is in iactive state, else inactive
+	 */
+	public void setMembershipStatus(boolean isActive) {
+		this.isActive= isActive;
+	}
 	public int getMemberId() {
 		return memberId;
 	}
@@ -33,11 +45,12 @@ public class LightWeightMember {
 	}
 	
 	public LightWeightMember(int memberId, String memberName,
-			Date dateOfBirth, String mobileNumber) {
+			Date dateOfBirth,boolean isActive, String mobileNumber) {
 		super();
 		this.memberId = memberId;
 		this.memberName = memberName;
 		this.dateOfBirth = dateOfBirth;
+		this.isActive = isActive;
 		this.mobileNumber = mobileNumber;
 	}
 	public LightWeightMember()

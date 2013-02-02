@@ -5,25 +5,30 @@ package com._3sq.controllers;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.MouseEvent;
 import org.zkoss.zk.ui.select.SelectorComposer;
+import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
+import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.ListitemRenderer;
+import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
+import com._3sq.GymImsImpl;
+import com._3sq.daoimpl.GymPlanImpl;
 import com._3sq.daoimpl.MemberImpl;
 import com._3sq.daos.MemberDAO;
 import com._3sq.datatransporter.LightWeightMember;
@@ -35,7 +40,31 @@ import com._3sq.domainobjects.Member;
  */
 public class MembersController extends SelectorComposer<Component> {
 
-
+	
+	private static MembersController singleInstance;
+	  
+	  public static MembersController  getMemberControllerImpl() {
+	    if (singleInstance == null) {
+	      synchronized (GymPlanImpl.class) {
+	        if (singleInstance == null) {
+	          singleInstance = new  MembersController();
+	        }
+	      }
+	    }
+	    return singleInstance;
+	  }
+	
+	  public MembersController()	{
+		  members = MemberImpl.getmemberImpl();
+		  GymImsImpl gym = GymImsImpl.getGymImsImpl();
+		  memberList = gym.getAllMembers();	
+		  singleInstance = this;
+	  }
+	  private MembersController(int i)	{
+	  }
+	  
+	private ListModelList<LightWeightMember> listModel;
+	
 	@Wire
 	private Listbox lb;
 	@Wire
@@ -44,8 +73,35 @@ public class MembersController extends SelectorComposer<Component> {
 	private static final long serialVersionUID = -6528261260274326242L;
 	private MemberDAO members;
 
-	public List<LightWeightMember> tempList;
+	public List<LightWeightMember> memberList;		//will get filled runtime based on the input requirement/
 	final DateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+	
+	@Wire Textbox serachByName;
+	@Wire Combobox searchByType;
+	
+	@Listen("onOK = #serachByName")
+    public void onSubmit(Event event){
+		System.out.println("On Entrer");
+    }
+
+	@Listen("onChange = #searchByType")
+    public void onSelectedCriteriaChange(Event event){
+		//First remove all elems
+		listModel.removeAll(memberList);
+		
+		Comboitem selection = searchByType.getSelectedItem();
+		GymImsImpl gymList = GymImsImpl.getGymImsImpl();
+		if(selection.getLabel().equals("All"))
+			memberList = gymList.getAllMembers();
+		else if(selection.getLabel().equals("Active"))
+			memberList = gymList.getAllActiveMembers();
+		else
+			memberList = gymList.getAllInactiveMembers();
+		
+		listModel.addAll(memberList);
+		
+    }
+
 	
 	
 	public ListitemRenderer<LightWeightMember> listItemRenderer = new ListitemRenderer<LightWeightMember>() {
@@ -70,24 +126,8 @@ public class MembersController extends SelectorComposer<Component> {
 	
 	Window memberDetails;
 
-	public MembersController() {
-		members = MemberImpl.getmemberImpl();
-		getAllMembers();
-	}
 
 	
-	public List<LightWeightMember> getAllMembers() {
-		if (tempList == null) {
-			tempList = new ArrayList<LightWeightMember>();
-			HashMap<Integer, LightWeightMember> memList = members
-					.loadPartialMembers();
-			for (LightWeightMember loc : memList.values()) {
-				tempList.add(loc);
-			}
-		}
-
-		return tempList;
-	}
 
 	
 	public void doAfterCompose(Component comp) throws Exception {
@@ -96,10 +136,10 @@ public class MembersController extends SelectorComposer<Component> {
 		if(listItemRenderer!=null)
 			lb.setItemRenderer(listItemRenderer);
 		
-		ListModelList<LightWeightMember> tempModel = new ListModelList<LightWeightMember>(tempList);
-		tempModel.setMultiple(false);
+		listModel = new ListModelList<LightWeightMember>(memberList);
+		listModel.setMultiple(false);
 
-		lb.setModel(tempModel);
+		lb.setModel(listModel);
 
 		final Component temp = comp;
 		lb.addEventListener("onClick", new EventListener<MouseEvent>() {
@@ -107,7 +147,7 @@ public class MembersController extends SelectorComposer<Component> {
 			public void onEvent(MouseEvent event) throws Exception {
 				int memberId = 0;
 				try	{
-					memberId= tempList.get(lb.getSelectedIndex()).getMemberId();
+					memberId= memberList.get(lb.getSelectedIndex()).getMemberId();
 				}catch(ArrayIndexOutOfBoundsException ae)	{
 					
 				}
@@ -156,5 +196,9 @@ public class MembersController extends SelectorComposer<Component> {
 				memDetails.appendChild(includeTag);
 			}
 		});
+	}
+	
+	public void addItemToRender(LightWeightMember newMember)	{
+		listModel.add(newMember);
 	}
 }

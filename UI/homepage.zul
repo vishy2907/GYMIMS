@@ -16,15 +16,37 @@
 						<borderlayout>
 							<north></north>
 							<west width="25%" flex="true" collapsible="true" splittable="true">
+							
 								<div apply="com._3sq.controllers.MembersController">
-									<listbox id="lb" vflex="1">
+								<listbox>
+									<listhead >
+											<listheader width="30%"	/>
+											<listheader width="40%" />
+											<listheader width="30%" />
+										</listhead>
+									<listitem>
+										<listcell><textbox id="serachByID"></textbox> </listcell>
+										<listcell><textbox id="serachByName"></textbox> </listcell>
+										<listcell>
+											<combobox id="searchByType" autocomplete="false"
+											readonly="true" mold="rounded" >
+												<comboitem label="All"/>
+												<comboitem label="Active"/> 
+												<comboitem label="Inactive"/>
+											</combobox>
+										</listcell>
+
+									</listitem>
+								</listbox>
+
+								<listbox id="lb" vflex="1">
 										<listhead sizable="true">
 											<listheader width="30%"	align="center" label="MemberID" sort="auto" />
 											<listheader width="40%" label="Name" sort="auto" />
 											<listheader width="30%" label="D.O.B." />
 										</listhead>
 									</listbox>
-									<button id="addNewMember" label="Add New Member" width="100%" />
+									<button id="addNewMember" label="Add New Member" width="100%" mold="trendy"/>
 								</div>
 							</west>
 							<south></south>

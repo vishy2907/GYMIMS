@@ -19,6 +19,7 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import com._3sq.daoimpl.MemberImpl;
+import com._3sq.datatransporter.LightWeightMember;
 import com._3sq.domainobjects.Member;
 
 public class AddNewMemberController extends SelectorComposer<Component> {
@@ -109,6 +110,8 @@ public class AddNewMemberController extends SelectorComposer<Component> {
 				System.out.println("Adding New Member to the database...");
 				if( MemberImpl.getmemberImpl().addMember(newMember))	{
 					Clients.showNotification("Member Addess Successfully.", true);
+					LightWeightMember newM = new LightWeightMember(newMember.getMemberID(),newMember.getMemberName(),newMember.getDateOfBirth(),true,"");
+					MembersController.getMemberControllerImpl().addItemToRender(newM);
 					addNewMember.detach();
 				}
 				else
