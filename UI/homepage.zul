@@ -1,11 +1,9 @@
-<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit"?> 
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit"?>
 <?page title="ProFitness GYM"?>
 <zk>
-	<borderlayout >
-		<north height="5%" border="none">
-			Welcome to GYM - IMS
-		</north>
-		<center border="none" >
+	<borderlayout>
+		<north height="5%" border="none">Welcome to GYM - IMS</north>
+		<center border="none">
 			<tabbox height="100%">
 				<tabs>
 					<tab label="Membership Mgmt." />
@@ -13,39 +11,32 @@
 				</tabs>
 				<tabpanels>
 					<!-- 		//Member Ship management Tab -->
-					<tabpanel >
-					
+					<tabpanel>
+
 						<borderlayout>
-						<north></north>
-						<west width="25%" flex="true" collapsible="true" splittable="true" > 
-							<div apply="com._3sq.controllers.MembersController">
-								<listbox id="lb" vflex="1">
-									<listhead sizable="true">
-										<listheader width="30%" align="center" label="MemberID" sort="auto" />
-										<listheader width="40%" label="Name" sort="auto" />
-										<listheader width="30%" label="D.O.B." />
-									</listhead>		
-								</listbox>
-								<button id="addNewMember" label="Add New Member" width="100%" />
-							</div>
-						</west>
-						<south>
-						</south>
-						<center>
-								<!-- or keep conditions for this part -->
-							<div id="memDetails">
-<!-- 								<include src="MemberDetail.zul" mode="defer"></include> -->
-								<!-- keep only one child here.. which is src -->
-							</div>
-						</center>
+							<north></north>
+							<west width="25%" flex="true" collapsible="true" splittable="true">
+								<div apply="com._3sq.controllers.MembersController">
+									<listbox id="lb" vflex="1">
+										<listhead sizable="true">
+											<listheader width="30%"	align="center" label="MemberID" sort="auto" />
+											<listheader width="40%" label="Name" sort="auto" />
+											<listheader width="30%" label="D.O.B." />
+										</listhead>
+									</listbox>
+									<button id="addNewMember" label="Add New Member" width="100%" />
+								</div>
+							</west>
+							<south></south>
+							<center>
+								<div id="MemberDetailsPanel"/>
+							</center>
 						</borderlayout>
 					</tabpanel>
-					<tabpanel>
-					</tabpanel>
+					
+					<tabpanel></tabpanel>
 				</tabpanels>
 			</tabbox>
-
 		</center>
 	</borderlayout>
-
 </zk>

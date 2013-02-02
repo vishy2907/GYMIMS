@@ -1,0 +1,105 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit"?>
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window title="Please, FIll the Details to Add New Member" border="normal"
+		apply="com._3sq.controllers.AddNewMemberController" closable="true" id="addNewMember">
+
+		<grid>
+			<columns>
+				<column label="Fields" width="20%" />
+				<column label="Values" />
+			</columns>
+			<rows>
+				<row>
+					Member ID
+					<intbox id="memberId" disabled="true" tabindex="1"
+						constraint="no empty" tooltiptext="MemberId will be generated automatically."/>
+				</row>
+
+				<row>
+					Name
+					<textbox id="memberName" width="300px" tabindex="2"
+						constraint="no empty" />
+				</row>
+
+				<row>
+					Address
+					<textbox id="memberAddress" rows="2" width="300px"
+						tabindex="3" constraint="no empty" />
+				</row>
+
+				<row>
+					Contact Number
+					<longbox id="memberContactNumber" width="300px"
+						tabindex="4"  constraint="no empty" />
+				</row>
+
+				<row>
+					Emergency Contact Number
+					<longbox id="memberEmergencyContactNumber"
+						width="300px" tabindex="5" />
+				</row>
+
+				<row>
+					Date of Birth
+					<datebox id="memberDOB" width="300px" tabindex="6"
+						constraint="no empty" />
+				</row>
+
+				<row>
+					Blood Group
+					<combobox id="memberBloodGroup" autocomplete="false"
+						readonly="true" width="300px" tabindex="7">
+						<comboitem label="A +ve" />
+						<comboitem label="A -ve" />
+						<comboitem label="B +ve" />
+						<comboitem label="B -ve" />
+						<comboitem label="AB+ve" />
+						<comboitem label="AB-ve" />
+						<comboitem label="O +ve" />
+						<comboitem label="O -ve" />
+					</combobox>
+				</row>
+
+				<row>
+					Gender
+					<radiogroup id="memberGender" width="300px" >
+						<radio id="male" label="Male" tabindex="9" />
+						<radio id="female" label="Female" tabindex="10" />
+					</radiogroup>
+				</row>
+
+				<row>
+					Occupation
+					<textbox id="memberOccupation" width="300px"
+						tabindex="11" />
+				</row>
+
+				<row>
+					Medical History
+					<textbox id="memberMedicalHistory" rows="2"
+						width="300px" tabindex="12" />
+				</row>
+
+				<!-- 			<row>	 -->
+				<!-- 			Image <textbox id="memberImage" width="300px" />  -->
+				<!--  			//TODO search better solution to insert image   -->
+				<!-- 			</row>  -->
+
+				<row>
+					Registration Date
+					<datebox id="memberRegDate" width="300px"
+						tabindex="13" />
+				</row>
+
+			</rows>
+
+
+			<foot>
+				<footer align="center">
+					<button id="addMemberToDB" label="Submit Details" />
+				</footer>
+			</foot>
+		</grid>
+	</window>
+</zk>

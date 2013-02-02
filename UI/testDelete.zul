@@ -1,0 +1,14 @@
+<window apply="com._3sq.controllers.SampleTestController">
+    <div>
+        Input: <textbox id="userId" />
+    </div>
+    <div>
+        Input: <textbox id="pwd" type="password"/>
+    </div>
+    
+    <div>
+        Output: <label id="output" />
+    </div>
+    <button id="ok" label="Submit" />
+    <button id="cancel" label="Clear" />
+</window>

@@ -23,7 +23,7 @@ import com._3sq.daoimpl.MemberImpl;
 import com._3sq.domainobjects.Member;
 
 /**
- * @author shani
+ * @author VishalB
  * 
  */
 
@@ -42,11 +42,11 @@ public class MemberDetailsController extends SelectorComposer<Component>  {
 	@Wire
 	private Intbox		memberId;
 	@Wire
-	private Textbox 		memberName;
+	private Textbox 	memberName;
 	@Wire
-	private Textbox 		memberAddress;
+	private Textbox 	memberAddress;
 	@Wire
-	private Longbox 		memberContactNumber;
+	private Longbox 	memberContactNumber;
 	@Wire
 	private Longbox	 	memberEmergencyContactNumber;
 	@Wire
@@ -56,18 +56,18 @@ public class MemberDetailsController extends SelectorComposer<Component>  {
 	@Wire
 	private Radio 		membergender;
 	@Wire
-	private Textbox 		memberOccupation;
+	private Textbox 	memberOccupation;
 	@Wire
-	private Textbox 		memberMedicalHistory;	
+	private Textbox 	memberMedicalHistory;	
 //	private Textbox memberImage;
 	@Wire
-	private Datebox 		memberRegDate;
+	private Datebox 	memberRegDate;
 	
 	
 	@Wire
-	private Datebox 		measurementTakenDate;
+	private Datebox 	measurementTakenDate;
 	@Wire
-	private Intbox  		memberHeight;
+	private Intbox  	memberHeight;
 	@Wire
 	private Decimalbox	memberWeight;
 	@Wire
@@ -93,40 +93,41 @@ public class MemberDetailsController extends SelectorComposer<Component>  {
 	@Wire
 	private Decimalbox	memberRM;
 
-
+	@Wire
 	private Decimalbox	memberVisceralFat;
+	@Wire
 	private Decimalbox	memberWholeBodySF;
+	@Wire
 	private Decimalbox	memberWholeBodySM;
+	@Wire
 	private Decimalbox	memberTrunkSF;
+	@Wire
 	private Decimalbox 	memberTrunkSM;
+	@Wire
 	private Decimalbox	memberLegSF;
+	@Wire
 	private Decimalbox	memberLegSM;
+	@Wire
 	private Decimalbox	memberArmSF;
+	@Wire
 	private Decimalbox	memberArmSM;
 
 	
-	private Window mdWindow;
-	private String name="Rahul";
 	private  Member currMember;
-
-	private Integer meId;
 
 	public Member getCurrMember()	{
 		return currMember;
 	}
+
 	public void setCurrMember(Member no)	{
-		
 	}
 	
 	public MemberDetailsController	()	{
-		System.out.println("Hiiiiiiiiiiiiiiiiiiiii.");
-		meId=2;
 	}
 	
 	 public void doAfterCompose(Component comp) throws Exception {
 		 super.doAfterCompose(comp);
 		 
-		 System.out.println("After Compose");
 		 Object memId = Executions.getCurrent().getAttribute("memberId");
 		 
 		 System.out.println("Member ID : "+memberId );

@@ -1,7 +1,5 @@
 package com._3sq.controllers;
 
-import java.math.BigDecimal;
-
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.MouseEvent;
@@ -11,7 +9,6 @@ import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Textbox;
 
 import com._3sq.daoimpl.GymPlanImpl;
-import com._3sq.daoimpl.MemberImpl;
 import com._3sq.domainobjects.GymPlan;
 
 public class AddGymPlanController extends GenericForwardComposer<Component> {

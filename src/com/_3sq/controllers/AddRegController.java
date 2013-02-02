@@ -11,9 +11,7 @@ import org.zkoss.zul.Button;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Intbox;
 
-import com._3sq.daoimpl.MemberImpl;
 import com._3sq.daoimpl.RegistrationPlanImpl;
-import com._3sq.domainobjects.Member;
 import com._3sq.domainobjects.RegistrationPlan;
 
 public class AddRegController extends GenericForwardComposer<Component> {

@@ -1,0 +1,69 @@
+<?page title="Welcome to GYM - IMS" contentType="text/html;charset=UTF-8"?>
+<zk>
+
+<window  border="none" height="100%" width="100%" xmlns:h="http://www.w3.org/1999/xhtml" >
+<custom-attributes org.zkoss.zul.image.preload='true'/>
+	<borderlayout >
+		<east width="30%" border="none"></east>
+		<north height="30%" border="none"></north>
+		<center border="normal"  flex="true" >
+
+		<div >
+			<div style="background-image:url(images/3sqTestImg3s.jpg);"/>
+				<borderlayout>
+					<north height="20%" border="none" >
+						<div align="center">
+						<h:font
+							style="font-size: 12pt;font-family: verdana, arial, helvetica;font-weight: bold;">
+							<h:br/>
+							<h:b>GYM Information Management Solution</h:b>
+						</h:font>
+						</div>
+					</north>
+					<center border="none">
+						<!-- 	User input Fields  gonna come in center part.. -->
+						<window border="none" apply="com._3sq.controllers.LoginController"> 
+						<listbox>
+								<listhead>
+									<listheader label="" width="30%"/>
+									<listheader label="" />
+								</listhead>
+								<listitem>
+								<listcell > <div align="center"> User Name : </div></listcell>
+								<listcell > <div > 	<textbox id="userId"  width="60%"/> </div></listcell>
+							</listitem>
+							
+							<listitem>
+								<listcell > <div align="center"> Password : </div></listcell>
+								<listcell > <div > 	<textbox id="pwd" type="password" width="60%"/></div></listcell>
+							</listitem>
+							<listitem>
+								<listcell>	</listcell> <listcell><label id="errorLabel"> </label>  </listcell>
+							</listitem>
+						</listbox>
+						<listbox>
+							<listitem>
+								<listcell><div align="center"><button id="ok" label="Login" mold="trendy"/> </div> </listcell> 
+								<listcell><div align="left"><button id="cancel" label="Reset" mold="trendy"/> </div> </listcell>
+							</listitem>
+						</listbox>
+						</window>
+					</center>
+					<south height="20%" border="none">
+					<div align="center">
+					<h:font
+						style="font-size: 10pt;font-family: verdana, arial, helvetica;font-weight: bold;">
+						<h:b>
+							Develped and Managed By 3Square Soft-Tech<h:sup>©</h:sup> 
+						</h:b>
+					</h:font>
+					</div>
+					</south>
+				</borderlayout>
+			</div>
+		</center>
+		<south height="30%" border="none"></south>
+		<west width="30%" border="none"></west>
+	</borderlayout>
+	</window>
+</zk>

@@ -6,7 +6,9 @@ import java.util.Date;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.MouseEvent;
-import org.zkoss.zk.ui.util.GenericForwardComposer;
+import org.zkoss.zk.ui.select.SelectorComposer;
+import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
@@ -14,46 +16,54 @@ import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Longbox;
 import org.zkoss.zul.Radio;
 import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Window;
 
 import com._3sq.daoimpl.MemberImpl;
 import com._3sq.domainobjects.Member;
 
-public class AddNewMemberController extends GenericForwardComposer<Component> {
+public class AddNewMemberController extends SelectorComposer<Component> {
 
-	private Intbox memberId;
-	private Textbox memberName;
-	private Textbox memberAddress;
-	private Longbox memberContactNumber;
-	private Longbox memberEmergencyContactNumber;
-	private Datebox memberDOB;
-	private Combobox memberBloodGroup;
-	private Radio membergender;
-	private Textbox memberOccupation;
-	private Textbox memberMedicalHistory;	
-//	private Textbox memberImage;
-	private Datebox memberRegDate;
-	
-	private Button addMemberToDB;
-	
+	private static final long serialVersionUID = 2451960659521816339L;
 
+	@Wire private Intbox  	memberId;
+	@Wire private Textbox 	memberName;
+	@Wire private Textbox 	memberAddress;
+	@Wire private Longbox 	memberContactNumber;
+	@Wire private Longbox 	memberEmergencyContactNumber;
+	@Wire private Datebox 	memberDOB;
+	@Wire private Combobox 	memberBloodGroup;
+	@Wire private Radio 	male;
+	@Wire private Radio 	female;
+	@Wire private Textbox 	memberOccupation;
+	@Wire private Textbox 	memberMedicalHistory;	
+//	Wire private Textbox memberImage;
+	@Wire private Datebox 	memberRegDate;
+	@Wire private Button 	addMemberToDB;
+	@Wire private Window	addNewMember;
+	
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
-	
+		
+		//Set MemberID to incremental Position...
+		//Setup Initial Information by Manually
+		
+		int nextMemberId = MemberImpl.getmemberImpl().getNextMemberID();
+		memberId.setValue(nextMemberId);
+		memberContactNumber.setMaxlength(10);
+		memberEmergencyContactNumber.setMaxlength(10);
+		memberRegDate.setValue(new Date());
+		
 		addMemberToDB.addEventListener("onClick", new EventListener<MouseEvent>() {
-
 			@Override
 			public void onEvent(MouseEvent arg0) throws Exception {
-				Member newMember = new Member();
 				
+				Member newMember = new Member();
 				
 				newMember.setMemberID(memberId.getValue());
 				
 				String tName = memberName.getText();
-				if(tName!=null)
 					newMember.setMemberName(tName);
-				else
-					newMember.setMemberName("");
-				
+
 				String tAddress = memberAddress.getText();
 				if(tAddress!=null)
 					newMember.setMemberAddress(tAddress);
@@ -84,26 +94,26 @@ public class AddNewMemberController extends GenericForwardComposer<Component> {
 				else
 					newMember.setMedicalHistory("");
 				
-				
-				newMember.setGender(membergender.getLabel());
+				if(male.isChecked())
+					newMember.setGender("Male");
+				else if(female.isChecked())
+					newMember.setGender("Female");
 				
 				newMember.setEmergencyContactNo(memberEmergencyContactNumber.getValue());
 				
 				Date regDate = memberRegDate.getValue();
-				if(regDate!=null)
-					newMember.setRegistrationDate(memberRegDate.getValue());
+				newMember.setRegistrationDate(regDate);
+				
+				
+				//newMember.setImage(memmemberImage.getValue());
+				System.out.println("Adding New Member to the database...");
+				if( MemberImpl.getmemberImpl().addMember(newMember))	{
+					Clients.showNotification("Member Addess Successfully.", true);
+					addNewMember.detach();
+				}
 				else
-					newMember.setRegistrationDate(new Date());
-				
-				
-				//			newMember.setImage(memmemberImage.getValue());
-		
-				MemberImpl.getmemberImpl().addMember(newMember);
+					Clients.showNotification("Error in adding member","error", null,null,5);
 			}
-			
 		});
-		
 	}
-	
-	
 }

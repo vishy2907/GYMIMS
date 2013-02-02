@@ -370,7 +370,7 @@ public class MemberImpl implements MemberDAO {
 		int temp=1;
 		try {
 			st=oracleConn.createStatement();
-			String sql = " Select MAX(MEMBERID) FROM MEMBER ";
+			String sql = " Select COUNT(MEMBERID) FROM MEMBER ";
 			rs=st.executeQuery(sql);
 			
 			if(rs.next())
