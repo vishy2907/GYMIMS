@@ -1,0 +1,27 @@
+<?page title="Measurement History" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window border="none" width="100%" id="winMeasurementHistory"
+		height="100%"
+		apply="com._3sq.controllers.memberdetailscontrollers.MeasurementHistoryController">
+		
+		<borderlayout>
+		<north border="none"></north>
+		<west width="15%" border="none">
+		<div>
+			<space></space>
+			<tabbox id="tabboxMeasurement" orient="vertical">
+				<tabs id="tabs" width="100%"></tabs>
+			</tabbox>
+		</div>
+		</west>
+		
+		<center flex="true" hflex="1" border="none">
+			<window id="include" border="none" >
+				
+			</window>
+		</center>
+		
+		</borderlayout>
+		
+	</window>
+</zk>

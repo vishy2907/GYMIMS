@@ -1,0 +1,110 @@
+<?page title="Personal Information" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window border="none" width="100%" height="100%"
+		apply="com._3sq.controllers.memberdetailscontrollers.PersonalInformationController">
+
+		<space></space>
+		<grid id="mdGrid" height="100%">
+			<columns>
+				<column label="" width="20%" />
+				<column label="" />
+			</columns>
+
+			<rows>
+				<row>
+					Member ID
+					<intbox id="memberId" disabled="true" />
+				</row>
+
+				<row>
+					Name
+					<textbox id="memberName" width="35%" />
+				</row>
+
+				<row>
+					Address
+					<textbox id="memberAddress" rows="2" width="35%" />
+				</row>
+
+				<row>
+					Contact Number
+					<div>
+						<longbox id="memberContactNumber" width="31%" />
+						<button id="sendMessage"
+							image="/UI/images/msg2.gif">
+						</button>
+					</div>
+				</row>
+
+				<row>
+					Emergency Contact Number
+					<longbox id="memberEmergencyContactNumber"
+						width="35%" />
+				</row>
+
+				<row>
+					Date of Birth
+					<datebox id="memberDOB" width="36%" />
+				</row>
+
+				<row>
+					Blood Group
+					<combobox id="memberBloodGroup" autocomplete="false"
+						readonly="true" width="35%">
+						<comboitem label="A +ve" />
+						<comboitem label="A -ve" />
+						<comboitem label="B +ve" />
+						<comboitem label="B -ve" />
+						<comboitem label="AB+ve" />
+						<comboitem label="AB-ve" />
+						<comboitem label="O +ve" />
+						<comboitem label="O -ve" />
+					</combobox>
+				</row>
+
+				<row>
+					Gender
+					<radiogroup id="memberGender" width="35%">
+						<radio id="male" label="Male" />
+						<radio id="female" label="Female" />
+					</radiogroup>
+				</row>
+
+				<row>
+					Occupation
+					<textbox id="memberOccupation" width="35%" />
+				</row>
+
+				<row>
+					Medical History
+					<textbox id="memberMedicalHistory" rows="2"
+						width="35%" />
+				</row>
+
+				<!-- 			<row>	 -->
+				<!-- 			Image <textbox id="memberImage" width="35%"/>  -->
+				<!--  			//TODO search better solution to insert image   -->
+				<!-- 			</row>  -->
+
+				<row>
+					Registration Date
+					<datebox id="memberRegDate" width="36%" />
+				</row>
+
+				<row>
+					<space></space>
+					<space></space>
+				</row>
+				<row>
+					<space></space>
+					<button id="updateDetails" mold="trendy"
+						label="updateDetails" visible="false">
+					</button>
+				</row>
+
+			</rows>
+
+		</grid>
+
+	</window>
+</zk>

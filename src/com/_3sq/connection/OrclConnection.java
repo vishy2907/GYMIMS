@@ -3,6 +3,8 @@ package com._3sq.connection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+import com._3sq.daoimpl.GymPlanImpl;
+
 /**
  * 
  * @author PRADIP K
@@ -44,18 +46,22 @@ public class OrclConnection {
 		return m_cOrclConnection;
 	}
 
-	public static Connection getOrclConnection() {
-		if (m_cOrclConnection == null)	{
-			System.out.println("Returning new oracle connection");
-			return new OrclConnection().CreateNewConnection();
-		}
-		else
-			return m_cOrclConnection;
-	}
 	
+
+	public static Connection getOrclConnection() {
+		if (m_cOrclConnection == null)	{   
+			synchronized (OrclConnection.class) {
+				if (m_cOrclConnection == null) {
+					System.out.println("Returning new oracle connection");
+					m_cOrclConnection = new OrclConnection().CreateNewConnection();
+				}
+			}
+		}
+		return m_cOrclConnection;
+	}
+
 	
 	public static void  main(String args[]){
-		
 		Connection conn = getOrclConnection();
 		System.out.println(conn.toString());
 	}

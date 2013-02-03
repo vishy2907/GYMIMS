@@ -1,0 +1,32 @@
+<window id="sendSMS" title="Send Personalized Message" border="normal"
+	apply="com._3sq.controllers.MessageSenderController"
+	position="center,center" closable="true" 
+	action="show: slideDown;hide: slideUp"
+	 width="460px">
+	<vlayout>
+		<grid>
+			<columns>
+				<column width="30%" />
+				<column width="70%" />
+			</columns>
+			<rows>
+				<row>
+					Member Name : 
+					<textbox id="mname" width="90%" value="${arg.name}" constraint="no empty"/>
+				</row>
+				<row>
+					Mobile No : 
+					<textbox id="mobNo" width="90%" value="${arg.mobNo}" constraint="no empty"/>
+					
+				</row>
+				<row>
+					Message : 
+					<textbox  id="msg" rows="3" width="90%" constraint="no empty"/>
+				</row>
+			</rows>
+		</grid>
+		<space></space>
+		<div align="center"><button id="sendMsg"  label="Send Message" mold="trendy" width="80%"/></div>
+		<space></space>
+	</vlayout>
+</window>

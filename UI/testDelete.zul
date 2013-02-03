@@ -1,14 +1,11 @@
-<window apply="com._3sq.controllers.SampleTestController">
-    <div>
-        Input: <textbox id="userId" />
-    </div>
-    <div>
-        Input: <textbox id="pwd" type="password"/>
-    </div>
+<window >
     
-    <div>
-        Output: <label id="output" />
-    </div>
-    <button id="ok" label="Submit" />
-    <button id="cancel" label="Clear" />
+    <tabbox>
+    	<tabs>
+    		<tab label="Hii"></tab>
+    		<tab label="Hi2"></tab>
+    		<tab label="Hi3"></tab>
+    	</tabs>
+    </tabbox>
+    <window> Hiii</window>
 </window>

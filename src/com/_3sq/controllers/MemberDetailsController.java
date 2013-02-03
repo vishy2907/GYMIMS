@@ -3,12 +3,18 @@
  */
 package com._3sq.controllers;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;
+import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Decimalbox;
@@ -19,7 +25,6 @@ import org.zkoss.zul.Radio;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
-import com._3sq.GymImsImpl;
 import com._3sq.daoimpl.MemberImpl;
 import com._3sq.domainobjects.Member;
 
@@ -36,37 +41,7 @@ public class MemberDetailsController extends SelectorComposer<Component>  {
 
 	private static final long serialVersionUID = -1427914022897958743L;
 
-	@Wire
-	private Window 		memDetailWindow;
-	@Wire
-	private Grid 		mdGrid;
-	@Wire
-	private Intbox		memberId;
-	@Wire
-	private Textbox 	memberName;
-	@Wire
-	private Textbox 	memberAddress;
-	@Wire
-	private Longbox 	memberContactNumber;
-	@Wire
-	private Longbox	 	memberEmergencyContactNumber;
-	@Wire
-	private Datebox		memberDOB;
-	@Wire
-	private Combobox 	memberBloodGroup;
-	@Wire
-	private Radio 		male;
-	@Wire
-	private Radio 		female;
-	
-	@Wire
-	private Textbox 	memberOccupation;
-	@Wire
-	private Textbox 	memberMedicalHistory;	
-//	private Textbox memberImage;
-	@Wire
-	private Datebox 	memberRegDate;
-	
+
 	
 	@Wire
 	private Datebox 	measurementTakenDate;
@@ -115,7 +90,8 @@ public class MemberDetailsController extends SelectorComposer<Component>  {
 	private Decimalbox	memberArmSF;
 	@Wire
 	private Decimalbox	memberArmSM;
-
+	@Wire
+	private Button 	sendMessage;
 	
 	private  Member currMember;
 
@@ -128,44 +104,8 @@ public class MemberDetailsController extends SelectorComposer<Component>  {
 	
 	public MemberDetailsController	()	{
 	}
-	
-	 public void doAfterCompose(Component comp) throws Exception {
-		 super.doAfterCompose(comp);
+
 		 
-		 Object memId = Executions.getCurrent().getAttribute("memberId");
-		 
-		 System.out.println("Member ID : "+memberId );
-//		 	memberId.setValue(3);
-//		 
-		 if(memId != null)	{
-			 mId = (Integer)memId;
-			 System.out.println(memId);
-			 currMember = MemberImpl.getmemberImpl().getMember(mId);
-			 
-			 
-			 ////fill the details
-			 
-			 	memberId.setValue(currMember.getMemberID());
-			 	memberName.setValue( currMember.getMemberName());
-				memberAddress.setValue(currMember.getMemberAddress());
-				
-				memberContactNumber.setValue(currMember.getContactNumber());
-				
-				memberEmergencyContactNumber.setValue(currMember.getEmergencyContactNo());
-				Date d = currMember.getDateOfBirth();
-				System.out.println("Date D : "+d);
-				memberDOB.setValue(d);
-				
-				memberBloodGroup.setSelectedIndex(1);	//TODO...
-				if(currMember.getGender().equalsIgnoreCase("Male"))
-					male.setSelected(true);
-				else
-					female.setSelected(true);
-				
-				memberOccupation.setValue(currMember.getOccupation());
-				memberMedicalHistory.setValue(currMember.getMedicalHistory());
-//				private Textbox memberImage;
-				memberRegDate.setValue(currMember.getRegistrationDate());
 
 				
 				
@@ -198,7 +138,7 @@ public class MemberDetailsController extends SelectorComposer<Component>  {
 //				memberArmSF.setValue(""+msrInfo.getArmSF());
 //				memberArmSM.setValue(""+msrInfo.getArmSM());
 
-		 }
-	}
-
 }
+
+	 
+

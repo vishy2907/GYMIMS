@@ -1,0 +1,16 @@
+<?page title="Payment History" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window border="none" width="100%" id="winPaymentHistory"
+		height="100%"
+		apply="com._3sq.controllers.memberdetailscontrollers.PaymentHistoryController">
+
+		<tabbox id="tabboxPayment" orient="vertical">
+			<tabs id="tabs" width="10%" height="100%">
+		
+			</tabs>
+			<tabpanels id="panaels">
+			
+			</tabpanels>
+		</tabbox>
+	</window>
+</zk>

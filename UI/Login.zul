@@ -1,6 +1,5 @@
 <?page title="Welcome to GYM - IMS" contentType="text/html;charset=UTF-8"?>
 <zk>
-
 <window  border="none" height="100%" width="100%" xmlns:h="http://www.w3.org/1999/xhtml" >
 <custom-attributes org.zkoss.zul.image.preload='true'/>
 	<borderlayout >
@@ -29,8 +28,8 @@
 									<listheader label="" />
 								</listhead>
 								<listitem>
-								<listcell > <div align="center"> User Name : </div></listcell>
-								<listcell > <div > 	<textbox id="userId"  width="60%"/> </div></listcell>
+								<listcell> <div align="center"> User Name : </div></listcell>
+								<listcell> <div> 	<textbox id="userId"  width="60%"/> </div></listcell>
 							</listitem>
 							
 							<listitem>

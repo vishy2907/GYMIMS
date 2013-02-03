@@ -49,24 +49,18 @@ public class MeasurementInfo {
 	
 	
 	
-	
 	public void setMeasurementTakenDate(Date measurementTakenDate) {
 		m_DMeasurementTakenDate = measurementTakenDate;
 	}
-	
 	
 	
 	public int getHeight() {
 		return m_iHeight;
 	}
 	
-	
-	
-	
 	public void setHeight(int height) {
 		m_iHeight = height;
 	}
-	
 	
 	
 	public float getChest() {
@@ -74,19 +68,14 @@ public class MeasurementInfo {
 	}
 	
 	
-	
-	
 	public void setChest(float chest) {
 		m_fChest = chest;
 	}
 	
 	
-	
-	
 	public float getWaist() {
 		return m_fWaist;
 	}
-	
 	
 	
 	public void setWaist(float waist) {

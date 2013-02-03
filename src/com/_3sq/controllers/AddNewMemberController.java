@@ -18,6 +18,7 @@ import org.zkoss.zul.Radio;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
+import com._3sq.GymImsImpl;
 import com._3sq.daoimpl.MemberImpl;
 import com._3sq.datatransporter.LightWeightMember;
 import com._3sq.domainobjects.Member;
@@ -62,10 +63,10 @@ public class AddNewMemberController extends SelectorComposer<Component> {
 				
 				newMember.setMemberID(memberId.getValue());
 				
-				String tName = memberName.getText();
+				String tName = memberName.getValue();
 					newMember.setMemberName(tName);
 
-				String tAddress = memberAddress.getText();
+				String tAddress = memberAddress.getValue();
 				if(tAddress!=null)
 					newMember.setMemberAddress(tAddress);
 				else
@@ -83,13 +84,15 @@ public class AddNewMemberController extends SelectorComposer<Component> {
 				
 				newMember.setBloodGroup(memberBloodGroup.getValue());
 				
-				String occu = memberOccupation.getText();
-				if(occu!=null)
+				String occu = memberOccupation.getValue();
+				if(occu!=null)	{
 					newMember.setOccupation(occu);
+					System.out.println("occu :"+occu);
+				}
 				else
 					newMember.setOccupation("");
 				
-				String his = memberMedicalHistory.getText();
+				String his = memberMedicalHistory.getValue();
 				if(his!=null)
 					newMember.setMedicalHistory(his);
 				else
@@ -112,6 +115,10 @@ public class AddNewMemberController extends SelectorComposer<Component> {
 					Clients.showNotification("Member Addess Successfully.", true);
 					LightWeightMember newM = new LightWeightMember(newMember.getMemberID(),newMember.getMemberName(),newMember.getDateOfBirth(),true,"");
 					MembersController.getMemberControllerImpl().addItemToRender(newM);
+					GymImsImpl.getGymImsImpl().sendWelcomeMessage(""+newMember.getContactNumber());
+					GymImsImpl.getGymImsImpl().getAllActiveMembers().add(newM);
+					GymImsImpl.getGymImsImpl().getAllMembers().add(newM);
+					
 					addNewMember.detach();
 				}
 				else

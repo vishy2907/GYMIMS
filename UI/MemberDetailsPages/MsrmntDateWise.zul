@@ -1,0 +1,144 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window  title="" border="none" apply="com._3sq.controllers.memberdetailscontrollers.MsrmntDetailsDateWise" width="100%" height="100%">
+<space></space>
+<grid>
+		<columns>
+		
+			<column label="Measurements" align="center">
+			
+		<grid >
+		<columns >
+			<column label=""/>
+			<column label=""/>
+		</columns>
+		
+		
+		<rows>
+		 
+		<row>	
+			Measurement Taken Date <datebox id="measurementTakenDate" format="dd-MMM-yyyy"/>
+		</row>
+		
+		<row>	
+			Height <label id="memberHeight" width= "95px"/>
+		</row>
+
+		<row>	
+			Weight <label id="memberWeight" width= "95px"/>
+		</row>
+		
+		<row>	
+			Chest <label id="memberChest" width= "95px"/>
+		</row>
+		
+		<row>	
+			Waist <label id="memberWaist" width= "95px"/>
+		</row>
+		
+		<row>	
+			Hips <label id="memberHips" width= "95px"/>
+		</row>
+		
+		<row>	
+			Thighs <label id="memberThighs" width= "95px"/>
+		</row>
+		
+		<row>	
+			Calfs <label id="memberCalfs" width= "95px"/>
+		</row>
+		
+		<row>	
+			Arms <label id="memberArms" width= "95px"/>
+		</row>
+		
+		<row>	
+			Forearms <label id="memberForearms" width= "95px"/>
+		</row>
+		
+		
+		</rows>
+	</grid>
+		
+			</column>
+
+			
+		<column label="Body Composition" align="center">
+		
+		
+				<grid>
+				<columns>
+					<column label=""/>
+					<column label=""/>
+				</columns>
+				<rows>
+		
+					<row>	
+						Fat in % <label id="memberFatInPer" width= "95px"/>
+					</row>
+	
+					<row>	
+						Body Age <label id="memberBodyAge" width= "95px"/>
+					</row>
+	
+	
+					<row>	
+						B.M.I <label id="memberBMI" width= "95px"/>
+					</row>
+	
+					<row>	
+						R.M <label id="memberRM" width= "95px"/>
+					</row>
+	
+					<row>	
+						Visceral Fat <label id="memberVisceral" width= "95px"/>
+					</row>
+
+				</rows>
+				</grid>
+				
+		
+				
+				<grid>
+					<columns>
+						<column label="Area" align="center"/>
+						<column label="SF" align="center"/>
+						<column label="SM" align="center"/>
+					</columns>
+					<rows>
+		
+					<row>	
+						Whole Body <label id="memberWholeBodySF" width= "95px"/> <label id="memberWholeBodySM" width= "95px"/>
+		
+					</row>
+					
+					
+					<row>	
+						Trunk <label id="memberTrunkSF" width= "95px"/> <label id="memberTrunkSM" width= "95px"/>
+		
+					</row>
+					
+					
+					<row>	
+						Leg <label id="memberLegSF" width= "95px"/> <label id="memberLegSM" width= "95px"/>
+		
+					</row>
+					
+					<row>	
+						Arm <label id="memberArmSF" width= "95px"/> <label id="memberArmSM" width= "95px"/>
+		
+					</row>
+							
+
+					<row>	
+					</row>
+					</rows>
+				</grid>
+		
+		</column>
+		</columns>		
+			
+	</grid>
+
+</window>
+</zk>

@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.MouseEvent;
@@ -42,42 +43,59 @@ public class MembersController extends SelectorComposer<Component> {
 
 	
 	private static MembersController singleInstance;
-	  
-	  public static MembersController  getMemberControllerImpl() {
-	    if (singleInstance == null) {
-	      synchronized (GymPlanImpl.class) {
-	        if (singleInstance == null) {
-	          singleInstance = new  MembersController();
-	        }
-	      }
-	    }
-	    return singleInstance;
-	  }
+	private MemberDAO members;
 	
-	  public MembersController()	{
-		  members = MemberImpl.getmemberImpl();
-		  GymImsImpl gym = GymImsImpl.getGymImsImpl();
-		  memberList = gym.getAllMembers();	
-		  singleInstance = this;
-	  }
-	  private MembersController(int i)	{
-	  }
-	  
 	private ListModelList<LightWeightMember> listModel;
 	
 	@Wire
 	private Listbox lb;
 	@Wire
 	private Button addNewMember;
-
-	private static final long serialVersionUID = -6528261260274326242L;
-	private MemberDAO members;
-
+	@Wire 
+	private Textbox serachByName;
+	@Wire 
+	private Combobox searchByType;
+	
+	@Wire private Window MemberDetailsPanel;
+	
 	public List<LightWeightMember> memberList;		//will get filled runtime based on the input requirement/
 	final DateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
 	
-	@Wire Textbox serachByName;
-	@Wire Combobox searchByType;
+	private static final long serialVersionUID = -6528261260274326242L;
+
+	private GymImsImpl gymImplObj = GymImsImpl.getGymImsImpl(); 
+	
+	
+	
+	public static MembersController  getMemberControllerImpl() {
+		if (singleInstance == null) {
+			synchronized (GymPlanImpl.class) {
+				if (singleInstance == null) {
+					singleInstance = new  MembersController();
+				}
+			}
+		}
+		return singleInstance;
+	}
+
+	public MembersController()	{
+		if(System.getProperty("validSession")!=null && System.getProperty("validSession").equals("") ==false )	{
+			members = MemberImpl.getmemberImpl();
+			memberList = gymImplObj.getAllMembers();	
+			singleInstance = this;
+		}else{
+			Executions.sendRedirect("/UI/Login.zul");
+		}
+	}
+
+	
+
+	@Listen("onCreate = #MemberDetailsPanel")
+    public void onCreateWindow(Event event){
+		System.out.println("Window registered.. : MemberDetailsController");
+		gymImplObj.registerWindow("MemberDetailsPanel", MemberDetailsPanel);
+    }
+
 	
 	@Listen("onOK = #serachByName")
     public void onSubmit(Event event){
@@ -90,13 +108,12 @@ public class MembersController extends SelectorComposer<Component> {
 		listModel.removeAll(memberList);
 		
 		Comboitem selection = searchByType.getSelectedItem();
-		GymImsImpl gymList = GymImsImpl.getGymImsImpl();
 		if(selection.getLabel().equals("All"))
-			memberList = gymList.getAllMembers();
+			memberList = gymImplObj.getAllMembers();
 		else if(selection.getLabel().equals("Active"))
-			memberList = gymList.getAllActiveMembers();
+			memberList = gymImplObj.getAllActiveMembers();
 		else
-			memberList = gymList.getAllInactiveMembers();
+			memberList = gymImplObj.getAllInactiveMembers();
 		
 		listModel.addAll(memberList);
 		
@@ -121,81 +138,89 @@ public class MembersController extends SelectorComposer<Component> {
 		}
 	};	
 
-	public void addMemberToPanel(Member member)	{
+
+	
+	@Listen("onClick = #lb")
+    public void onClickOfList(Event event){
+		int memberId = 0;
+		try	{
+			memberId= memberList.get(lb.getSelectedIndex()).getMemberId();
+		}catch(ArrayIndexOutOfBoundsException ae)	{
+
+		}
+		if (memberId != 0) {
+			Window memberDetailsPanel = gymImplObj.getWindow("MemberDetailsPanel"); 
+			
+			if (memberDetailsPanel != null) {
+				Component firstChild = memberDetailsPanel.getFirstChild();
+				if (firstChild != null) {
+					System.out.println("ID OF CHILD : "+firstChild.getId());
+					if(firstChild.getId().equals("memberInfo")==false)
+						memberDetailsPanel.removeChild(firstChild);
+					else{
+						System.setProperty("MemberId", ""+memberId);
+						firstChild.invalidate();
+					}
+				} else {
+					System.setProperty("MemberId",""+ memberId);
+					Window window = (Window)Executions.createComponents("MemberDetailsPages/MemberDetailInformation.zul", null, null);
+					window.doEmbedded();
+					memberDetailsPanel.appendChild(window);
+				}
 			}
+		}
+    }
+	
 	
 	Window memberDetails;
-
-
 	
-
+	
 	
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
-		
-		if(listItemRenderer!=null)
-			lb.setItemRenderer(listItemRenderer);
-		
-		listModel = new ListModelList<LightWeightMember>(memberList);
-		listModel.setMultiple(false);
+	
+		if(System.getProperty("validSession")!=null && System.getProperty("validSession").equals("") ==false )	{
+			System.setProperty("validSession","");
+			
+			searchByType.setSelectedIndex(0);
+			if(listItemRenderer!=null)
+				lb.setItemRenderer(listItemRenderer);
 
-		lb.setModel(listModel);
+			listModel = new ListModelList<LightWeightMember>(memberList);
+			listModel.setMultiple(false);
 
-		final Component temp = comp;
-		lb.addEventListener("onClick", new EventListener<MouseEvent>() {
-			@Override
-			public void onEvent(MouseEvent event) throws Exception {
-				int memberId = 0;
-				try	{
-					memberId= memberList.get(lb.getSelectedIndex()).getMemberId();
-				}catch(ArrayIndexOutOfBoundsException ae)	{
+			lb.setModel(listModel);
+
+			final Component temp = comp;
+			lb.addEventListener("onClick", new EventListener<MouseEvent>() {
+				@Override
+				public void onEvent(MouseEvent event) throws Exception {
 					
 				}
-				if (memberId != 0) {
+			});
+
+			addNewMember.addEventListener("onClick",new EventListener<MouseEvent>() {
+				@Override
+				public void onEvent(MouseEvent event) throws Exception {
 					Component memDetails = temp.getFellowIfAny("MemberDetailsPanel");
 					if (memDetails != null) {
 						Component firstChild = memDetails.getFirstChild();
-						if (firstChild != null) {
-							// Here check for ID 
-							if(firstChild.getId().equals("MemberDetail")==false)
-								temp.removeChild(firstChild);
-							else{
-							((Include)firstChild).setDynamicProperty("memberId", memberId);
-							firstChild.invalidate();
-							}
-						} else {
-							Include includeTag = new Include();
-							
-							includeTag.setId("MemberDetail");
-							includeTag.setSrc("MemberDetail.zul");
-							includeTag.setMode("defer");
-							includeTag.setDynamicProperty("memberId", memberId);
-							// includeTag.setId("memDetailsPage");
-							memDetails.appendChild(includeTag);
-						}
+						if(firstChild!=null)
+							memDetails.removeChild(firstChild);
+					} else	{
+
 					}
+					Include includeTag = new Include();
+					includeTag.setSrc("AddNewMember.zul");
+					includeTag.setMode("defer");
+					// includeTag.setId("memDetailsPage");
+					memDetails.appendChild(includeTag);
 				}
-			}
-		});
-
-		addNewMember.addEventListener("onClick",new EventListener<MouseEvent>() {
-			@Override
-			public void onEvent(MouseEvent event) throws Exception {
-				Component memDetails = temp.getFellowIfAny("MemberDetailsPanel");
-				if (memDetails != null) {
-					Component firstChild = memDetails.getFirstChild();
-					if(firstChild!=null)
-					memDetails.removeChild(firstChild);
-				} else	{
-
-				}
-				Include includeTag = new Include();
-				includeTag.setSrc("AddNewMember.zul");
-				includeTag.setMode("defer");
-				// includeTag.setId("memDetailsPage");
-				memDetails.appendChild(includeTag);
-			}
-		});
+			});
+		}
+		else{
+			Executions.sendRedirect("/UI/Login.zul");
+		}
 	}
 	
 	public void addItemToRender(LightWeightMember newMember)	{

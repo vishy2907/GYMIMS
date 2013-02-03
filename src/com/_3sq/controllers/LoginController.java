@@ -1,8 +1,6 @@
 
 package com._3sq.controllers; 
  
-import java.io.IOException;
-
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
@@ -28,7 +26,12 @@ public class LoginController extends SelectorComposer<Window> {
     @Wire
     Label errorLabel;
      
-    @Listen("onClick=#ok")
+    @Listen("onOK = #pwd,#userId")
+    public void onEnterKey()	{
+    	submit();
+    }
+
+    @Listen("onClick = #ok")
     public void submit() {
     	String uId = userId.getValue();
     	String pass = pwd.getValue();
@@ -43,6 +46,7 @@ public class LoginController extends SelectorComposer<Window> {
     		// mahesh mahesh
     		GymImsImpl gym = GymImsImpl.getGymImsImpl();
     		if(gym.validateUser(uId, pass))	{
+    			System.setProperty("validSession", "true");    
     			Executions.sendRedirect("/UI/homepage.zul");
     		}
     		else	{

@@ -42,13 +42,6 @@ public class MemberImpl implements MemberDAO {
 		return m_miMemberImpl;
 	}
 
-	
-	
-	
-	
-	
-	
-	
 	private HashMap<Integer, LightWeightMember> m_hmAllMembers;
 	
 	/**
@@ -335,9 +328,9 @@ public class MemberImpl implements MemberDAO {
 				
 				String medHist = rs.getString("MEDICALHISTORY");
 				if(medHist!=null)
-					member.setOccupation(medHist);
+					member.setMedicalHistory(medHist);
 				else
-					member.setOccupation("");
+					member.setMedicalHistory("");
 				
 				String emergContact = rs.getString("EMERGENCYCONTACTNO");
 				if(emergContact!=null)

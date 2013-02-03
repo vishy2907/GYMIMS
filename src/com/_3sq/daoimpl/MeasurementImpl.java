@@ -9,10 +9,13 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Vector;
 
 import com._3sq.connection.OrclConnection;
 import com._3sq.daos.MeasurementDAO;
 import com._3sq.domainobjects.MeasurementInfo;
+import com._3sq.util._3sqDate;
+import com.lowagie.text.pdf.PRStream;
 
 /**
  * @author Vishal B
@@ -22,9 +25,7 @@ public class MeasurementImpl implements MeasurementDAO {
 	
 	
 
-	private MeasurementImpl()
-	{
-		
+	private MeasurementImpl()	{
 	}
 	
 	  private static MeasurementImpl singleInstance;
@@ -39,8 +40,6 @@ public class MeasurementImpl implements MeasurementDAO {
 	    }
 	    return singleInstance;
 	  }
-	
-	
 	
 	
 	
@@ -86,6 +85,7 @@ public class MeasurementImpl implements MeasurementDAO {
      		
      		
      		ResultSet rs = preStatement.executeQuery();			
+			preStatement.close();
 			
      		if(rs!=null)
      			return true;
@@ -113,57 +113,18 @@ public class MeasurementImpl implements MeasurementDAO {
 		
 		try {
 			
-		Connection oracleConn = OrclConnection.getOrclConnection();	
-		
-		String sql = "select max(MEASUREMENTTAKENDATE) from MEASUREMENTDETAILLS where MEMBERID = ? ";
-		PreparedStatement preStatement = oracleConn.prepareStatement(sql);
-		preStatement.setInt(1,memberId);  
-		ResultSet rs = preStatement.executeQuery();
-		rs.next();
-		
-		/*String sql1 = "select * from MEASUREMENTDETAILLS where MEMBERID = ? and MEASUREMENTTAKENDATE = '?' ";
-		PreparedStatement preStatement1 = oracleConn.prepareStatement(sql1);
-		String temp = rs.getString(1);
-		//long temp_date = Long.parseLong(temp);
-		preStatement1.setInt(1,memberId);  
-	    preStatement1.setString(2,temp);  
-		
-		ResultSet rs1 = preStatement.executeQuery();
-		rs1.next();
-		System.out.println("Asooooooooo"+rs1.getRow());  //prints how many rows in result
-		*/
-		ResultSetMetaData rsmd = rs.getMetaData();
+			Connection oracleConn = OrclConnection.getOrclConnection();	
 
-		int columnsNumber = rsmd.getColumnCount();
-		System.out.println(columnsNumber);
-		
-		
-		//System.out.println("Asooo"+rs1.getInt(1));
-		
-	    
-		
-/*		  long id = rs1.getLong(1);
-		System.out.println(id);
-			
-	*/	
-		
-		
-		
-	/*	while (rs1.next()) {
-             // Read values using column name
-            // int id = rs1.getInt("MEMBERID");
-			 int id = rs1.getInt(1);
-			 
-             //String mesuredate = rs1.getString("MEASUREMENTTAKENDATE");
-			String mesuredate = rs1.getString(2);
-             
-			 
-			 //int height = rs1.getInt("HEIGHT");
-			int height = rs1.getInt(3);
-              
-              
-             System.out.printf("%d %s %d \n" + id, mesuredate, height);
-         }*/
+			String sql = "select max(MEASUREMENTTAKENDATE) from MEASUREMENTDETAILLS where MEMBERID = ? ";
+			PreparedStatement preStatement = oracleConn.prepareStatement(sql);
+			preStatement.setInt(1,memberId);  
+			ResultSet rs = preStatement.executeQuery();
+			rs.next();
+
+			ResultSetMetaData rsmd = rs.getMetaData();
+
+			int columnsNumber = rsmd.getColumnCount();
+			System.out.println(columnsNumber);
 	
 		}
 		
@@ -196,42 +157,100 @@ public class MeasurementImpl implements MeasurementDAO {
 	@SuppressWarnings("deprecation")
 	public static void main(String args[]){
 		
-		
-		
-		//ALL BELOW THINGS ARE FOR TEMPORATILY
-		MeasurementInfo obj_MeasurementInfo = new MeasurementInfo();
-		MeasurementImpl measurementDBImpl = MeasurementImpl.getMeasurementImpl();
 	
-				
-		obj_MeasurementInfo.setMeasurementTakenDate(new Date("07/30/1991"));
-		obj_MeasurementInfo.setHeight(1);
-		obj_MeasurementInfo.setWeight(1);
-		obj_MeasurementInfo.setChest(1);
-		obj_MeasurementInfo.setWaist(1);
-		obj_MeasurementInfo.setThig(1);
-		obj_MeasurementInfo.setCalf(1);
-		obj_MeasurementInfo.setArms(1);
-		obj_MeasurementInfo.setForeamrs(1);
-		obj_MeasurementInfo.setFatInPer(1);
-		obj_MeasurementInfo.setBodyAge(1);
-		obj_MeasurementInfo.setBMI(1);
-		obj_MeasurementInfo.setRM(1);
-		obj_MeasurementInfo.setVisceralFat(1);
-		obj_MeasurementInfo.setWholeBodySF(1);
-		obj_MeasurementInfo.setWholeBodySM(1);
-		obj_MeasurementInfo.setTrunkSF(1);
-		obj_MeasurementInfo.setTrunkSM(1);
-		obj_MeasurementInfo.setLegSF(1);
-		obj_MeasurementInfo.setLegSM(1);
-		obj_MeasurementInfo.setArmSF(1);
-		obj_MeasurementInfo.setArmSM(1);
-		
 				
 	//	boolean bresult = measurementDBImpl.addBodyMeasurement(2, obj_MeasurementInfo);
 		//System.out.println("Insertion of Measurement " + bresult);
+
+
+	}
+
+
+	public java.util.Date[] getAllMeasurementDates(int currMemberId) {
+			Date[] msrmntDates=null;
+		try	{
+			Vector<Date> measurementDates = null;
 			
-	    measurementDBImpl.getLatestBodyMeasurement(2);
+			Connection oracleConn = OrclConnection.getOrclConnection();
+			String sql = " SELECT MEASUREMENTTAKENDATE from MEASUREMENTDETAILLS WHERE MemberId = ? ORDER BY MEASUREMENTTAKENDATE DESC";
 
+			PreparedStatement preStatement = oracleConn.prepareStatement(sql);
+			preStatement.setInt(1,currMemberId);  
+			
+			ResultSet rs = preStatement.executeQuery();			
+
+			while(rs.next())	{	
+				if(measurementDates==null)
+					measurementDates = new Vector<Date>(5);
+				measurementDates.add(_3sqDate.sqlDateToUtilDate(rs.getDate("MEASUREMENTTAKENDATE")));
+			}
+
+			if(rs!=null)	
+				rs.close();
+			if(preStatement!=null)
+				preStatement.close();
+
+		
+			if(measurementDates!=null)	{
+				msrmntDates = new Date[measurementDates.size()];
+				
+				return measurementDates.toArray(msrmntDates);
+				
+			}
+			
+
+		} catch (Exception e) {
+			System.out.println("MeasurementImpl.java: getAllMeasurementDates() : ");
+			e.printStackTrace();
+		}
+		return null;
 	}		
+	
+	public MeasurementInfo getMeasurement(int memberId, Date msrmntDate)	{
+		MeasurementInfo currMsr = new MeasurementInfo();
+		
+		try	{
+			
+			Connection oracleConn = OrclConnection.getOrclConnection();
+			String sql = " SELECT *  from MEASUREMENTDETAILLS WHERE MemberId = ? AND MEASUREMENTTAKENDATE = ?";
 
+			PreparedStatement preStatement = oracleConn.prepareStatement(sql);
+			preStatement.setInt(1,memberId);
+			preStatement.setDate(2,_3sqDate.utilDateToSqlDate(msrmntDate));
+			
+			ResultSet rs = preStatement.executeQuery();			
+			
+			if(rs.next())	{	
+				currMsr.setHeight(rs.getInt("HEIGHT"));
+				currMsr.setWeight(rs.getFloat("WEIGHT"));
+				currMsr.setChest(rs.getFloat("CHEST" ));
+				currMsr.setWaist(rs.getFloat("WAIST"	));
+				currMsr.setThig(rs.getFloat("THIGHS"));
+				currMsr.setCalf(rs.getFloat("CALFS"));
+				currMsr.setArms(rs.getFloat("ARMS"));
+				currMsr.setForeamrs(rs.getFloat("FOREARMS"));
+				currMsr.setFatInPer(rs.getInt("FATINPER"));
+				currMsr.setBodyAge(rs.getInt("BODYAGE"));
+				currMsr.setBMI(rs.getInt("BMI"));
+				currMsr.setRM(rs.getInt("RM"));
+				currMsr.setVisceralFat(rs.getFloat("VISCERALFAT" ));	
+				currMsr.setWholeBodySF(rs.getFloat("WHOLEBODYSF" ));
+				currMsr.setWholeBodySM(rs.getFloat("WHOLEBODYSM"));
+				currMsr.setTrunkSF(rs.getFloat("TRUNKSF"));
+				currMsr.setTrunkSM(rs.getFloat("TRUNKSM"));
+				currMsr.setLegSF(rs.getFloat("LEGSF" ));
+				currMsr.setLegSM(rs.getFloat("LEGSM" ));
+				currMsr.setArmSF(rs.getFloat("ARMSF" ));
+				currMsr.setArmSM(rs.getFloat("ARMSM"));
+			}
+			if(rs!=null)	
+				rs.close();
+			if(preStatement!=null)
+				preStatement.close();
+		} catch (Exception e) {
+			System.out.println("MeasurementImpl.java: getMsrmnt() : ");
+			e.printStackTrace();
+		}
+		return currMsr;
+	}
 }

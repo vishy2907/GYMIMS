@@ -1,6 +1,8 @@
 <?page title="Add Registration Information" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Add Registration Information" border="normal">
+<window title="Add Registration Information" border="normal" position="center,center" closable="true" 
+	action="show: slideDown;hide: slideUp"
+	 width="460px">
 
 
 <grid>
@@ -26,11 +28,9 @@
 			Plan End Date <datebox id="planEndDate" />
 			</row>
 		</rows>
- <foot >
-            <footer align="center">  <button id="addregToDB" label="Submit Registration Details"   /> </footer>
-        </foot>
-
+ 		
 	</grid>
-
+	<space></space>  <div align="center"><button id="addregToDB" label="Submit Registration Details"  mold="trendy" /></div>
+	<space></space>   
 </window>
 </zk>

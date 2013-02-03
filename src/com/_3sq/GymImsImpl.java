@@ -14,6 +14,7 @@ import org.zkoss.zul.Window;
 
 import com._3sq.daoimpl.MemberImpl;
 import com._3sq.datatransporter.LightWeightMember;
+import com._3sq.messaging.MessageSender;
 
 /**
  * @author VishaB
@@ -55,12 +56,14 @@ public class GymImsImpl {
 	private String m_sComPortNo;
 	private String m_sUserId;
 	private String m_sPassword;
+	private String m_sWelcomeMessage;
 	
 	
 	private List<LightWeightMember> allMembers;
 	private List<LightWeightMember> allActiveMembers;
 	private List<LightWeightMember> allInActiveMembers;
 	
+	MessageSender sms = new MessageSender(MessageSender.SYNCHRONOUS);
 	//
 	
 
@@ -105,9 +108,18 @@ public class GymImsImpl {
 			setMessageCenterNo(m_pGymProps.getProperty("messagecenterno","919021000500"));
 			setUserId(m_pGymProps.getProperty("userid","shani"));
 			setPassword(m_pGymProps.getProperty("password","rocks"));
+			setWelcomeMessage(m_pGymProps.getProperty("welcomeMessage","Welcome to gym"));
 		}
 	}
 
+
+	private void setWelcomeMessage(String welcomeMessage) {
+		m_sWelcomeMessage = welcomeMessage;
+	}
+	public String getWelcomeMessage()	{
+		return m_sWelcomeMessage;
+	}
+	
 
 	public String getMessageCenterNo() {
 		return m_sMessageCenterNo;
@@ -228,5 +240,14 @@ public class GymImsImpl {
 	 */
 	public List<LightWeightMember> getAllInactiveMembers()	{
 		return allInActiveMembers;
+	}
+	
+	public void sendMessgeToSingleUser(String mobNo, String message)	{
+		
+		sms.sendMessage(mobNo,message,this.getComPortNo(),this.getMessageCenterNo());
+	}
+
+	public void sendWelcomeMessage(String contactNumber) {
+		sms.sendMessage(contactNumber,this.getWelcomeMessage(),this.getComPortNo(),this.getMessageCenterNo());
 	}
 }

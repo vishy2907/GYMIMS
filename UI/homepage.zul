@@ -6,31 +6,29 @@
 		<center border="none">
 			<tabbox height="100%">
 				<tabs>
-					<tab label="Membership Mgmt." />
-					<tab label="Fess Mgmt." />
+					<tab label="Membership Mgmt."  />
+					<tab label="Reports" />
 				</tabs>
 				<tabpanels>
 					<!-- 		//Member Ship management Tab -->
 					<tabpanel>
-
 						<borderlayout>
 							<north></north>
-							<west width="25%" flex="true" collapsible="true" splittable="true">
-							
-								<div apply="com._3sq.controllers.MembersController">
+							<west width="25%" flex="true" collapsible="true" splittable="true" apply="com._3sq.controllers.MembersController">
+								<div >
 								<listbox>
 									<listhead >
 											<listheader width="30%"	/>
 											<listheader width="40%" />
-											<listheader width="30%" />
+										<listheader/>
 										</listhead>
 									<listitem>
-										<listcell><textbox id="serachByID"></textbox> </listcell>
-										<listcell><textbox id="serachByName"></textbox> </listcell>
+										<listcell><textbox id="serachByID" hflex="1" placeholder="Member ID"></textbox> </listcell>
+										<listcell><textbox id="serachByName" hflex="1" placeholder="Name"></textbox> </listcell>
 										<listcell>
 											<combobox id="searchByType" autocomplete="false"
-											readonly="true" mold="rounded" >
-												<comboitem label="All"/>
+											readonly="true" mold="rounded" hflex="1">
+												<comboitem label="All" />
 												<comboitem label="Active"/> 
 												<comboitem label="Inactive"/>
 											</combobox>
@@ -51,7 +49,7 @@
 							</west>
 							<south></south>
 							<center>
-								<div id="MemberDetailsPanel"/>
+								<window id="MemberDetailsPanel" height="100%" border="none" />
 							</center>
 						</borderlayout>
 					</tabpanel>

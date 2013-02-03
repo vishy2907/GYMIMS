@@ -2,7 +2,7 @@
 <zk >
 
 	<window id="wndouterlogin" mode="overlapped" height="375px"
-		apply="com._3sq.controllers.SampleTestController"
+	
 		
 		width="600px" shadow="embedded" position="center,middle"
 		xmlns:zk="http://www.zkoss.org/2005/zk"

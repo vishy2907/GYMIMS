@@ -96,8 +96,8 @@
 
 
 			<foot>
-				<footer align="center">
-					<button id="addMemberToDB" label="Submit Details" />
+				<footer align="right">
+					<button id="addMemberToDB" label="Submit Details" mold="trendy" width="20%"/>
 				</footer>
 			</foot>
 		</grid>
