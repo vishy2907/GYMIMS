@@ -13,6 +13,7 @@ import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Intbox;
+import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Longbox;
 import org.zkoss.zul.Radio;
 import org.zkoss.zul.Textbox;
@@ -42,6 +43,7 @@ public class AddNewMemberController extends SelectorComposer<Component> {
 	@Wire private Datebox 	memberRegDate;
 	@Wire private Button 	addMemberToDB;
 	@Wire private Window	addNewMember;
+	@Wire private Listbox lb;
 	
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
@@ -117,8 +119,8 @@ public class AddNewMemberController extends SelectorComposer<Component> {
 					MembersController.getMemberControllerImpl().addItemToRender(newM);
 					GymImsImpl.getGymImsImpl().sendWelcomeMessage(""+newMember.getContactNumber());
 					GymImsImpl.getGymImsImpl().getAllActiveMembers().add(newM);
-					GymImsImpl.getGymImsImpl().getAllMembers().add(newM);
-					
+					GymImsImpl.getGymImsImpl().getAllActiveMembers().add(newM);
+					lb.invalidate();
 					addNewMember.detach();
 				}
 				else

@@ -11,13 +11,12 @@ import com._3sq.domainobjects.Member;
  */
 
 public interface MemberDAO {
-	public boolean addMember(Member member);
-	public boolean removeMember(Member member);
-	public boolean updateMember(Member member);
-	public Member getMember(int memberId);
-	public int getNextMemberID();
+	public boolean addMember(Member member) throws Exception;
+	public boolean removeMember(Member member) throws Exception;
+	public boolean updateMember(Member member) throws Exception;
+	public Member getMember(int memberId) throws Exception;
+	public int getNextMemberID() throws Exception;
 	
 	public HashMap<Integer, LightWeightMember> loadPartialMembers();
-    
 	
 }

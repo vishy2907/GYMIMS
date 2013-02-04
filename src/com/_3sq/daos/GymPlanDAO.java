@@ -7,8 +7,8 @@ import com._3sq.domainobjects.GymPlan;
  * DAO for maintaining list of all gym plans
  */
 public interface GymPlanDAO {
-	public boolean addGymPlan(GymPlan gymPlan);
-	public boolean removeGymPlan(int planId);
-	public boolean updateGymPlan(int planId, GymPlan gymPlan);
-	public int getNextPlanID();
+	public boolean addGymPlan(GymPlan gymPlan) throws Exception;
+	public boolean removeGymPlan(int planId) throws Exception;
+	public boolean updateGymPlan(int planId, GymPlan gymPlan) throws Exception;
+	public int getNextPlanID() throws Exception;
 }

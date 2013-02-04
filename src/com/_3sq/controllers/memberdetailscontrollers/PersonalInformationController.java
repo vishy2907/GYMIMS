@@ -23,6 +23,7 @@ import org.zkoss.zul.Radio;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
+import com._3sq.GymImsImpl;
 import com._3sq.daoimpl.MemberImpl;
 import com._3sq.domainobjects.Member;
 
@@ -66,12 +67,10 @@ public class PersonalInformationController extends SelectorComposer<Component> {
 		super.doAfterCompose(comp);
 		
 
-		int memId = Integer.parseInt(System.getProperty("MemberId","0"));
-		System.out.println("Here I came..."+memId);
+		int memId = GymImsImpl.getGymImsImpl().getCurrMember().getMemberID();
 		
 		if(memId != 0)	{
-			System.out.println("Selected Member : "+memId);
-			currMember = MemberImpl.getmemberImpl().getMember(memId);
+			currMember = GymImsImpl.getGymImsImpl().getCurrMember();
 
 			sendMessage.setTooltip("Send message to "+currMember.getMemberName());
 			////fill the details

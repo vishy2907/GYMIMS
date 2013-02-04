@@ -17,6 +17,7 @@ import org.zkoss.zul.Tabpanels;
 import org.zkoss.zul.Tabs;
 import org.zkoss.zul.Window;
 
+import com._3sq.GymImsImpl;
 import com._3sq.daoimpl.MeasurementImpl;
 import com._3sq.daoimpl.RegistrationPlanImpl;
 
@@ -41,7 +42,7 @@ public class PaymentHistoryController extends SelectorComposer<Component> {
 		super.doAfterCompose(comp);	
 
 		//TODO : Load all measurement dates to build the UI
-		int currMemberId = Integer.parseInt(System.getProperty("MemberId"));
+		int currMemberId = GymImsImpl.getGymImsImpl().getCurrMember().getMemberID();
 		Date[] allPaymentDates = RegistrationPlanImpl.getRegistrationPlanImpl().getAllDatesOfHistoryPayment(currMemberId);
 
 		

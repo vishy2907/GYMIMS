@@ -18,6 +18,8 @@ import org.zkoss.zul.Tabpanel;
 import org.zkoss.zul.Toolbarbutton;
 import org.zkoss.zul.Window;
 
+import com._3sq.GymImsImpl;
+
 /**
  * @author VishalB
  * Class handles the all Member Detail Info Tabs
@@ -36,44 +38,43 @@ public class MemberDetailInfo extends SelectorComposer<Component> {
 	@Wire Tabpanel idPersInfoPanel;
 	@Wire Tabpanel idMsrmnrDetHistoryPanel;
 	@Wire Tabpanel idPaymentHistoryPanel;
-	@Wire Toolbarbutton toolbarButton;
+	@Wire Toolbarbutton msrmntButton;
+	@Wire Toolbarbutton paymentButton;
+	@Wire Window memberInfo;
 	
-	int id = 0;
 	Date[] allMsrmntDates;
 	final DateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
 	
 	@Listen("onSelect = #idPersInfo")
 	public void onSelectPersonalInfoTab()	{
-		toolbarButton.setVisible(false);
-		id=0;
+		paymentButton.setVisible(true);
+		msrmntButton.setVisible(true);
 	}
 	
 	
 	@Listen("onSelect = #idPaymentHistory")
 	public void onSelectPaymentHistory()	{
-		toolbarButton.setVisible(true);
-		toolbarButton.setLabel("Make Payment / Renew Membership");
-		toolbarButton.setImage("/UI/images/money.jpg");
-		id=1;
+		paymentButton.setVisible(true);
+		msrmntButton.setVisible(false);
 	}
 	
 	@Listen("onSelect = #idMsrmnrDetHistory")
 	public void onMeasurementTab()	{
-		toolbarButton.setVisible(true);
-		toolbarButton.setLabel("Update / Add Measurement");
-		toolbarButton.setImage("/UI/images/gym2.jpg");
-		id=2;
+		paymentButton.setVisible(false);
+		msrmntButton.setVisible(true);
 	}
 	
 	
-	@Listen("onClick = #toolbarButton")
+	@Listen("onClick = #paymentButton")
 	public void onToolbarButton()	{
-		if(id==1)	{
 			Window window = (Window)Executions.createComponents("/UI/AddRegistration.zul", null, null);
 			window.doModal();
-		}else if (id==2)	{
+	}
+	
+	@Listen("onClick = #msrmntButton")
+	public void onClickOnTemp()	{
 			Window window = (Window)Executions.createComponents("/UI/addMeasurement.zul", null, null);
 			window.doModal();
-		}
 	}
+	
 }

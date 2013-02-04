@@ -20,6 +20,7 @@ import org.zkoss.zul.Tabpanels;
 import org.zkoss.zul.Tabs;
 import org.zkoss.zul.Window;
 
+import com._3sq.GymImsImpl;
 import com._3sq.daoimpl.MeasurementImpl;
 
 /**
@@ -51,7 +52,7 @@ public class MeasurementHistoryController extends SelectorComposer<Component> {
 		super.doAfterCompose(comp);	
 
 		//TODO : Load all measurement dates to build the UI
-		int currMemberId = Integer.parseInt(System.getProperty("MemberId","0"));
+		int currMemberId = GymImsImpl.getGymImsImpl().getCurrMember().getMemberID();
 		Date[] allMsrmntDates = MeasurementImpl.getMeasurementImpl().getAllMeasurementDates(currMemberId);
 		if(allMsrmntDates!=null)	{
 			System.setProperty("CurrDate",""+allMsrmntDates[0].getTime());

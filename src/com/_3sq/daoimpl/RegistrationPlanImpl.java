@@ -33,53 +33,30 @@ public class RegistrationPlanImpl implements RegistrationPlanDAO{
 
 	
 	@Override
-	public boolean addRegistrationInfo(int memberid,
-			RegistrationPlan registrationplan) {
+	public boolean addRegistrationInfo(int memberId,RegistrationPlan rp,String reason) throws Exception{
 		// TODO Auto-generated method stub
 		
 		//physical insertion
 		PreparedStatement preStatement	= null;
-		ResultSet rs = null;
-		try {
 			
 			Connection oracleConn = OrclConnection.getOrclConnection();	
-			String sql = " insert into REGISTRATIONINFO (MEMBERID,PLANID,STARTDATE,ENDDATE) values  (?,?,?,?) ";
+			String sql = " insert into REGISTRATIONINFO (MEMBERID,PLANID,RECEIPTNO,STARTDATE,ENDDATE,REASON,PAIDAMT) values  (?,?,?,?,?,?,?) ";
 			
 			preStatement = oracleConn.prepareStatement(sql);
 			
-			
-			
-			preStatement.setInt(1,memberid);
-     		preStatement.setInt(2, registrationplan.getPlanID());
-     		preStatement.setDate(3, (Date) registrationplan.getStartDate());
-     		preStatement.setDate(4, (Date) registrationplan.getEndDate());
-    
+			 preStatement.setInt(1, memberId);
+			 preStatement.setInt(2, rp.getPlanID());
+			 preStatement.setInt(3, rp.getReceiptId());
+			 preStatement.setDate(4, _3sqDate.utilDateToSqlDate(rp.getStartDate()));
+			 preStatement.setDate(5, _3sqDate.utilDateToSqlDate(rp.getEndDate()));
+			 preStatement.setString(6, reason);
+			 preStatement.setInt(7, rp.getFees());
      		
-     		rs = preStatement.executeQuery();			
+     		preStatement.executeUpdate();			
 			
-     		if(rs!=null)
-     			return true;
-     		else
-     			return false;
+     		preStatement.close();
 					
-		} catch (Exception e) {
-			System.out.println("RegistrationPlanImpl.java: AddRegistrationInfo() : ");
-			e.printStackTrace();
-		}
-		finally	{
-			try	{
-				if(preStatement!=null)
-					preStatement.close();
-				if(rs!=null)	
-					rs.close();
-			}catch(SQLException e)	{
-				e.printStackTrace();
-			}
-		}
-		return false;
-		
-		
-		
+		return true;
 	}
 	public static void main(String args[])
 	{

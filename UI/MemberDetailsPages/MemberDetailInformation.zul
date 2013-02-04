@@ -7,9 +7,9 @@
 		<tab id="idMsrmnrDetHistory" label="Measurement History" height="30px"/>
 		<tab id="idPaymentHistory" label="Payment History" height="30px"/>
 	</tabs>
-	<toolbar width="30%" >
-			<toolbarbutton id="toolbarButton" label=""  visible="false"> </toolbarbutton>
-			 
+	<toolbar  >
+			<toolbarbutton id="paymentButton" label="Make Payment / Renew Membership"  visible="true" image="/UI/images/money.jpg"> </toolbarbutton>
+			<toolbarbutton id="msrmntButton" label="Update / Add Measurement"  visible="true" image="/UI/images/gym2.jpg"> </toolbarbutton>
 	</toolbar>
 	<tabpanels>
 		<tabpanel id="idPersInfoPanel" height="100%">

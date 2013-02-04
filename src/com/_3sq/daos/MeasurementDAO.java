@@ -14,9 +14,9 @@ import com._3sq.domainobjects.MeasurementInfo;
  */
 
 public interface MeasurementDAO {
-	public boolean addBodyMeasurement(int memberId, MeasurementInfo combinedMsrInfo);
-	public MeasurementInfo getLatestBodyMeasurement(int memberId);
-	public ArrayList<MeasurementInfo> getBodyMeasurementHistory(int memberId);
+	public boolean addBodyMeasurement(int memberId, MeasurementInfo combinedMsrInfo) throws Exception;
+	public MeasurementInfo getLatestBodyMeasurement(int memberId) throws Exception;
+	public ArrayList<MeasurementInfo> getBodyMeasurementHistory(int memberId) throws Exception;
 	
 	
 }

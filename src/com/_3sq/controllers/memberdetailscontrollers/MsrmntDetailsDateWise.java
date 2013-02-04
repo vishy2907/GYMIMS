@@ -12,6 +12,7 @@ import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Intbox;
 
+import com._3sq.GymImsImpl;
 import com._3sq.daoimpl.MeasurementImpl;
 import com._3sq.domainobjects.MeasurementInfo;
 
@@ -59,7 +60,7 @@ public class MsrmntDetailsDateWise extends SelectorComposer<Component> {
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
 
-		int memId = Integer.parseInt(System.getProperty("MemberId","0"));
+		int memId = GymImsImpl.getGymImsImpl().getCurrMember().getMemberID();
 		Date d = new Date(Long.parseLong(System.getProperty("CurrDate",""+new Date().getTime())));
 		
 		System.out.println("Measurement Taken Date ");

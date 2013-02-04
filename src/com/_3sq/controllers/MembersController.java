@@ -53,8 +53,6 @@ public class MembersController extends SelectorComposer<Component> {
 	private Button addNewMember;
 	@Wire 
 	private Textbox serachByName;
-	@Wire 
-	private Combobox searchByType;
 	
 	@Wire private Window MemberDetailsPanel;
 	
@@ -81,7 +79,7 @@ public class MembersController extends SelectorComposer<Component> {
 	public MembersController()	{
 		if(System.getProperty("validSession")!=null && System.getProperty("validSession").equals("") ==false )	{
 			members = MemberImpl.getmemberImpl();
-			memberList = gymImplObj.getAllMembers();	
+			memberList = gymImplObj.getAllActiveMembers();	
 			singleInstance = this;
 		}else{
 			Executions.sendRedirect("/UI/Login.zul");
@@ -98,29 +96,13 @@ public class MembersController extends SelectorComposer<Component> {
 
 	
 	@Listen("onOK = #serachByName")
+	//Make this event as onChange after
     public void onSubmit(Event event){
-		System.out.println("On Entrer");
-    }
-
-	@Listen("onChange = #searchByType")
-    public void onSelectedCriteriaChange(Event event){
-		//First remove all elems
-		listModel.removeAll(memberList);
-		
-		Comboitem selection = searchByType.getSelectedItem();
-		if(selection.getLabel().equals("All"))
-			memberList = gymImplObj.getAllMembers();
-		else if(selection.getLabel().equals("Active"))
-			memberList = gymImplObj.getAllActiveMembers();
-		else
-			memberList = gymImplObj.getAllInactiveMembers();
-		
-		listModel.addAll(memberList);
+		String name = serachByName.getValue();
 		
     }
 
-	
-	
+
 	public ListitemRenderer<LightWeightMember> listItemRenderer = new ListitemRenderer<LightWeightMember>() {
 		@Override
 		public void render(Listitem item, LightWeightMember data, int index)
@@ -153,27 +135,39 @@ public class MembersController extends SelectorComposer<Component> {
 			
 			if (memberDetailsPanel != null) {
 				Component firstChild = memberDetailsPanel.getFirstChild();
-				if (firstChild != null) {
-					System.out.println("ID OF CHILD : "+firstChild.getId());
-					if(firstChild.getId().equals("memberInfo")==false)
-						memberDetailsPanel.removeChild(firstChild);
-					else{
-						System.setProperty("MemberId", ""+memberId);
-						firstChild.invalidate();
-					}
-				} else {
-					System.setProperty("MemberId",""+ memberId);
+				if(firstChild==null){
+					//Set the current Member here...
+					Member currMember = MemberImpl.getmemberImpl().getMember(memberId);
+					GymImsImpl.getGymImsImpl().setCurrMember(currMember);
+					
 					Window window = (Window)Executions.createComponents("MemberDetailsPages/MemberDetailInformation.zul", null, null);
+					window.setTitle("Member Information : "+currMember.getMemberName());
 					window.doEmbedded();
 					memberDetailsPanel.appendChild(window);
-				}
+				} else  {
+					if(firstChild.getId().equals("memberInfo")==false)	{
+						memberDetailsPanel.removeChild(firstChild);
+						
+						Member currMember = MemberImpl.getmemberImpl().getMember(memberId);
+						GymImsImpl.getGymImsImpl().setCurrMember(currMember);
+						
+						Window window = (Window)Executions.createComponents("MemberDetailsPages/MemberDetailInformation.zul", null, null);
+						window.doEmbedded();
+						window.setTitle("Member Information : "+currMember.getMemberName());
+						memberDetailsPanel.appendChild(window);
+					}
+					else{
+						Member currMember = MemberImpl.getmemberImpl().getMember(memberId);
+						GymImsImpl.getGymImsImpl().setCurrMember(currMember);
+						firstChild.invalidate();
+						((Window)firstChild).setTitle("Member Information : "+currMember.getMemberName());
+					}
+				} 
+
+					
 			}
 		}
     }
-	
-	
-	Window memberDetails;
-	
 	
 	
 	public void doAfterCompose(Component comp) throws Exception {
@@ -182,7 +176,7 @@ public class MembersController extends SelectorComposer<Component> {
 		if(System.getProperty("validSession")!=null && System.getProperty("validSession").equals("") ==false )	{
 			System.setProperty("validSession","");
 			
-			searchByType.setSelectedIndex(0);
+			//searchByType.setSelectedIndex(0);
 			if(listItemRenderer!=null)
 				lb.setItemRenderer(listItemRenderer);
 

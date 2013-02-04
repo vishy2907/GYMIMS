@@ -12,8 +12,11 @@ import java.util.Properties;
 
 import org.zkoss.zul.Window;
 
+import com._3sq.daoimpl.GymPlanImpl;
 import com._3sq.daoimpl.MemberImpl;
 import com._3sq.datatransporter.LightWeightMember;
+import com._3sq.domainobjects.GymPlan;
+import com._3sq.domainobjects.Member;
 import com._3sq.messaging.MessageSender;
 
 /**
@@ -45,6 +48,8 @@ public class GymImsImpl {
 		//load the member data
 		System.out.println("Loading all member Details...");
 		loadAllMembersData();
+		
+		//load all plan names...
 	}
 	
 
@@ -59,13 +64,17 @@ public class GymImsImpl {
 	private String m_sWelcomeMessage;
 	
 	
-	private List<LightWeightMember> allMembers;
+//	private List<LightWeightMember> allMembers;
 	private List<LightWeightMember> allActiveMembers;
-	private List<LightWeightMember> allInActiveMembers;
+//	private List<LightWeightMember> allInActiveMembers;
 	
+	private Member m_mCurrMember;
+	
+	
+
 	MessageSender sms = new MessageSender(MessageSender.SYNCHRONOUS);
 	//
-	
+	HashMap<String,GymPlan> allPlans;
 
 	
 	public boolean validateUser(String userID, String password){
@@ -204,43 +213,43 @@ public class GymImsImpl {
 	 * loads all the members from the db and feels the details..
 	 */
 	private void loadAllMembersData() {
-		if (allMembers == null) {
+		if (allActiveMembers == null) {
 			MemberImpl members = MemberImpl.getmemberImpl();
-			allMembers = new ArrayList<LightWeightMember>();
+			//allMembers = new ArrayList<LightWeightMember>();
 			allActiveMembers = new ArrayList<LightWeightMember>();
-			allInActiveMembers = new ArrayList<LightWeightMember>();
+			//allInActiveMembers = new ArrayList<LightWeightMember>();
 
 			HashMap<Integer, LightWeightMember> memList = members.loadPartialMembers();
 
 			for (LightWeightMember loc : memList.values()) {
-				allMembers.add(loc);
+				//allMembers.add(loc);
 				//decide abt the active or inactive memberships
 				if(loc.isMemberActive())
 					allActiveMembers.add(loc);
-				else
-					allInActiveMembers.add(loc);
+				//else
+					//allInActiveMembers.add(loc);
 			}
 		}
 	}
 
-	/**
-	 *  @return all members of gym
-	 */
-	public List<LightWeightMember> getAllMembers()	{
-		return allMembers;
-	}
+//	/**
+//	 *  @return all members of gym
+//	 */
+//	public List<LightWeightMember> getAllMembers()	{
+//		return allActiveMembers;
+//	}
 	/**
 	 *  @return all active members
 	 */
 	public List<LightWeightMember> getAllActiveMembers()	{
 		return allActiveMembers;
 	}
-	/**
-	 *  @return all In - active members
-	 */
-	public List<LightWeightMember> getAllInactiveMembers()	{
-		return allInActiveMembers;
-	}
+//	/**
+//	 *  @return all In - active members
+//	 */
+//	public List<LightWeightMember> getAllInactiveMembers()	{
+//		return allInActiveMembers;
+//	}
 	
 	public void sendMessgeToSingleUser(String mobNo, String message)	{
 		
@@ -250,4 +259,26 @@ public class GymImsImpl {
 	public void sendWelcomeMessage(String contactNumber) {
 		sms.sendMessage(contactNumber,this.getWelcomeMessage(),this.getComPortNo(),this.getMessageCenterNo());
 	}
+	
+
+	
+	//Load all the plan names here at the startup only...
+	public HashMap<String,GymPlan> getGymPlans ()	{
+		if(allPlans==null)	{
+			return (allPlans=GymPlanImpl.getGymPlanImpl().getAllGymPlans());
+		}
+		else	{
+			return allPlans;
+		}
+				
+	}
+
+	public Member getCurrMember() {
+		return m_mCurrMember;
+	}
+
+	public void setCurrMember(Member currMember) {
+		this.m_mCurrMember = currMember;
+	}
+
 }

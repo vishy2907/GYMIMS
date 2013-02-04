@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import com._3sq.connection.OrclConnection;
 import com._3sq.daos.GymPlanDAO;
@@ -43,7 +45,7 @@ public class GymPlanImpl implements GymPlanDAO {
 	 * @see com._3sq.daos.GymPlanDAO#addGymPlan(com._3sq.domainobjects.GymPlan)
 	 */
 	@Override
-		public boolean addGymPlan(GymPlan gymPlan) {
+		public boolean addGymPlan(GymPlan gymPlan)  throws Exception{
 		// TODO Auto-generated method stub
 		
 		//physical insertion
@@ -137,4 +139,50 @@ public class GymPlanImpl implements GymPlanDAO {
 		return false;
 	}
 
+	public HashMap<String,GymPlan> getAllGymPlans()	{
+		HashMap<String,GymPlan> allPlans = new HashMap<String,GymPlan>(9);
+
+		Connection oracleConn = OrclConnection.getOrclConnection();
+		Statement st=null;
+		ResultSet rs=null;
+		try {
+			st=oracleConn.createStatement();
+			String sql = " Select PLANID,PLANNAME,PLANFEES,DURATIONINMONTHS FROM GYMPLAN ORDER BY PLANID";
+			rs=st.executeQuery(sql);
+			
+			while(rs.next())
+			{
+				int pId = rs.getInt(1);
+				if(pId==-1)
+					continue;
+				
+				String pName = rs.getString(2);
+				int fees = rs.getInt(3);
+				int dur = rs.getInt(4);
+
+				GymPlan gym = new  GymPlan();
+				
+				gym.setPlanID(pId);
+				gym.setPlanName(pName);
+				gym.setFees(fees);
+				gym.setDurationInMonths(dur);
+				
+				allPlans.put(pName,gym);
+			}
+			st.close();
+			rs.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally
+		{
+		}
+		
+		return allPlans;
+	}
+	
+	public static void main(String[] ars)	{
+		
+	}
 }

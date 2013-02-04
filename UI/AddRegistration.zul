@@ -1,36 +1,54 @@
-<?page title="Add Registration Information" contentType="text/html;charset=UTF-8"?>
+<?page title="(Re)New Membership Information" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Add Registration Information" border="normal" position="center,center" closable="true" 
+<window title="(Re)New GYM Membership" border="normal" position="center,center" closable="true" 
 	action="show: slideDown;hide: slideUp"
-	 width="460px">
-
+	 width="500px"
+	 apply="com._3sq.controllers.AddRegController"
+	 id= "regWindow"
+>
 
 <grid>
 		<columns>
-			<column label="" width="20%"/>
-			<column label=""/>
+			<column label="" width="30%"/>
+			<column label="" />
 		</columns>
 		<rows>
 
 			<row>	
-			Member ID <intbox id="memberId" />
+				Member ID <intbox id="memberId" constraint="no empty"/>
 			</row>
 	
 			<row>	
-			Plan ID <intbox id="memberPlanId" />
+				Receipt No <intbox id="receipt" constraint="no empty"/>
+			</row>
+				
+			<row>	
+				Registration Type  <radiogroup><radio id="oldR" label="Renew Registration"/><radio id="newR" label="New Registration" /></radiogroup>
+			</row>
+	
+			<row>	
+				Select Plan <div ><combobox id="memberPlanN" readonly="true" autocomplete="false" visible="true"/> <combobox id="memberPlanO" readonly="true" autocomplete="false" visible="false"/></div>
 			</row>	
 		
 			<row>	
-			Plan Start Date <datebox id="planStartDate" />
+				Amount <intbox id="fees" readonly="true" width="60%"/>
+			</row>	
+		
+			<row>	
+				Duration <textbox id="duration" readonly="true" width="60%"/>
+			</row>	
+		
+			<row>	
+			Plan Start Date <datebox id="planStartDate" width="60%" format="dd-MMM-yyyy"/>
 			</row>
 
 			<row>	
-			Plan End Date <datebox id="planEndDate" />
+			Plan End Date <datebox id="planEndDate" readonly="true" width="60%" format="dd-MMM-yyyy"/>
 			</row>
 		</rows>
  		
 	</grid>
-	<space></space>  <div align="center"><button id="addregToDB" label="Submit Registration Details"  mold="trendy" /></div>
+	<space></space>  <div align="center"><button id="addregToDB" label="Submit Registration Details"  disabled="true" mold="trendy" /></div>
 	<space></space>   
 </window>
 </zk>

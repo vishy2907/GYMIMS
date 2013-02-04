@@ -1,12 +1,20 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit"?>
 <?page title="ProFitness GYM"?>
-<zk>
+<zk xmlns:h="http://www.w3.org/1999/xhtml" >
 	<borderlayout>
-		<north height="5%" border="none">Welcome to GYM - IMS</north>
+		<north height="5%" border="none">
+			<div align="center">
+				<h:font
+					style="font-size: 12pt;font-family: verdana, arial, helvetica;font-weight: bold;">
+					<h:br />
+					<h:b>Welcome to Pro-Fitness Health Club</h:b>
+				</h:font>
+			</div>
+		</north>
 		<center border="none">
 			<tabbox height="100%">
 				<tabs>
-					<tab label="Membership Mgmt."  />
+					<tab label="Membership Mgmt." />
 					<tab label="Reports" />
 				</tabs>
 				<tabpanels>
@@ -14,46 +22,36 @@
 					<tabpanel>
 						<borderlayout>
 							<north></north>
-							<west width="25%" flex="true" collapsible="true" splittable="true" apply="com._3sq.controllers.MembersController">
-								<div >
-								<listbox>
-									<listhead >
-											<listheader width="30%"	/>
-											<listheader width="40%" />
-										<listheader/>
-										</listhead>
-									<listitem>
-										<listcell><textbox id="serachByID" hflex="1" placeholder="Member ID"></textbox> </listcell>
-										<listcell><textbox id="serachByName" hflex="1" placeholder="Name"></textbox> </listcell>
-										<listcell>
-											<combobox id="searchByType" autocomplete="false"
-											readonly="true" mold="rounded" hflex="1">
-												<comboitem label="All" />
-												<comboitem label="Active"/> 
-												<comboitem label="Inactive"/>
-											</combobox>
-										</listcell>
-
-									</listitem>
-								</listbox>
-
-								<listbox id="lb" vflex="1">
+							<west width="25%" flex="true"
+								collapsible="true" splittable="true"
+								apply="com._3sq.controllers.MembersController">
+								<div>
+								<textbox id="serachByName" placeholder="NAME : Type Slowly to search by name"
+								width="100%">
+								</textbox>
+									
+									<listbox id="lb" vflex="1">
 										<listhead sizable="true">
-											<listheader width="30%"	align="center" label="MemberID" sort="auto" />
-											<listheader width="40%" label="Name" sort="auto" />
-											<listheader width="30%" label="D.O.B." />
+											<listheader width="30%"
+												align="center" label="MemberID" sort="auto" />
+											<listheader width="40%"
+												label="Name" sort="auto" />
+											<listheader width="30%"
+												label="D.O.B." />
 										</listhead>
 									</listbox>
-									<button id="addNewMember" label="Add New Member" width="100%" mold="trendy"/>
+									<button id="addNewMember"
+										label="Add New Member" width="100%" mold="trendy" />
 								</div>
 							</west>
 							<south></south>
 							<center>
-								<window id="MemberDetailsPanel" height="100%" border="none" />
+								<window id="MemberDetailsPanel"
+									height="100%" border="none" />
 							</center>
 						</borderlayout>
 					</tabpanel>
-					
+
 					<tabpanel></tabpanel>
 				</tabpanels>
 			</tabbox>
