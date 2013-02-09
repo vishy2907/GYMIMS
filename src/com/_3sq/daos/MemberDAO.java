@@ -17,6 +17,6 @@ public interface MemberDAO {
 	public Member getMember(int memberId) throws Exception;
 	public int getNextMemberID() throws Exception;
 	
-	public HashMap<Integer, LightWeightMember> loadPartialMembers();
+	public HashMap<Integer, LightWeightMember> loadPartialMembers(String whereClause);
 	
 }

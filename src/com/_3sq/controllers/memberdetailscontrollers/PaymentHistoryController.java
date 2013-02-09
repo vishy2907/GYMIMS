@@ -6,10 +6,14 @@ package com._3sq.controllers.memberdetailscontrollers;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Include;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Tabpanel;
@@ -35,33 +39,49 @@ public class PaymentHistoryController extends SelectorComposer<Component> {
 	@Wire Window winPaymentHistory;
 	@Wire Tabbox tabboxPayment;
 	@Wire Tabs tabs;
-	@Wire Tabpanels panaels;
+	
+	Include inc1;
+	@Wire Window include;
+	
 	final DateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
 	
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);	
 
-		//TODO : Load all measurement dates to build the UI
-		int currMemberId = GymImsImpl.getGymImsImpl().getCurrMember().getMemberID();
-		Date[] allPaymentDates = RegistrationPlanImpl.getRegistrationPlanImpl().getAllDatesOfHistoryPayment(currMemberId);
+		final GymImsImpl gymApp = GymImsImpl.getGymImsImpl(); 
+		int currMemberId = gymApp.getCurrMember().getMemberID();
+		Vector<Date> allPaymentDates = RegistrationPlanImpl.getRegistrationPlanImpl().getAllDatesOfHistoryPayment(currMemberId);
 
-		
 		if(allPaymentDates!=null)	{
+			gymApp.setCurrSelectedDate(allPaymentDates.get(0));
+			inc1= new Include();
+			inc1.setSrc("/UI/MemberDetailsPages/PaymentDateWise.zul");
+			inc1.setMode("defer");
+			include.appendChild(inc1);
 
-			Tabpanel[] msrTabpanel = new Tabpanel[allPaymentDates.length];
-			Tab[] msrTab = new Tab[allPaymentDates.length];
+			Tab[] msrTab = new Tab[allPaymentDates.size()];
 
 			int i=0;
-			for(Date eachDate : allPaymentDates )	{
+			for(final Date eachDate : allPaymentDates )	{
 				msrTab[i] = new Tab();
-				msrTabpanel[i] = new Tabpanel();
 
 				msrTab[i].setLabel(df.format(eachDate));
 
 				tabs.appendChild(msrTab[i]);
-				panaels.appendChild(msrTabpanel[i]);
+				msrTab[i].addEventListener("onClick", new EventListener<Event>() {
+					@Override
+					public void onEvent(Event event) throws Exception {
+						gymApp.setCurrSelectedDate(eachDate);
+						include.getFirstChild().invalidate();
+					}
+				});
 				i++;
 			}
+		}
+		else	{
+			if(include.getFirstChild()!=null)
+				include.getFirstChild().detach();
+			return;
 		}
 	}
 

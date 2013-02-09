@@ -31,6 +31,7 @@ public class AddRegController extends SelectorComposer<Component> {
 	private static final long serialVersionUID = 1L;
 	@Wire	private Intbox memberId;
 	@Wire	private Intbox receipt;
+	@Wire 	private Datebox feesPaidDate;
 	@Wire	private Combobox memberPlanN;
 	@Wire	private Combobox memberPlanO;
 	@Wire	private Datebox planStartDate;
@@ -49,6 +50,7 @@ public class AddRegController extends SelectorComposer<Component> {
 	static int flag = 1;
 	static String reason = "";
 	@Listen("onCheck = #newR")
+	
 	public void onSelectNewR() {
 		flag = 1;
 		memberPlanN.setVisible(true);
@@ -96,7 +98,16 @@ public class AddRegController extends SelectorComposer<Component> {
 	public void addData() {
 		boolean bNoException = true;
 		int receiptNo = receipt.getValue();
-		RegistrationPlan rp = new  RegistrationPlan(receiptNo,gym.getPlanID(),gym.getDurationInMonths(),planStartDate.getValue(),planStartDate.getValue(),gym.getFees());
+		
+		
+		RegistrationPlan rp = new  RegistrationPlan
+						(receiptNo, gym.getPlanID(), 
+						gym.getDurationInMonths(), planStartDate.getValue(),
+						planStartDate.getValue(), gym.getFees(), 
+						reason, gym.getFees(), 
+						feesPaidDate.getValue());
+				
+		
 		
 		try	{
 			RegistrationPlanImpl.getRegistrationPlanImpl().addRegistrationInfo(memberId.getValue(), rp, reason);
@@ -140,17 +151,16 @@ public class AddRegController extends SelectorComposer<Component> {
 		planStartDate.setValue(new Date());
 		// changeEndDate();
 
-		HashMap<String, GymPlan> allPlans = GymImsImpl.getGymImsImpl()
+		HashMap<Integer, GymPlan> allPlans = GymImsImpl.getGymImsImpl()
 				.getGymPlans();
-		int count = 0;
-		for (String planName : allPlans.keySet()) {
+		for (GymPlan plan : allPlans.values()) {
+			String planName = plan.getPlanName();
 			Comboitem item = new Comboitem(planName);
 			if (planName.contains("Renewal ") == false) {
 				memberPlanN.appendChild(item);
 			} else {
 				memberPlanO.appendChild(item);
 			}
-
 		}
 		//
 		int mId = GymImsImpl.getGymImsImpl().getCurrMember().getMemberID();

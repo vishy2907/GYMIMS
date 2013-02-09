@@ -1,0 +1,54 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window border="none" position="center,center" closable="true" 
+	action="show: slideDown;hide: slideUp"
+	 width="100%" height="100%"
+	  id= "regWindow"
+	  apply="com._3sq.controllers.memberdetailscontrollers.PaymentDateWise"
+>
+<space></space>
+<grid >
+		<columns>
+			<column label="Payment Details" width="30%"/>
+			<column label="" />
+		</columns>
+		<rows>
+
+			<row>	
+				Member ID <label id="memberId" />
+			</row>
+			<row>	
+				Fees Paid Date <label id="feesPaidDate" />
+			</row>
+			
+			<row>	
+				Receipt No <label id="receipt" />
+			</row>
+				
+			<row>	
+				Fees Paid For  <label id="feesPaidFor" />
+			</row>
+	
+			<row>	
+				Selected GYM Plan <label id="gymPlan"  /> 
+			</row>	
+		
+			<row>	
+				Amount Paid <label id="fees"  width="60%"/>
+			</row>	
+		
+			<row>	
+				Duration In Months <label id="duration"  width="60%"/>
+			</row>	
+		
+			<row>	
+				Plan Started From <label id="planStartDate" width="60%"  />
+			</row>
+
+			<row>	
+				Plan Ended On <label id="planEndDate"  width="60%"  />
+			</row>
+		</rows>
+	</grid>
+</window>
+</zk>

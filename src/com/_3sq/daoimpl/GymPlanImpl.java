@@ -139,8 +139,8 @@ public class GymPlanImpl implements GymPlanDAO {
 		return false;
 	}
 
-	public HashMap<String,GymPlan> getAllGymPlans()	{
-		HashMap<String,GymPlan> allPlans = new HashMap<String,GymPlan>(9);
+	public HashMap<Integer,GymPlan> getAllGymPlans()	{
+		HashMap<Integer,GymPlan> allPlans = new HashMap<Integer,GymPlan>(9);
 
 		Connection oracleConn = OrclConnection.getOrclConnection();
 		Statement st=null;
@@ -167,7 +167,7 @@ public class GymPlanImpl implements GymPlanDAO {
 				gym.setFees(fees);
 				gym.setDurationInMonths(dur);
 				
-				allPlans.put(pName,gym);
+				allPlans.put(pId,gym);
 			}
 			st.close();
 			rs.close();

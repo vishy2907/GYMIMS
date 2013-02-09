@@ -3,14 +3,25 @@
 	<window border="none" width="100%" id="winPaymentHistory"
 		height="100%"
 		apply="com._3sq.controllers.memberdetailscontrollers.PaymentHistoryController">
-
-		<tabbox id="tabboxPayment" orient="vertical">
-			<tabs id="tabs" width="10%" height="100%">
 		
-			</tabs>
-			<tabpanels id="panaels">
-			
-			</tabpanels>
-		</tabbox>
+		<borderlayout>
+		<north border="none"></north>
+		<west width="15%" border="none">
+		<div>
+			<space></space>
+			<tabbox id="tabboxPayments" orient="vertical">
+				<tabs id="tabs" width="100%"></tabs>
+			</tabbox>
+		</div>
+		</west>
+		
+		<center flex="true" hflex="1" border="none">
+			<window id="include" border="none" >
+				
+			</window>
+		</center>
+		
+		</borderlayout>
+		
 	</window>
 </zk>

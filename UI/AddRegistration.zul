@@ -21,7 +21,10 @@
 			<row>	
 				Receipt No <intbox id="receipt" constraint="no empty"/>
 			</row>
-				
+			
+			<row>	
+				Fees Paid Date <datebox id="feesPaidDate" constraint="no empty"/>
+			</row>	
 			<row>	
 				Registration Type  <radiogroup><radio id="oldR" label="Renew Registration"/><radio id="newR" label="New Registration" /></radiogroup>
 			</row>

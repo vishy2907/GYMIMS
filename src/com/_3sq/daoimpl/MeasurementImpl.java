@@ -15,7 +15,6 @@ import com._3sq.connection.OrclConnection;
 import com._3sq.daos.MeasurementDAO;
 import com._3sq.domainobjects.MeasurementInfo;
 import com._3sq.util._3sqDate;
-import com.lowagie.text.pdf.PRStream;
 
 /**
  * @author Vishal B
@@ -53,7 +52,7 @@ public class MeasurementImpl implements MeasurementDAO {
 			
 			Connection oracleConn = OrclConnection.getOrclConnection();
 	
-			String sql = " insert into MEASUREMENTDETAILLS (MEMBERID,MEASUREMENTTAKENDATE,HEIGHT,WEIGHT,CHEST,WAIST," +
+			String sql = " insert into MEASUREMENTDETAILS (MEMBERID,MEASUREMENTTAKENDATE,HEIGHT,WEIGHT,CHEST,WAIST," +
 					" THIGHS,CALFS,ARMS,FOREARMS,FATINPER,BODYAGE,BMI,RM,VISCERALFAT," +
 					"WHOLEBODYSF,WHOLEBODYSM,TRUNKSF,TRUNKSM,LEGSF,LEGSM,ARMSF,ARMSM) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) " ;
 			
@@ -115,7 +114,7 @@ public class MeasurementImpl implements MeasurementDAO {
 			
 			Connection oracleConn = OrclConnection.getOrclConnection();	
 
-			String sql = "select max(MEASUREMENTTAKENDATE) from MEASUREMENTDETAILLS where MEMBERID = ? ";
+			String sql = "select max(MEASUREMENTTAKENDATE) from MEASUREMENTDETAILS where MEMBERID = ? ";
 			PreparedStatement preStatement = oracleConn.prepareStatement(sql);
 			preStatement.setInt(1,memberId);  
 			ResultSet rs = preStatement.executeQuery();
@@ -166,13 +165,12 @@ public class MeasurementImpl implements MeasurementDAO {
 	}
 
 
-	public java.util.Date[] getAllMeasurementDates(int currMemberId) {
-			Date[] msrmntDates=null;
+	public Vector<Date> getAllMeasurementDates(int currMemberId) {
 		try	{
 			Vector<Date> measurementDates = null;
 			
 			Connection oracleConn = OrclConnection.getOrclConnection();
-			String sql = " SELECT MEASUREMENTTAKENDATE from MEASUREMENTDETAILLS WHERE MemberId = ? ORDER BY MEASUREMENTTAKENDATE DESC";
+			String sql = " SELECT MEASUREMENTTAKENDATE from MEASUREMENTDETAILS WHERE MemberId = ? ORDER BY MEASUREMENTTAKENDATE DESC";
 
 			PreparedStatement preStatement = oracleConn.prepareStatement(sql);
 			preStatement.setInt(1,currMemberId);  
@@ -192,13 +190,8 @@ public class MeasurementImpl implements MeasurementDAO {
 
 		
 			if(measurementDates!=null)	{
-				msrmntDates = new Date[measurementDates.size()];
-				
-				return measurementDates.toArray(msrmntDates);
-				
+				return measurementDates;
 			}
-			
-
 		} catch (Exception e) {
 			System.out.println("MeasurementImpl.java: getAllMeasurementDates() : ");
 			e.printStackTrace();
@@ -212,7 +205,7 @@ public class MeasurementImpl implements MeasurementDAO {
 		try	{
 			
 			Connection oracleConn = OrclConnection.getOrclConnection();
-			String sql = " SELECT *  from MEASUREMENTDETAILLS WHERE MemberId = ? AND MEASUREMENTTAKENDATE = ?";
+			String sql = " SELECT *  from MEASUREMENTDETAILS WHERE MemberId = ? AND MEASUREMENTTAKENDATE = ?";
 
 			PreparedStatement preStatement = oracleConn.prepareStatement(sql);
 			preStatement.setInt(1,memberId);

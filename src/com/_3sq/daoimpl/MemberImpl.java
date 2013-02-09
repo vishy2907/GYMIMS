@@ -16,8 +16,7 @@ import com._3sq.daos.MemberDAO;
 import com._3sq.datatransporter.LightWeightMember;
 import com._3sq.datatransporter.ProFitness;
 import com._3sq.domainobjects.Member;
-
-import com._3sq.util.*;
+import com._3sq.util._3sqDate;
 
 /**
  * @author Vishal B
@@ -25,12 +24,12 @@ import com._3sq.util.*;
  */
 public class MemberImpl implements MemberDAO {
 
-	
+
 	private static MemberImpl m_miMemberImpl;
 
 	private MemberImpl()	{
 	}
-	
+
 	public static MemberImpl getmemberImpl() {
 		if (m_miMemberImpl == null) {
 			synchronized (MemberImpl.class) {
@@ -43,30 +42,30 @@ public class MemberImpl implements MemberDAO {
 	}
 
 	private HashMap<Integer, LightWeightMember> m_hmAllMembers;
-	
+
 	/**
 	 * @author Pradip K
 	 */
 	public boolean addLightMember(LightWeightMember member) throws SQLException {
-		
+
 		Connection oracleConn = OrclConnection.getOrclConnection();
 		String sql = " insert into MEMBER (MEMBERID,NAME,DATEOFBIRTH,CONTACTNUMBER) values  (?,?,?,?) ";
 		PreparedStatement preStatement	= null;
 		ResultSet rs = null;
 		try {
 			preStatement = oracleConn.prepareStatement(sql);		
-			
+
 			preStatement.setInt(1,member.getMemberId());
 			preStatement.setString(2, member.getMemberName());
 			preStatement.setDate(3, _3sqDate.utilDateToSqlDate(member.getDateOfBirth()));
-     		preStatement.setString(4, member.getMobileNumber());
-    
-     		rs = preStatement.executeQuery();			
-			
-     		preStatement.close();
-     		rs.close();
-     		return true;
-			
+			preStatement.setString(4, member.getMobileNumber());
+
+			rs = preStatement.executeQuery();			
+
+			preStatement.close();
+			rs.close();
+			return true;
+
 		} catch (Exception e) {
 			System.out.println("MemberImple.java: AddMember() : ");
 			e.printStackTrace();
@@ -79,7 +78,7 @@ public class MemberImpl implements MemberDAO {
 		}
 		return false;
 	}
-	
+
 	public boolean addMember(Member member) {
 		//logical insertion : 
 		LightWeightMember mMember = new  LightWeightMember();
@@ -87,43 +86,43 @@ public class MemberImpl implements MemberDAO {
 		mMember.setMobileNumber(""+member.getContactNumber());
 		mMember.setMemberName(member.getMemberName());
 		mMember.setDateOfBirth(member.getDateOfBirth());
-		
+
 		//physical insertion
 		PreparedStatement preStatement	= null;
 		ResultSet rs = null;
 		try {
-			
+
 			Connection oracleConn = OrclConnection.getOrclConnection();	
 			String sql = " insert into MEMBER (MEMBERID,NAME,ADDRESS,CONTACTNUMBER,DATEOFBIRTH,BLOODGROUP,OCCUPATION,MEDICALHISTORY," +
 					"EMERGENCYCONTACTNO,REGISTRATIONDATE,IMAGE,GENDER ) values  (?,?,?,?,?,?,?,?,?,?,?,?) ";
-			
+
 			preStatement = oracleConn.prepareStatement(sql);
-			
-			
-			
+
+
+
 			preStatement.setInt(1,member.getMemberID());
-     		preStatement.setString(2, member.getMemberName());
-     		preStatement.setString(3, member.getMemberAddress());
-     		preStatement.setLong(4, member.getContactNumber());
-     		
-     		preStatement.setDate(5,_3sqDate.utilDateToSqlDate(member.getDateOfBirth()));
-     		
-     		preStatement.setString(6, member.getBloodGroup());
-     		preStatement.setString(7, member.getOccupation());
-     		preStatement.setString(8, member.getMedicalHistory());
-     		preStatement.setLong(9, member.getEmergencyContactNo());
-     		
-     		preStatement.setDate(10, _3sqDate.utilDateToSqlDate(member.getRegistrationDate()));     		
-     		
-     		preStatement.setObject(11, member.getImage());
-     		preStatement.setString(12, member.getGender());
-     		rs = preStatement.executeQuery();			
-			
-     		if(rs!=null)
-     			return true;
-     		else
-     			return false;
-					
+			preStatement.setString(2, member.getMemberName());
+			preStatement.setString(3, member.getMemberAddress());
+			preStatement.setLong(4, member.getContactNumber());
+
+			preStatement.setDate(5,_3sqDate.utilDateToSqlDate(member.getDateOfBirth()));
+
+			preStatement.setString(6, member.getBloodGroup());
+			preStatement.setString(7, member.getOccupation());
+			preStatement.setString(8, member.getMedicalHistory());
+			preStatement.setLong(9, member.getEmergencyContactNo());
+
+			preStatement.setDate(10, _3sqDate.utilDateToSqlDate(member.getRegistrationDate()));     		
+
+			preStatement.setObject(11, member.getImage());
+			preStatement.setString(12, member.getGender());
+			rs = preStatement.executeQuery();			
+
+			if(rs!=null)
+				return true;
+			else
+				return false;
+
 		} catch (Exception e) {
 			System.out.println("MemberImpl.java: AddMember() : ");
 			e.printStackTrace();
@@ -147,19 +146,19 @@ public class MemberImpl implements MemberDAO {
 	public boolean removeMember(Member member) {
 		PreparedStatement preStatement ;
 		//physical deletion
-		
+
 		try {
 			Connection oracleConn = OrclConnection.getOrclConnection();	
 			String sql = " DELETE FROM MEMBER WHERE MEMBERID = ?";
-			
+
 			preStatement = oracleConn.prepareStatement(sql);
-			
+
 			preStatement.setInt(1,member.getMemberID()); //remove record no = 1 
-     		     		
+
 			preStatement.executeQuery();			
-		
+
 			preStatement.close();	
-					
+
 		} catch (Exception e) {
 			System.out.println("MemberImpl.java: removeMember() : ");
 			e.printStackTrace();
@@ -167,59 +166,57 @@ public class MemberImpl implements MemberDAO {
 		return false;
 	}
 
-	
+
 	/**
 	 * @author PRADIP K
 	 */
-	
+
 	public boolean updateMember(Member member) {
-			//physical update
+		//physical update
 		try {
-			
-	
+
+
 			Connection oracleConn = OrclConnection.getOrclConnection();	
 
-			
+
 			String sql = " update MEMBER set NAME = ? ,ADDRESS = ?, CONTACTNUMBER = ? ,DATEOFBIRTH = ? ," +
 					"BLOODGROUP = ? ,OCCUPATION = ? ,MEDICALHISTORY = ? ,EMERGENCYCONTACTNO = ?, REGISTRATIONDATE = ?," +
 					"IMAGE=? , GENDER = ?  where MEMBERID = ? ";
-			
-			PreparedStatement preStatement = oracleConn.prepareStatement(sql);
-			
-			
-			preStatement.setString(1, member.getMemberName());
-     		preStatement.setString(2, member.getMemberAddress());
-     		preStatement.setLong(3, member.getContactNumber());
-     		preStatement.setDate(4,  _3sqDate.utilDateToSqlDate(member.getDateOfBirth()));
-     		preStatement.setString(5, member.getBloodGroup());
-     		preStatement.setString(6, member.getOccupation());
-     		preStatement.setString(7, member.getMedicalHistory());
-     		preStatement.setLong(8, member.getEmergencyContactNo());
-     		preStatement.setDate(9,  _3sqDate.utilDateToSqlDate(member.getRegistrationDate()));
-     		//preStatement.setObject(10, member.getImage());
-     		preStatement.setString(11, member.getGender());
 
-     		preStatement.setInt(12, member.getMemberID());   // Update recordNo = 3
+			PreparedStatement preStatement = oracleConn.prepareStatement(sql);
+
+
+			preStatement.setString(1, member.getMemberName());
+			preStatement.setString(2, member.getMemberAddress());
+			preStatement.setLong(3, member.getContactNumber());
+			preStatement.setDate(4,  _3sqDate.utilDateToSqlDate(member.getDateOfBirth()));
+			preStatement.setString(5, member.getBloodGroup());
+			preStatement.setString(6, member.getOccupation());
+			preStatement.setString(7, member.getMedicalHistory());
+			preStatement.setLong(8, member.getEmergencyContactNo());
+			preStatement.setDate(9,  _3sqDate.utilDateToSqlDate(member.getRegistrationDate()));
+			//preStatement.setObject(10, member.getImage());
+			preStatement.setString(11, member.getGender());
+
+			preStatement.setInt(12, member.getMemberID());   // Update recordNo = 3
 			preStatement.executeQuery();
-			
+
 		} catch (Exception e) {
 			System.out.println("MemberImpl.java: updateMember() : ");
 			e.printStackTrace();
 		}
-
-		
 		return false;
 	}
 
 	public static void main(String args[]){
-	
+
 		//ALL BELOW THINGS ARE FOR TEMPORATILY
 		MemberImpl memberImpl = MemberImpl.getmemberImpl();
 		//memberImpl.loadPartialMembers();
 		int id=memberImpl.getNextMemberID();
 		System.out.print("Member Return ID"+id);
 	}
-	
+
 	/**
 	 * 
 	 * @return HashMap
@@ -228,12 +225,12 @@ public class MemberImpl implements MemberDAO {
 	{
 		return ProFitness.getObject().getAllMembers();
 	}
-	
+
 	/**
 	 * use : At the start of application this will return the All Light Weight Member Information
 	 * @return 
 	 */
-	public HashMap<Integer, LightWeightMember> loadPartialMembers()
+	public HashMap<Integer, LightWeightMember> loadPartialMembers(String whereClause)
 	{
 		//This logic is to fill the all members map only once...
 		PreparedStatement preStatement = null;
@@ -242,13 +239,15 @@ public class MemberImpl implements MemberDAO {
 		{
 			m_hmAllMembers = new HashMap<Integer, LightWeightMember>();
 			Connection oracleConn = OrclConnection.getOrclConnection();
-			// This is going to be the important query.
-			// have to be optimized...
 
-			String sql = " Select MEMBERID,NAME,DATEOFBIRTH,IS_ACTIVE FROM MEMBER";
+			StringBuffer sql = new StringBuffer(" Select MEMBERID,NAME,DATEOFBIRTH FROM MEMBER WHERE IS_ACTIVE IS NULL "); 
+			if(whereClause!=null)
+				sql.append(" AND ").append(whereClause);
 			
+			sql.append(" ORDER BY MEMBERID ");
+
 			try {
-				preStatement = oracleConn.prepareStatement(sql);
+				preStatement = oracleConn.prepareStatement(sql.toString());
 				rs = preStatement.executeQuery();
 
 				int i = 0;
@@ -256,16 +255,14 @@ public class MemberImpl implements MemberDAO {
 					int mId = rs.getInt("MEMBERID");
 					String name = rs.getString("NAME");
 					Date dob = _3sqDate.sqlDateToUtilDate(rs.getDate("DATEOFBIRTH"));
-					boolean isActive = rs.getInt("IS_ACTIVE") != -1 ? true : false;
+					boolean isActive = true;
 					LightWeightMember temp = new LightWeightMember(mId, name,dob,isActive, "");
 					m_hmAllMembers.put(mId, temp);
 				}
-
 				preStatement.close();
 				rs.close();
-
 			} catch (Exception e) {
-				System.out.println("MemberImple.java: AddMember() : ");
+				System.out.println("MemberImple.java: loadPartialMember() : ");
 				e.printStackTrace();
 			}
 		}
@@ -289,67 +286,67 @@ public class MemberImpl implements MemberDAO {
 			int i = 0;
 			while (rs.next()) {
 				member = new Member();
-				
+
 				int memId = rs.getInt("MEMBERID");
 				member.setMemberID(memId);
-				
+
 				String name = rs.getString("NAME");
 				member.setMemberName(name);
-				
+
 				String address = rs.getString("ADDRESS");
 				if(address!=null)
 					member.setMemberAddress(address);
 				else
 					member.setMemberAddress("");
-				
+
 				String conNumber = rs.getString("CONTACTNUMBER");
 				if(conNumber != null)
 					member.setContactNumber(Long.parseLong(conNumber));
 				else
 					member.setContactNumber(0l);
-				
+
 				Date dob = _3sqDate.sqlDateToUtilDate(rs.getDate("DATEOFBIRTH"));
 				if(dob!=null)
 					member.setDateOfBirth(dob);
 				else
 					member.setDateOfBirth(null);
-				
+
 				String bg = rs.getString("BLOODGROUP");
 				if(bg!=null)
 					member.setBloodGroup(bg);
 				else
 					member.setBloodGroup("");
-				
+
 				String occupation = rs.getString("OCCUPATION");
 				if(occupation!=null)
 					member.setOccupation(occupation);
 				else
 					member.setOccupation("");
-				
+
 				String medHist = rs.getString("MEDICALHISTORY");
 				if(medHist!=null)
 					member.setMedicalHistory(medHist);
 				else
 					member.setMedicalHistory("");
-				
+
 				String emergContact = rs.getString("EMERGENCYCONTACTNO");
 				if(emergContact!=null)
 					member.setEmergencyContactNo(Long.parseLong(emergContact));
 				else
 					member.setEmergencyContactNo(0l);
-				
+
 				Date regDate = _3sqDate.sqlDateToUtilDate(rs.getDate("REGISTRATIONDATE"));
 				if(regDate!=null)
 					member.setRegistrationDate(regDate);
 				else
 					member.setRegistrationDate(null);
-				
+
 				Object image = rs.getBlob("IMAGE" );
 				if(image!=null)
 					member.setImage(image);
 				else
 					member.setImage(null);
-				
+
 				String gen = rs.getString("GENDER");
 				if(gen!=null)
 					member.setGender(gen);
@@ -364,7 +361,7 @@ public class MemberImpl implements MemberDAO {
 			e.printStackTrace();
 		}
 
-	return member;
+		return member;
 	}
 	public int getNextMemberID()
 	{
@@ -376,13 +373,11 @@ public class MemberImpl implements MemberDAO {
 			st=oracleConn.createStatement();
 			String sql = " Select COUNT(MEMBERID) FROM MEMBER ";
 			rs=st.executeQuery(sql);
-			
+
 			if(rs.next())
 			{
 				temp = rs.getInt(1);
-									
 			}
-
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -396,11 +391,8 @@ public class MemberImpl implements MemberDAO {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 		}
-		
-				return temp+1;
-		
+		return temp+1;
 	}
 }
-

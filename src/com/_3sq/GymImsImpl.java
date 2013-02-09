@@ -6,6 +6,7 @@ package com._3sq;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
@@ -69,12 +70,13 @@ public class GymImsImpl {
 //	private List<LightWeightMember> allInActiveMembers;
 	
 	private Member m_mCurrMember;
+	private Date  m_dCurrSelDate;
 	
 	
 
 	MessageSender sms = new MessageSender(MessageSender.SYNCHRONOUS);
 	//
-	HashMap<String,GymPlan> allPlans;
+	HashMap<Integer,GymPlan> allPlans;
 
 	
 	public boolean validateUser(String userID, String password){
@@ -219,12 +221,12 @@ public class GymImsImpl {
 			allActiveMembers = new ArrayList<LightWeightMember>();
 			//allInActiveMembers = new ArrayList<LightWeightMember>();
 
-			HashMap<Integer, LightWeightMember> memList = members.loadPartialMembers();
+			HashMap<Integer, LightWeightMember> memList = members.loadPartialMembers(null);
 
 			for (LightWeightMember loc : memList.values()) {
 				//allMembers.add(loc);
 				//decide abt the active or inactive memberships
-				if(loc.isMemberActive())
+				//if(loc.isMemberActive())
 					allActiveMembers.add(loc);
 				//else
 					//allInActiveMembers.add(loc);
@@ -263,15 +265,25 @@ public class GymImsImpl {
 
 	
 	//Load all the plan names here at the startup only...
-	public HashMap<String,GymPlan> getGymPlans ()	{
+	public HashMap<Integer,GymPlan> getGymPlans ()	{
 		if(allPlans==null)	{
 			return (allPlans=GymPlanImpl.getGymPlanImpl().getAllGymPlans());
 		}
 		else	{
 			return allPlans;
 		}
-				
 	}
+	//Load given Plan Based on ID
+		public GymPlan getGymPlan (int index)	{
+			if(allPlans!=null)	{
+				return allPlans.get(index);
+			}
+			else	{
+				return getGymPlans().get(index);
+			}
+		}
+		
+	
 
 	public Member getCurrMember() {
 		return m_mCurrMember;
@@ -281,4 +293,16 @@ public class GymImsImpl {
 		this.m_mCurrMember = currMember;
 	}
 
+	public Date getCurrSelectedDate() {
+		return m_dCurrSelDate;
+	}
+
+	public void setCurrSelectedDate(Date currSelDate) {
+		this.m_dCurrSelDate = currSelDate;
+	}
+	
+	public void resetCurrSelectedDate(){
+		m_dCurrSelDate = null;
+	}
+	
 }

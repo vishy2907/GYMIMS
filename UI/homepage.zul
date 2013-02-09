@@ -26,11 +26,14 @@
 								collapsible="true" splittable="true"
 								apply="com._3sq.controllers.MembersController">
 								<div>
+								<borderlayout>
+								<north height="4%">
 								<textbox id="serachByName" placeholder="NAME : Type Slowly to search by name"
-								width="100%">
-								</textbox>
-									
-									<listbox id="lb" vflex="1">
+								vflex="1" hflex="1"/>
+								</north>
+								<center>	
+								<scrollview id="sView" vflex="1">
+									<listbox id="orig">
 										<listhead sizable="true">
 											<listheader width="30%"
 												align="center" label="MemberID" sort="auto" />
@@ -40,11 +43,28 @@
 												label="D.O.B." />
 										</listhead>
 									</listbox>
-									<button id="addNewMember"
-										label="Add New Member" width="100%" mold="trendy" />
+									<listbox id="dup" visible="false">
+										<listhead sizable="true">
+											<listheader width="30%"
+												align="center" label="MemberID" sort="auto" />
+											<listheader width="40%"
+												label="Name" sort="auto" />
+											<listheader width="30%"
+												label="D.O.B." />
+										</listhead>
+									</listbox>
+								</scrollview>
+								
+								</center>
+								<south height="4%">
+								<button id="addNewMember" label="Add New Member"  visible="true" image="/UI/images/new.jpg" hflex="1" vflex="1" mold="trendy"></button>
+								</south>
+								</borderlayout>
+									
 								</div>
 							</west>
-							<south></south>
+							<south>
+							</south>
 							<center>
 								<window id="MemberDetailsPanel"
 									height="100%" border="none" />

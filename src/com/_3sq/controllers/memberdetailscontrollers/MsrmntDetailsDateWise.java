@@ -59,16 +59,16 @@ public class MsrmntDetailsDateWise extends SelectorComposer<Component> {
 
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
-
-		int memId = GymImsImpl.getGymImsImpl().getCurrMember().getMemberID();
-		Date d = new Date(Long.parseLong(System.getProperty("CurrDate",""+new Date().getTime())));
+		GymImsImpl gym = GymImsImpl.getGymImsImpl();
 		
-		System.out.println("Measurement Taken Date ");
-		if(d.compareTo(new Date())!=0  && memId!=0)	{
+		int memId = gym.getCurrMember().getMemberID();
+		Date currDate = gym.getCurrSelectedDate();
 		
-			currMeasurementInfo = MeasurementImpl.getMeasurementImpl().getMeasurement(memId, d);
+		if(currDate != null )	{
+		
+			currMeasurementInfo = MeasurementImpl.getMeasurementImpl().getMeasurement(memId, currDate);
 			
-			measurementTakenDate.setValue(d);
+			measurementTakenDate.setValue(currDate);
 			memberHeight.setValue(""+currMeasurementInfo.getHeight());
 			memberWeight.setValue(""+currMeasurementInfo.getWeight());
 			memberChest.setValue(""+currMeasurementInfo.getChest());
@@ -91,6 +91,9 @@ public class MsrmntDetailsDateWise extends SelectorComposer<Component> {
 			memberLegSM.setValue(""+currMeasurementInfo.getLegSM());
 			memberArmSF.setValue(""+currMeasurementInfo.getArmSF());
 			memberArmSM.setValue(""+currMeasurementInfo.getArmSM());
+			
+			
+			gym.resetCurrSelectedDate();
 		}
 	}
 }

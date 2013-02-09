@@ -16,9 +16,8 @@ import org.zkoss.zk.ui.event.MouseEvent;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zkmax.zul.Scrollview;
 import org.zkoss.zul.Button;
-import org.zkoss.zul.Combobox;
-import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
@@ -47,13 +46,11 @@ public class MembersController extends SelectorComposer<Component> {
 	
 	private ListModelList<LightWeightMember> listModel;
 	
-	@Wire
-	private Listbox lb;
-	@Wire
-	private Button addNewMember;
-	@Wire 
-	private Textbox serachByName;
-	
+	@Wire private Listbox orig;
+	@Wire private Listbox dup;
+	@Wire private Button addNewMember;
+	@Wire private Scrollview sView;
+	@Wire private Textbox serachByName;
 	@Wire private Window MemberDetailsPanel;
 	
 	public List<LightWeightMember> memberList;		//will get filled runtime based on the input requirement/
@@ -62,8 +59,6 @@ public class MembersController extends SelectorComposer<Component> {
 	private static final long serialVersionUID = -6528261260274326242L;
 
 	private GymImsImpl gymImplObj = GymImsImpl.getGymImsImpl(); 
-	
-	
 	
 	public static MembersController  getMemberControllerImpl() {
 		if (singleInstance == null) {
@@ -86,22 +81,26 @@ public class MembersController extends SelectorComposer<Component> {
 		}
 	}
 
-	
-
 	@Listen("onCreate = #MemberDetailsPanel")
     public void onCreateWindow(Event event){
 		System.out.println("Window registered.. : MemberDetailsController");
 		gymImplObj.registerWindow("MemberDetailsPanel", MemberDetailsPanel);
     }
 
-	
-	@Listen("onOK = #serachByName")
+	@Listen("onChange = #serachByName")
 	//Make this event as onChange after
     public void onSubmit(Event event){
 		String name = serachByName.getValue();
-		
+		if(name.equals(""))	{
+			orig.setVisible(true);
+			dup.setVisible(false);
+		}else
+		{
+			orig.setVisible(false);
+			dup.setVisible(true);
+		}
+			
     }
-
 
 	public ListitemRenderer<LightWeightMember> listItemRenderer = new ListitemRenderer<LightWeightMember>() {
 		@Override
@@ -122,11 +121,11 @@ public class MembersController extends SelectorComposer<Component> {
 
 
 	
-	@Listen("onClick = #lb")
+	@Listen("onClick = #orig")
     public void onClickOfList(Event event){
 		int memberId = 0;
 		try	{
-			memberId= memberList.get(lb.getSelectedIndex()).getMemberId();
+			memberId= memberList.get(orig.getSelectedIndex()).getMemberId();
 		}catch(ArrayIndexOutOfBoundsException ae)	{
 
 		}
@@ -178,20 +177,20 @@ public class MembersController extends SelectorComposer<Component> {
 			
 			//searchByType.setSelectedIndex(0);
 			if(listItemRenderer!=null)
-				lb.setItemRenderer(listItemRenderer);
+				orig.setItemRenderer(listItemRenderer);
 
 			listModel = new ListModelList<LightWeightMember>(memberList);
 			listModel.setMultiple(false);
 
-			lb.setModel(listModel);
+			orig.setModel(listModel);
 
 			final Component temp = comp;
-			lb.addEventListener("onClick", new EventListener<MouseEvent>() {
-				@Override
-				public void onEvent(MouseEvent event) throws Exception {
-					
-				}
-			});
+//			lb.addEventListener("onClick", new EventListener<MouseEvent>() {
+//				@Override
+//				public void onEvent(MouseEvent event) throws Exception {
+//					System.out.println("IHHIihih");
+//				}
+//			});
 
 			addNewMember.addEventListener("onClick",new EventListener<MouseEvent>() {
 				@Override

@@ -1,15 +1,14 @@
 package com._3sq.daoimpl;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Vector;
 
+import com._3sq.GymImsImpl;
 import com._3sq.connection.OrclConnection;
 import com._3sq.daos.RegistrationPlanDAO;
-import com._3sq.datatransporter.LightWeightMember;
+import com._3sq.domainobjects.GymPlan;
 import com._3sq.domainobjects.RegistrationPlan;
 import com._3sq.util._3sqDate;
 
@@ -65,8 +64,7 @@ public class RegistrationPlanImpl implements RegistrationPlanDAO{
 	}
 	
 	
-	public java.util.Date[] getAllDatesOfHistoryPayment(int currMemberId) {
-		java.util.Date[] paymentDates=null;
+	public Vector<java.util.Date> getAllDatesOfHistoryPayment(int currMemberId) {
 	try	{
 		Vector<java.util.Date> paymentDate = null;
 		
@@ -91,15 +89,47 @@ public class RegistrationPlanImpl implements RegistrationPlanDAO{
 
 	
 		if(paymentDate!=null)	{
-			paymentDates = new Date[paymentDate.size()];
-			return paymentDate.toArray(paymentDates);
+			return paymentDate; 
 		}
 		
-
 	} catch (Exception e) {
 		System.out.println("RegistrationPlanImpl.java: getAllDatesOfHistoryPayment() : ");
 		e.printStackTrace();
 	}
 	return null;
-}		
+}
+	
+	public RegistrationPlan getPaymentDetails(int memberId, java.util.Date paymentDate)	{
+		RegistrationPlan regPlan = new RegistrationPlan();
+		try	{
+			
+			Connection oracleConn = OrclConnection.getOrclConnection();
+			String sql = " SELECT * from REGISTRATIONINFO WHERE MemberId = ? AND PAIDAMTDATE = ?";
+
+			PreparedStatement preStatement = oracleConn.prepareStatement(sql);
+			preStatement.setInt(1,memberId);
+			preStatement.setDate(2,_3sqDate.utilDateToSqlDate(paymentDate));
+			
+			ResultSet rs = preStatement.executeQuery();			
+			
+			if(rs.next())	{
+				regPlan.setReceiptId(rs.getInt("RECEIPTNO"));
+				int planId = rs.getInt("PLANID");
+				regPlan.setPlanID(planId);
+				regPlan.setStartDate(_3sqDate.sqlDateToUtilDate(rs.getDate("STARTDATE")));
+				regPlan.setEndDate(_3sqDate.sqlDateToUtilDate(rs.getDate("ENDDATE")));
+				regPlan.setReason(rs.getString("REASON"));
+				regPlan.setPaidAmount(rs.getInt("PAIDAMT"));
+				regPlan.setPaindAmtDate(_3sqDate.sqlDateToUtilDate(rs.getDate("PAIDAMTDATE")));
+			}
+			if(rs!=null)	
+				rs.close();
+			if(preStatement!=null)
+				preStatement.close();
+		} catch (Exception e) {
+			System.out.println("RegistrationPlanImpl.java: getPaymentDetail(int,date) : ");
+			e.printStackTrace();
+		}
+		return regPlan;
+	}
 }
