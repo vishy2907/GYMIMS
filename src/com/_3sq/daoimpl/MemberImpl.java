@@ -10,6 +10,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.TreeMap;
+
+import oracle.net.aso.b;
 
 import com._3sq.connection.OrclConnection;
 import com._3sq.daos.MemberDAO;
@@ -41,7 +44,7 @@ public class MemberImpl implements MemberDAO {
 		return m_miMemberImpl;
 	}
 
-	private HashMap<Integer, LightWeightMember> m_hmAllMembers;
+	private TreeMap<Integer, LightWeightMember> m_hmAllMembers;
 
 	/**
 	 * @author Pradip K
@@ -230,32 +233,41 @@ public class MemberImpl implements MemberDAO {
 	 * use : At the start of application this will return the All Light Weight Member Information
 	 * @return 
 	 */
-	public HashMap<Integer, LightWeightMember> loadPartialMembers(String whereClause)
+	public TreeMap<Integer, LightWeightMember> loadPartialMembers(String nameToBeSearched)
 	{
 		//This logic is to fill the all members map only once...
 		PreparedStatement preStatement = null;
+		System.out.println("Where clause : "+nameToBeSearched);
 		ResultSet rs	= null;
-		if(m_hmAllMembers == null)	
+		if(m_hmAllMembers == null || nameToBeSearched!=null)	
 		{
-			m_hmAllMembers = new HashMap<Integer, LightWeightMember>();
+			m_hmAllMembers = new TreeMap<Integer, LightWeightMember>();
 			Connection oracleConn = OrclConnection.getOrclConnection();
 
-			StringBuffer sql = new StringBuffer(" Select MEMBERID,NAME,DATEOFBIRTH FROM MEMBER WHERE IS_ACTIVE IS NULL "); 
-			if(whereClause!=null)
-				sql.append(" AND ").append(whereClause);
+			StringBuffer sql = new StringBuffer();
 			
-			sql.append(" ORDER BY MEMBERID ");
-
+			 
+			if(nameToBeSearched!=null)	{
+				sql.append("Select MEMBERID,NAME,DATEOFBIRTH,IS_ACTIVE FROM MEMBER WHERE IS_ACTIVE = -1");
+				sql.append(" AND LOWER(NAME) LIKE LOWER(\'%"+nameToBeSearched+"%\') ");
+			}
+			else
+			{
+				sql.append("Select MEMBERID,NAME,DATEOFBIRTH,IS_ACTIVE FROM MEMBER WHERE IS_ACTIVE = 0");
+			}
+			sql.append(" ORDER BY MEMBERID");
+//			
 			try {
 				preStatement = oracleConn.prepareStatement(sql.toString());
+//				if(nameToBeSearched!=null)
+//					preStatement.setString(1,nameToBeSearched);
 				rs = preStatement.executeQuery();
 
-				int i = 0;
 				while (rs.next()) {
 					int mId = rs.getInt("MEMBERID");
 					String name = rs.getString("NAME");
 					Date dob = _3sqDate.sqlDateToUtilDate(rs.getDate("DATEOFBIRTH"));
-					boolean isActive = true;
+					boolean isActive = rs.getInt("IS_ACTIVE") != -1? true : false;
 					LightWeightMember temp = new LightWeightMember(mId, name,dob,isActive, "");
 					m_hmAllMembers.put(mId, temp);
 				}
@@ -371,7 +383,7 @@ public class MemberImpl implements MemberDAO {
 		int temp=1;
 		try {
 			st=oracleConn.createStatement();
-			String sql = " Select COUNT(MEMBERID) FROM MEMBER ";
+			String sql = " Select MAX(MEMBERID) FROM MEMBER ";
 			rs=st.executeQuery(sql);
 
 			if(rs.next())
@@ -391,8 +403,33 @@ public class MemberImpl implements MemberDAO {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
 		}
 		return temp+1;
+	}
+
+
+	@Override
+	public boolean activateMembership(int memberId) {
+		Connection oracleConn = OrclConnection.getOrclConnection();
+		PreparedStatement preStatement	= null;
+		boolean isUpdated = false;	
+		try {
+			String sql = " UPDATE MEMBER SET IS_ACTIVE = 0 where MEMBERID = "+memberId;
+			preStatement = oracleConn.prepareStatement(sql);
+			preStatement.executeUpdate(sql);
+			isUpdated = true;	
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally
+		{
+			try {
+				preStatement.close();
+			} catch (SQLException e) {
+			}
+
+		}
+		return isUpdated;
 	}
 }

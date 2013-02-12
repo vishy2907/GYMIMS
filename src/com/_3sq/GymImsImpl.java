@@ -8,8 +8,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Properties;
+import java.util.TreeMap;
 
 import org.zkoss.zul.Window;
 
@@ -49,30 +49,33 @@ public class GymImsImpl {
 		//load the member data
 		System.out.println("Loading all member Details...");
 		loadAllMembersData();
-		
 		//load all plan names...
 	}
 	
-
 	private HashMap<String,Window> m_hmWindowList;			//Will hold all the Window references which are available on Desktop.
 	private Properties m_pGymProps;
-	
+	private TreeMap<Integer,LightWeightMember> m_tmALlMembers;
+
 	//properties related stuff..
 	private String m_sMessageCenterNo;
 	private String m_sComPortNo;
 	private String m_sUserId;
 	private String m_sPassword;
 	private String m_sWelcomeMessage;
+	private String m_sDbmachinename;
+	private String m_sDbport;
 	
 	
 //	private List<LightWeightMember> allMembers;
-	private List<LightWeightMember> allActiveMembers;
+	private ArrayList<LightWeightMember> allActiveMembers;
 //	private List<LightWeightMember> allInActiveMembers;
+	
 	
 	private Member m_mCurrMember;
 	private Date  m_dCurrSelDate;
+	private boolean m_bMemberStatusFlag = true;
 	
-	
+
 
 	MessageSender sms = new MessageSender(MessageSender.SYNCHRONOUS);
 	//
@@ -120,9 +123,27 @@ public class GymImsImpl {
 			setUserId(m_pGymProps.getProperty("userid","shani"));
 			setPassword(m_pGymProps.getProperty("password","rocks"));
 			setWelcomeMessage(m_pGymProps.getProperty("welcomeMessage","Welcome to gym"));
+			setDbmachinename(m_pGymProps.getProperty("dbmachinename","localhost"));
+			setDbport(m_pGymProps.getProperty("dbport","1521"));
 		}
 	}
 
+
+	public String getDbmachinename() {
+		return m_sDbmachinename;
+	}
+
+	public void setDbmachinename(String dbmachinename) {
+		this.m_sDbmachinename = dbmachinename;
+	}
+
+	public String getDbport() {
+		return m_sDbport;
+	}
+
+	public void setDbport(String dbport) {
+		this.m_sDbport = dbport;
+	}
 
 	private void setWelcomeMessage(String welcomeMessage) {
 		m_sWelcomeMessage = welcomeMessage;
@@ -214,26 +235,34 @@ public class GymImsImpl {
 	/**
 	 * loads all the members from the db and feels the details..
 	 */
-	private void loadAllMembersData() {
+	private synchronized void loadAllMembersData() {
 		if (allActiveMembers == null) {
-			MemberImpl members = MemberImpl.getmemberImpl();
-			//allMembers = new ArrayList<LightWeightMember>();
-			allActiveMembers = new ArrayList<LightWeightMember>();
-			//allInActiveMembers = new ArrayList<LightWeightMember>();
-
-			HashMap<Integer, LightWeightMember> memList = members.loadPartialMembers(null);
-
-			for (LightWeightMember loc : memList.values()) {
-				//allMembers.add(loc);
-				//decide abt the active or inactive memberships
-				//if(loc.isMemberActive())
-					allActiveMembers.add(loc);
-				//else
-					//allInActiveMembers.add(loc);
-			}
+			m_tmALlMembers = MemberImpl.getmemberImpl().loadPartialMembers(null);
+			allActiveMembers  = new ArrayList<LightWeightMember>(m_tmALlMembers.values());
 		}
 	}
+	
+	public ArrayList<LightWeightMember> rebuildMemberList()	{
+		allActiveMembers = new ArrayList<LightWeightMember>(m_tmALlMembers.values()); 
+		return allActiveMembers;
+	}
 
+	/**
+	 * Useful in name search...
+	 * @param name
+	 * @return
+	 */
+	public ArrayList<LightWeightMember> getSubsetOfMembersBasedOnName(String name)	{
+		if(allActiveMembers==null)
+			return null;
+		name = name.toLowerCase();
+		ArrayList<LightWeightMember>tempList = new ArrayList<LightWeightMember>();
+		for(LightWeightMember temp : allActiveMembers)	{
+			if(temp.getMemberName().toLowerCase().contains(name))
+				tempList.add(temp);
+		}
+		return tempList;
+	}
 //	/**
 //	 *  @return all members of gym
 //	 */
@@ -243,7 +272,7 @@ public class GymImsImpl {
 	/**
 	 *  @return all active members
 	 */
-	public List<LightWeightMember> getAllActiveMembers()	{
+	public ArrayList<LightWeightMember> getAllActiveMembers()	{
 		return allActiveMembers;
 	}
 //	/**
@@ -305,4 +334,17 @@ public class GymImsImpl {
 		m_dCurrSelDate = null;
 	}
 	
+	//is it is true, it means u are working in an Active Members Part, else in an inactive member part 
+	public boolean isMemberStatusFlag() {
+		return m_bMemberStatusFlag;
+	}
+
+	public void setMemberStatusFlag(boolean bMemberStatusFlag) {
+		this.m_bMemberStatusFlag = bMemberStatusFlag;
+	}
+
+	public TreeMap<Integer, LightWeightMember> getAllMembers() {
+		return m_tmALlMembers;
+	}
+
 }

@@ -5,7 +5,7 @@
 		<north height="5%" border="none">
 			<div align="center">
 				<h:font
-					style="font-size: 12pt;font-family: verdana, arial, helvetica;font-weight: bold;">
+					style="font-size: 10pt;font-family: verdana, arial, helvetica;font-weight: bold;">
 					<h:br />
 					<h:b>Welcome to Pro-Fitness Health Club</h:b>
 				</h:font>
@@ -13,9 +13,10 @@
 		</north>
 		<center border="none">
 			<tabbox height="100%">
-				<tabs>
-					<tab label="Membership Mgmt." />
-					<tab label="Reports" />
+				<tabs apply="com._3sq.controllers.HomepageTabHandler">
+					<tab id="memberShipMgmt" 		label="Membership Mgmt." />
+					<tab id="reports" 				label="Reports" />
+					<tab id="inactiveMemberMgmt"	label="Inactive Member Mgmt."/>
 				</tabs>
 				<tabpanels>
 					<!-- 		//Member Ship management Tab -->
@@ -27,9 +28,11 @@
 								apply="com._3sq.controllers.MembersController">
 								<div>
 								<borderlayout>
-								<north height="4%">
-								<textbox id="serachByName" placeholder="NAME : Type Slowly to search by name"
-								vflex="1" hflex="1"/>
+								<north height="4%" >
+								<div width="100%">
+									<textbox id="serachByName" placeholder="NAME : Type Slowly to search by name"
+						 			hflex="1"/>
+								</div>
 								</north>
 								<center>	
 								<scrollview id="sView" vflex="1">
@@ -54,7 +57,6 @@
 										</listhead>
 									</listbox>
 								</scrollview>
-								
 								</center>
 								<south height="4%">
 								<button id="addNewMember" label="Add New Member"  visible="true" image="/UI/images/new.jpg" hflex="1" vflex="1" mold="trendy"></button>
@@ -66,13 +68,15 @@
 							<south>
 							</south>
 							<center>
-								<window id="MemberDetailsPanel"
-									height="100%" border="none" />
+								<window id="MemberDetailsPanel" height="100%" border="none" />
 							</center>
 						</borderlayout>
 					</tabpanel>
 
 					<tabpanel></tabpanel>
+					<tabpanel>
+						<include src="/UI/InactiveMemberManagement/InactiveMemberManagement.zul" mode="defer"></include>
+					</tabpanel>
 				</tabpanels>
 			</tabbox>
 		</center>

@@ -3,6 +3,7 @@ package com._3sq.connection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+import com._3sq.GymImsImpl;
 import com._3sq.daoimpl.GymPlanImpl;
 
 /**
@@ -29,7 +30,9 @@ public class OrclConnection {
 			String driverName = "oracle.jdbc.driver.OracleDriver";
 			Class.forName(driverName);
 
-			String serverName = "@localhost:1521";
+			GymImsImpl gym = GymImsImpl.getGymImsImpl();
+			
+			String serverName = "@"+gym.getDbmachinename()+":"+gym.getDbport();
 			
 			String url = "jdbc:oracle:thin://" + serverName;
 

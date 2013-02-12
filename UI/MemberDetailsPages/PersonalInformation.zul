@@ -97,8 +97,8 @@
 				</row>
 				<row>
 					<space></space>
-					<button id="updateDetails" mold="trendy"
-						label="updateDetails" visible="false">
+					<button id="multiTaskingButton" mold="trendy"
+						label="" visible="false">
 					</button>
 				</row>
 

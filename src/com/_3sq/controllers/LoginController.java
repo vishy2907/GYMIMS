@@ -53,6 +53,7 @@ public class LoginController extends SelectorComposer<Window> {
     			errorLabel.setValue("Invalid Credentials.");
     			userId.setValue("");
     			pwd.setValue("");
+    			userId.setFocus(true);
         		errorLabel.setStyle("color:rgb(255,0,0);");
     		}
     		

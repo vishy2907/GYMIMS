@@ -5,8 +5,7 @@ package com._3sq.controllers;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.ArrayList;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -21,9 +20,6 @@ import org.zkoss.zul.Button;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
-import org.zkoss.zul.Listcell;
-import org.zkoss.zul.Listitem;
-import org.zkoss.zul.ListitemRenderer;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
@@ -33,6 +29,7 @@ import com._3sq.daoimpl.MemberImpl;
 import com._3sq.daos.MemberDAO;
 import com._3sq.datatransporter.LightWeightMember;
 import com._3sq.domainobjects.Member;
+import com._3sq.util.RendererClasses;
 
 /**
  * @author VishalB
@@ -53,7 +50,8 @@ public class MembersController extends SelectorComposer<Component> {
 	@Wire private Textbox serachByName;
 	@Wire private Window MemberDetailsPanel;
 	
-	public List<LightWeightMember> memberList;		//will get filled runtime based on the input requirement/
+	public ArrayList<LightWeightMember> memberList;		//will get filled runtime based on the input requirement/
+	private ArrayList<LightWeightMember> subMembers;
 	final DateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
 	
 	private static final long serialVersionUID = -6528261260274326242L;
@@ -74,6 +72,7 @@ public class MembersController extends SelectorComposer<Component> {
 	public MembersController()	{
 		if(System.getProperty("validSession")!=null && System.getProperty("validSession").equals("") ==false )	{
 			members = MemberImpl.getmemberImpl();
+			System.out.println("Hi i got a call");
 			memberList = gymImplObj.getAllActiveMembers();	
 			singleInstance = this;
 		}else{
@@ -87,47 +86,52 @@ public class MembersController extends SelectorComposer<Component> {
 		gymImplObj.registerWindow("MemberDetailsPanel", MemberDetailsPanel);
     }
 
-	@Listen("onChange = #serachByName")
+	@Listen("onChanging = #serachByName")
+	public void onChange()	{
+		String name = serachByName.getValue();
+		if(name.equals(""))	{
+			orig.setVisible(true);
+			dup.setVisible(false);
+			sView.invalidate();
+		}
+	}
+	@Listen("onOK = #serachByName")
 	//Make this event as onChange after
     public void onSubmit(Event event){
 		String name = serachByName.getValue();
 		if(name.equals(""))	{
 			orig.setVisible(true);
 			dup.setVisible(false);
+			sView.invalidate();
 		}else
 		{
 			orig.setVisible(false);
 			dup.setVisible(true);
+			GymImsImpl gym =GymImsImpl.getGymImsImpl(); 
+			subMembers = gym.getSubsetOfMembersBasedOnName(name); 
+			listModel = new ListModelList<LightWeightMember>(subMembers);
+			listModel.setMultiple(false);
+
+			dup.setModel(listModel);
+			dup.invalidate();
+			sView.invalidate();
 		}
-			
     }
 
-	public ListitemRenderer<LightWeightMember> listItemRenderer = new ListitemRenderer<LightWeightMember>() {
-		@Override
-		public void render(Listitem item, LightWeightMember data, int index)
-				throws Exception {
 
-			item.appendChild(new Listcell("" + data.getMemberId()));
-			item.appendChild(new Listcell(data.getMemberName()));
-			Date testDate = data.getDateOfBirth();
+		
 
-			if(testDate!=null)
-				item.appendChild(new Listcell(""+df.format(testDate)));
-			else
-				item.appendChild(new Listcell("NA"));
-
-		}
-	};	
-
-
-	
-	@Listen("onClick = #orig")
+	@Listen("onClick = #orig,#dup")
     public void onClickOfList(Event event){
+		GymImsImpl gym = GymImsImpl.getGymImsImpl();
+		
 		int memberId = 0;
 		try	{
-			memberId= memberList.get(orig.getSelectedIndex()).getMemberId();
+			if(orig.isVisible())	
+				memberId= gym.getAllActiveMembers().get(orig.getSelectedIndex()).getMemberId();
+			else
+				memberId= gym.getAllActiveMembers().get(dup.getSelectedIndex()).getMemberId();
 		}catch(ArrayIndexOutOfBoundsException ae)	{
-
 		}
 		if (memberId != 0) {
 			Window memberDetailsPanel = gymImplObj.getWindow("MemberDetailsPanel"); 
@@ -171,13 +175,18 @@ public class MembersController extends SelectorComposer<Component> {
 	
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
-	
-		if(System.getProperty("validSession")!=null && System.getProperty("validSession").equals("") ==false )	{
+		
+		System.out.println("invalidating...");
+
+		if(System.getProperty("validSession")!=null && System.getProperty("validSession").equals("") ==false )	
+		{
 			System.setProperty("validSession","");
 			
 			//searchByType.setSelectedIndex(0);
-			if(listItemRenderer!=null)
-				orig.setItemRenderer(listItemRenderer);
+			if(RendererClasses.listItemRendererForListBox!=null)	{
+				orig.setItemRenderer(RendererClasses.listItemRendererForListBox);
+				dup.setItemRenderer(RendererClasses.listItemRendererForListBox);
+			}
 
 			listModel = new ListModelList<LightWeightMember>(memberList);
 			listModel.setMultiple(false);
@@ -216,7 +225,23 @@ public class MembersController extends SelectorComposer<Component> {
 		}
 	}
 	
-	public void addItemToRender(LightWeightMember newMember)	{
-		listModel.add(newMember);
+	public void RefreshListModel(boolean addNew,LightWeightMember newM)	{
+		
+		//Rit nw, Call is goin to be coming only from t20 placess
+		if(addNew==true)	{
+			listModel.add(newM);
+		}else{
+			int index=-1;
+			for(LightWeightMember temp : GymImsImpl.getGymImsImpl().getAllMembers().values())
+			{	index++;
+				if(temp==newM)		{
+					System.out.println("Same Index"+temp.getMemberId());
+					break;
+				}
+			}
+			listModel.add(index, newM);
+		}
+		gymImplObj.getAllActiveMembers().add(newM);
+		orig.invalidate();
 	}
 }

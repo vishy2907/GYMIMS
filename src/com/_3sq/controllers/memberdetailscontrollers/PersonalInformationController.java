@@ -13,6 +13,7 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
@@ -24,7 +25,10 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import com._3sq.GymImsImpl;
+import com._3sq.controllers.MembersController;
+import com._3sq.controllers.inactivemembermgmt.InactiveMemberMgmt;
 import com._3sq.daoimpl.MemberImpl;
+import com._3sq.datatransporter.LightWeightMember;
 import com._3sq.domainobjects.Member;
 
 /**
@@ -55,6 +59,7 @@ public class PersonalInformationController extends SelectorComposer<Component> {
 	//	private Image memberImage;
 	@Wire	private Datebox 	memberRegDate;
 	@Wire	private Button 		sendMessage;
+	@Wire	private Button 		multiTaskingButton;
 
 	
 	private  Member currMember;
@@ -66,8 +71,17 @@ public class PersonalInformationController extends SelectorComposer<Component> {
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
 		
-
-		int memId = GymImsImpl.getGymImsImpl().getCurrMember().getMemberID();
+		GymImsImpl gym = GymImsImpl.getGymImsImpl();
+		System.out.println("Flag Status : "+gym.isMemberStatusFlag());
+		if(gym.isMemberStatusFlag()==true){
+			multiTaskingButton.setVisible(false);
+			multiTaskingButton.setLabel("Update Personal Information");
+		}
+		else{
+			multiTaskingButton.setVisible(true);
+			multiTaskingButton.setLabel("Mark this member as ACTIVE");
+		}
+		int memId = gym.getCurrMember().getMemberID();
 		
 		if(memId != 0)	{
 			currMember = GymImsImpl.getGymImsImpl().getCurrMember();
@@ -122,23 +136,39 @@ public class PersonalInformationController extends SelectorComposer<Component> {
 	}
 	
 	
+	@Listen("onClick = #multiTaskingButton")
+	public void onMultiTaskingButton(Event event){
+		//If the multitasking event is set on Inactive member then,
+		GymImsImpl gym = GymImsImpl.getGymImsImpl();
+		Member currMember = gym.getCurrMember();
+		if(gym.isMemberStatusFlag()==false){
+			int memberId = currMember.getMemberID();
+			boolean isActivated = MemberImpl.getmemberImpl().activateMembership(memberId);
+			if(isActivated == true)	{
+				multiTaskingButton.setVisible(false);
+				Clients.showNotification("Member Marked As ACTIVE.");
+				//Now, Add the member to
+
+				LightWeightMember newM = new LightWeightMember(currMember.getMemberID(),currMember.getMemberName(),currMember.getDateOfBirth(),true,"");	
+				//Add member to the Global List...
+				gym.getAllMembers().put(currMember.getMemberID(), newM);
+				//Add item to the UI 
+				MembersController.getMemberControllerImpl().RefreshListModel(false,newM);
+				gym.getWindow("InMemberDetailsPanel").getFirstChild().detach();
+				InactiveMemberMgmt.getInactiveMemberMgmtImpl().refreshList(newM);
+			}
+		}
+		else{
+			
+		}
+	}
+
+	
 	@Listen("onChange = textbox")
 	void dataChanged()	{
 		System.out.println("Hiii ");
 	}
-//	memberName;                   
-//	memberAddress;                
-//	memberContactNumber;          
-//	memberEmergencyContactNumber; 
-//	memberDOB;                    
-//	memberBloodGroup;             
-//	male;                         
-//	female;                       
-//	memberOccupation;             
-//	memberMedicalHistory;	      
-//	e;                            
-//	memberRegDate;                
-//	sendMessage;                  
+              
 
 	
 	

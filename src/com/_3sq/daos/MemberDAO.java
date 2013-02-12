@@ -1,6 +1,6 @@
 package com._3sq.daos;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import com._3sq.datatransporter.LightWeightMember;
 import com._3sq.domainobjects.Member;
@@ -17,6 +17,6 @@ public interface MemberDAO {
 	public Member getMember(int memberId) throws Exception;
 	public int getNextMemberID() throws Exception;
 	
-	public HashMap<Integer, LightWeightMember> loadPartialMembers(String whereClause);
-	
+	public Map<Integer, LightWeightMember> loadPartialMembers(String whereClause);
+	public boolean activateMembership(int memberId);
 }

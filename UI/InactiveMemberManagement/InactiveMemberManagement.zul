@@ -1,0 +1,40 @@
+<zk >
+<borderlayout apply="com._3sq.controllers.inactivemembermgmt.InactiveMemberMgmt">
+	<north height="10%" border="none">
+		<div align="center"  vflex="1" hflex="1">
+			<space/>
+			<grid >
+				<columns>
+					<column label="" width="10%" />
+					<column label="" width="40%" align="center"/>
+					<column label="" width="40%" />
+					<column label="" width="10%" />
+				</columns>
+				<rows >
+					<row > 
+					<div/>
+					<div>
+						Please, Enter Name of Member Here :
+					</div>	
+					<textbox id="inputName" hflex="1"/>
+					<div/>
+					</row>
+				</rows>
+			</grid>
+		</div>
+	</north>
+	<center><window id="InMemberDetailsPanel" height="100%" border="none" /></center>
+	<west width="25%">
+		<scrollview vflex="1" height="100%">
+			<listbox id="iMemberList" >
+				<listhead sizable="true">
+					<listheader width="30%" align="center"
+						label="MemberID" sort="auto" />
+					<listheader width="40%" label="Name" sort="auto" />
+					<listheader width="30%" label="D.O.B." />
+				</listhead>
+			</listbox>
+		</scrollview>
+	</west>
+</borderlayout>
+</zk>

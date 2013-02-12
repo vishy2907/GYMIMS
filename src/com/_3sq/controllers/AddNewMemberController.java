@@ -43,7 +43,9 @@ public class AddNewMemberController extends SelectorComposer<Component> {
 	@Wire private Datebox 	memberRegDate;
 	@Wire private Button 	addMemberToDB;
 	@Wire private Window	addNewMember;
-	@Wire private Listbox lb;
+	@Wire private Listbox orig;
+	@Wire private Listbox dup;
+	
 	
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
@@ -74,7 +76,7 @@ public class AddNewMemberController extends SelectorComposer<Component> {
 				else
 					newMember.setMemberAddress("");
 				
-				long no = memberContactNumber.getValue();
+				long no = memberContactNumber.longValue();
 				newMember.setContactNumber(no);
 					
 				
@@ -105,22 +107,24 @@ public class AddNewMemberController extends SelectorComposer<Component> {
 				else if(female.isChecked())
 					newMember.setGender("Female");
 				
-				newMember.setEmergencyContactNo(memberEmergencyContactNumber.getValue());
+				newMember.setEmergencyContactNo(memberEmergencyContactNumber.longValue());
 				
 				Date regDate = memberRegDate.getValue();
 				newMember.setRegistrationDate(regDate);
 				
 				
 				//newMember.setImage(memmemberImage.getValue());
-				System.out.println("Adding New Member to the database...");
 				if( MemberImpl.getmemberImpl().addMember(newMember))	{
-					Clients.showNotification("Member Addess Successfully.", true);
-					LightWeightMember newM = new LightWeightMember(newMember.getMemberID(),newMember.getMemberName(),newMember.getDateOfBirth(),true,"");
-					MembersController.getMemberControllerImpl().addItemToRender(newM);
-					GymImsImpl.getGymImsImpl().sendWelcomeMessage(""+newMember.getContactNumber());
-					GymImsImpl.getGymImsImpl().getAllActiveMembers().add(newM);
-					GymImsImpl.getGymImsImpl().getAllActiveMembers().add(newM);
-					lb.invalidate();
+					GymImsImpl gym = GymImsImpl.getGymImsImpl();
+					Clients.showNotification("Member Addess Successfully.");
+					LightWeightMember newM = new LightWeightMember(newMember.getMemberID(),newMember.getMemberName(),newMember.getDateOfBirth(),true,"");	
+
+					//Add member to the Global List...
+					gym.getAllMembers().put(newMember.getMemberID(), newM);
+					//Add item to the UI 
+					MembersController.getMemberControllerImpl().RefreshListModel(true,newM);					
+					
+					gym.sendWelcomeMessage(""+newMember.getContactNumber());
 					addNewMember.detach();
 				}
 				else
