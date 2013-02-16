@@ -42,6 +42,8 @@ public class MembersController extends SelectorComposer<Component> {
 	private MemberDAO members;
 	
 	private ListModelList<LightWeightMember> listModel;
+	private ListModelList<LightWeightMember> tempListModel;
+	
 	
 	@Wire private Listbox orig;
 	@Wire private Listbox dup;
@@ -72,7 +74,6 @@ public class MembersController extends SelectorComposer<Component> {
 	public MembersController()	{
 		if(System.getProperty("validSession")!=null && System.getProperty("validSession").equals("") ==false )	{
 			members = MemberImpl.getmemberImpl();
-			System.out.println("Hi i got a call");
 			memberList = gymImplObj.getAllActiveMembers();	
 			singleInstance = this;
 		}else{
@@ -109,10 +110,10 @@ public class MembersController extends SelectorComposer<Component> {
 			dup.setVisible(true);
 			GymImsImpl gym =GymImsImpl.getGymImsImpl(); 
 			subMembers = gym.getSubsetOfMembersBasedOnName(name); 
-			listModel = new ListModelList<LightWeightMember>(subMembers);
-			listModel.setMultiple(false);
+			tempListModel = new ListModelList<LightWeightMember>(subMembers);
+			tempListModel.setMultiple(false);
 
-			dup.setModel(listModel);
+			dup.setModel(tempListModel);
 			dup.invalidate();
 			sView.invalidate();
 		}
@@ -128,9 +129,9 @@ public class MembersController extends SelectorComposer<Component> {
 		int memberId = 0;
 		try	{
 			if(orig.isVisible())	
-				memberId= gym.getAllActiveMembers().get(orig.getSelectedIndex()).getMemberId();
+				memberId = listModel.get(orig.getSelectedIndex()).getMemberId();
 			else
-				memberId= gym.getAllActiveMembers().get(dup.getSelectedIndex()).getMemberId();
+				memberId = tempListModel.get(dup.getSelectedIndex()).getMemberId();
 		}catch(ArrayIndexOutOfBoundsException ae)	{
 		}
 		if (memberId != 0) {
