@@ -1,154 +1,180 @@
 <?page title="" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Add Measurement Details of the Member" border="normal"
+	<window title="Add Measurement Details of the Member"
+		border="normal" position="center,center" closable="true" maximizable="true"
+		action="show: slideDown;hide: slideUp" width="600px" apply="com._3sq.controllers.AddNewMeasurementController">
 
-position="center,center" closable="true" 
-	action="show: slideDown;hide: slideUp"
-	 width="600px"
-	 >
-
-
-
-<grid>
-		<columns>
-		
-			<column label="Measurements" align="center">
-			
 		<grid>
-		<columns>
-			<column label=""/>
-			<column label=""/>
-		</columns>
-		
-		
-		<rows>
-		 
-		<row>	
-			Measurement Taken Date <datebox id="measurementTakenDate" />
-		</row>
-		
-		<row>	
-			Height <decimalbox id="memberHeight" width= "95px"  placeholder="In Centimeters"/>
-		</row>
+			<columns>
+				<column label="Measurements" align="center">
+					<grid>
+						<columns>
+							<column label="" />
+							<column label="" />
+						</columns>
+						<rows>
+							<row>
+								Measurement Taken Date
+								<datebox id="measurementTakenDate" format="dd-MMM-yyyy"/>
+							</row>
+							<row>
+								Height
+								<intbox id="memberHeight"
+									width="95px" placeholder="In Centimeters" />
+							</row>
+							<row>
+								Weight
+								<decimalbox id="memberWeight"
+									width="95px" />
+							</row>
+							<row>
+								Chest
+								<decimalbox id="memberChest"
+									width="95px" />
+							</row>
+							<row>
+								Waist
+								<decimalbox id="memberWaist"
+									width="95px" />
+							</row>
+							<row>
+								Hips
+								<decimalbox id="memberHips"
+									width="95px" />
+							</row>
+							<row>
+								Thighs
+								<decimalbox id="memberThighs"
+									width="95px" />
+							</row>
+							<row>
+								Calfs
+								<decimalbox id="memberCalfs"
+									width="95px" />
+							</row>
+							<row>
+								Arms
+								<decimalbox id="memberArms"
+									width="95px" />
+							</row>
+							<row>
+								Forearms
+								<decimalbox id="memberForearms"
+									width="95px" />
+							</row>
 
-		<row>	
-			Weight <decimalbox id="memberWeight" width= "95px"/>
-		</row>
-		
-		<row>	
-			Chest <decimalbox id="memberChest" width= "95px"/>
-		</row>
-		
-		<row>	
-			Waist <decimalbox id="memberWaist" width= "95px"/>
-		</row>
-		
-		<row>	
-			Hips <decimalbox id="memberHips" width= "95px"/>
-		</row>
-		
-		<row>	
-			Thighs <decimalbox id="memberThighs" width= "95px"/>
-		</row>
-		
-		<row>	
-			Calfs <decimalbox id="memberCalfs" width= "95px"/>
-		</row>
-		
-		<row>	
-			Arms <decimalbox id="memberArms" width= "95px"/>
-		</row>
-		
-		<row>	
-			Forearms <decimalbox id="memberForearms" width= "95px"/>
-		</row>
-		
-		
-		</rows>
-	</grid>
-		
-			</column>
 
-			
-		<column label="Body Composition" align="center">
-		
-		
-				<grid>
-				<columns>
-					<column label=""/>
-					<column label=""/>
-				</columns>
-				<rows>
-		
-					<row>	
-						Fat in % <decimalbox id="memberFatInPer" width= "95px"/>
-					</row>
-	
-					<row>	
-						Body Age <decimalbox id="memberBodyAge" width= "95px"/>
-					</row>
-	
-	
-					<row>	
-						B.M.I <decimalbox id="memberBMI" width= "95px"/>
-					</row>
-	
-					<row>	
-						R.M <decimalbox id="memberRM" width= "95px"/>
-					</row>
-	
-					<row>	
-						Visceral Fat <decimalbox id="memberVisceral" width= "95px"/>
-					</row>
+						</rows>
+					</grid>
 
-				</rows>
-				</grid>
-				
-		
-				
-				<grid>
-					<columns>
-						<column label="Area" align="center"/>
-						<column label="SF" align="center"/>
-						<column label="SM" align="center"/>
-					</columns>
-					<rows>
-		
-					<row>	
-						Whole Body <decimalbox id="memberWholeBodySF" width= "95px"/> <decimalbox id="memberWholeBodySM" width= "95px"/>
-		
-					</row>
-					
-					
-					<row>	
-						Trunk <decimalbox id="memberTrunkSF" width= "95px"/> <decimalbox id="memberTrunkSM" width= "95px"/>
-		
-					</row>
-					
-					
-					<row>	
-						Leg <decimalbox id="memberLegSF" width= "95px"/> <decimalbox id="memberLegSM" width= "95px"/>
-		
-					</row>
-					
-					<row>	
-						Arm <decimalbox id="memberArmSF" width= "95px"/> <decimalbox id="memberArmSM" width= "95px"/>
-		
-					</row>
-							
+				</column>
 
-					<row>	
-					</row>
-					</rows>
-				</grid>
-		
-		</column>
-		</columns>		
-			
-	</grid>
 
-<space></space>
-<div align="center"> <button  id="addMeasurementToDB2" label="Submit Measurement Details" mold="trendy"/> </div>
-<space></space> 
-</window>
+				<column label="Body Composition" align="center">
+
+
+					<grid>
+						<columns>
+							<column label="" />
+							<column label="" />
+						</columns>
+						<rows>
+
+							<row>
+								Fat in %
+								<decimalbox id="memberFatInPer"
+									width="95px" />
+							</row>
+
+							<row>
+								Body Age
+								<decimalbox id="memberBodyAge"
+									width="95px" />
+							</row>
+
+
+							<row>
+								B.M.I
+								<decimalbox id="memberBMI" width="95px" />
+							</row>
+
+							<row>
+								R.M
+								<decimalbox id="memberRM" width="95px" />
+							</row>
+
+							<row>
+								Visceral Fat
+								<decimalbox id="memberVisceralFat"
+									width="95px" />
+							</row>
+
+						</rows>
+					</grid>
+
+
+
+					<grid>
+						<columns>
+							<column label="Area" align="center" />
+							<column label="SF" align="center" />
+							<column label="SM" align="center" />
+						</columns>
+						<rows>
+
+							<row>
+								Whole Body
+								<decimalbox id="memberWholeBodySF"
+									width="95px" />
+								<decimalbox id="memberWholeBodySM"
+									width="95px" />
+
+							</row>
+
+
+							<row>
+								Trunk
+								<decimalbox id="memberTrunkSF"
+									width="95px" />
+								<decimalbox id="memberTrunkSM"
+									width="95px" />
+
+							</row>
+
+
+							<row>
+								Leg
+								<decimalbox id="memberLegSF"
+									width="95px" />
+								<decimalbox id="memberLegSM"
+									width="95px" />
+
+							</row>
+
+							<row>
+								Arm
+								<decimalbox id="memberArmSF"
+									width="95px" />
+								<decimalbox id="memberArmSM"
+									width="95px" />
+
+							</row>
+
+
+							<row></row>
+						</rows>
+					</grid>
+
+				</column>
+			</columns>
+
+		</grid>
+
+		<space></space>
+		<div align="center">
+			<button id="addMeasurementToDB"
+				label="Submit Measurement Details" mold="trendy" />
+		</div>
+		<space></space>
+	</window>
 </zk>

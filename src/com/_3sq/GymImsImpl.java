@@ -64,6 +64,7 @@ public class GymImsImpl {
 	private String m_sWelcomeMessage;
 	private String m_sDbmachinename;
 	private String m_sDbport;
+	private String m_sBackupDirectory;
 	
 	
 //	private List<LightWeightMember> allMembers;
@@ -125,9 +126,13 @@ public class GymImsImpl {
 			setWelcomeMessage(m_pGymProps.getProperty("welcomeMessage","Welcome to gym"));
 			setDbmachinename(m_pGymProps.getProperty("dbmachinename","localhost"));
 			setDbport(m_pGymProps.getProperty("dbport","1521"));
+			setBackupDirectory(m_pGymProps.getProperty("backupdirectory","C:/Backup/"));
 		}
 	}
 
+	public Properties getPropertiesFileForGym()	{
+		return m_pGymProps;
+	}
 
 	public String getDbmachinename() {
 		return m_sDbmachinename;
@@ -242,10 +247,19 @@ public class GymImsImpl {
 		}
 	}
 	
+	public void resetAllMemberData()	{
+		System.out.println("Resetting Data...");
+		m_tmALlMembers = null;
+		m_tmALlMembers  = MemberImpl.getmemberImpl().loadPartialMembers(null);
+		allActiveMembers  = null;
+		allActiveMembers  = new ArrayList<LightWeightMember>(m_tmALlMembers.values());
+	}
+	
 	public ArrayList<LightWeightMember> rebuildMemberList()	{
 		allActiveMembers = new ArrayList<LightWeightMember>(m_tmALlMembers.values()); 
 		return allActiveMembers;
 	}
+	
 
 	/**
 	 * Useful in name search...
@@ -296,11 +310,9 @@ public class GymImsImpl {
 	//Load all the plan names here at the startup only...
 	public HashMap<Integer,GymPlan> getGymPlans ()	{
 		if(allPlans==null)	{
-			return (allPlans=GymPlanImpl.getGymPlanImpl().getAllGymPlans());
+			allPlans=GymPlanImpl.getGymPlanImpl().getAllGymPlans();
 		}
-		else	{
 			return allPlans;
-		}
 	}
 	//Load given Plan Based on ID
 		public GymPlan getGymPlan (int index)	{
@@ -312,8 +324,6 @@ public class GymImsImpl {
 			}
 		}
 		
-	
-
 	public Member getCurrMember() {
 		return m_mCurrMember;
 	}
@@ -334,6 +344,15 @@ public class GymImsImpl {
 		m_dCurrSelDate = null;
 	}
 	
+	
+	public String getBackupDirectory() {
+		return m_sBackupDirectory;
+	}
+
+	public void setBackupDirectory(String backupDirectory) {
+		this.m_sBackupDirectory = backupDirectory;
+	}
+
 	//is it is true, it means u are working in an Active Members Part, else in an inactive member part 
 	public boolean isMemberStatusFlag() {
 		return m_bMemberStatusFlag;

@@ -1,5 +1,7 @@
 package com._3sq.controllers;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,6 +21,8 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import com._3sq.GymImsImpl;
+import com._3sq.controllers.memberdetailscontrollers.MemberDetailInfo;
+import com._3sq.daoimpl.GymPlanImpl;
 import com._3sq.daoimpl.RegistrationPlanImpl;
 import com._3sq.domainobjects.GymPlan;
 import com._3sq.domainobjects.RegistrationPlan;
@@ -41,16 +45,16 @@ public class AddRegController extends SelectorComposer<Component> {
 	@Wire	private Radio newR;
 	@Wire	private Radio oldR;
 
-	@Wire	Intbox fees;
-	@Wire	Textbox duration;
-	@Wire 	private Window regWindow;
-	
-	
+	@Wire	private Intbox fees;
+	@Wire	private Textbox duration;
+//	@Wire 	private Window regWindow;
 	
 	static int flag = 1;
 	static String reason = "";
+	static HashMap<Integer, GymPlan> allPlans;
+	final DateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+
 	@Listen("onCheck = #newR")
-	
 	public void onSelectNewR() {
 		flag = 1;
 		memberPlanN.setVisible(true);
@@ -72,15 +76,14 @@ public class AddRegController extends SelectorComposer<Component> {
 
 	@Listen("onSelect = #memberPlanN,#memberPlanO")
 	public void onSelectionOfPlan() {
-		String plan = "";
+		String planName = "";
 		if (flag == 1) {
-			plan = memberPlanN.getSelectedItem().getLabel();
+			planName = memberPlanN.getSelectedItem().getLabel();
 		} else {
-			plan = memberPlanO.getSelectedItem().getLabel();
+			planName= memberPlanO.getSelectedItem().getLabel();
 		}
-		System.out.println(plan);
-
-		gym = GymImsImpl.getGymImsImpl().getGymPlans().get(plan);
+		
+		gym = getGymPlan(planName);
 		fees.setValue(gym.getFees());
 		duration.setValue(gym.getDurationInMonths() + " Month(s)");
 
@@ -103,14 +106,13 @@ public class AddRegController extends SelectorComposer<Component> {
 		RegistrationPlan rp = new  RegistrationPlan
 						(receiptNo, gym.getPlanID(), 
 						gym.getDurationInMonths(), planStartDate.getValue(),
-						planStartDate.getValue(), gym.getFees(), 
+						planEndDate.getValue(), gym.getFees(), 
 						reason, gym.getFees(), 
 						feesPaidDate.getValue());
 				
-		
-		
 		try	{
 			RegistrationPlanImpl.getRegistrationPlanImpl().addRegistrationInfo(memberId.getValue(), rp, reason);
+			MemberDetailInfo.getMemberDetailInfo().refreshMember();
 		}catch(Exception e){
 			bNoException = false;
 		}
@@ -121,7 +123,7 @@ public class AddRegController extends SelectorComposer<Component> {
 			else
 				Clients.showNotification("Renewal of Membership successful.");
 
-			regWindow.detach();
+			//regWindow.detach();
 		}else	{
 			Clients.showNotification("Problem in adding registration info. Please check the Receipt No", "error", null, "middle_center", 20);
 		}
@@ -147,16 +149,17 @@ public class AddRegController extends SelectorComposer<Component> {
 
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
-
+		
+		receipt.setValue(RegistrationPlanImpl.getRegistrationPlanImpl().getNextReceiptNumber());
+	
+		feesPaidDate.setValue(new Date());
 		planStartDate.setValue(new Date());
 		// changeEndDate();
-
-		HashMap<Integer, GymPlan> allPlans = GymImsImpl.getGymImsImpl()
-				.getGymPlans();
+		allPlans = GymImsImpl.getGymImsImpl().getGymPlans();
 		for (GymPlan plan : allPlans.values()) {
 			String planName = plan.getPlanName();
 			Comboitem item = new Comboitem(planName);
-			if (planName.contains("Renewal ") == false) {
+			if (planName.contains("New ") == true) {
 				memberPlanN.appendChild(item);
 			} else {
 				memberPlanO.appendChild(item);
@@ -168,6 +171,12 @@ public class AddRegController extends SelectorComposer<Component> {
 			memberId.setValue(mId);
 			memberId.setReadonly(true);
 		}
-
+	}
+	private GymPlan getGymPlan(String name)	{
+		for (GymPlan plan : allPlans.values()) {
+			if(name.equals(plan.getPlanName()))
+				return plan;
+		}
+		return null;
 	}
 }

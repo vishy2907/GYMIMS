@@ -38,13 +38,12 @@ import com._3sq.util.RendererClasses;
 public class MembersController extends SelectorComposer<Component> {
 
 	
-	private static MembersController singleInstance;
+	
 	private MemberDAO members;
 	
 	private ListModelList<LightWeightMember> listModel;
 	private ListModelList<LightWeightMember> tempListModel;
-	
-	
+
 	@Wire private Listbox orig;
 	@Wire private Listbox dup;
 	@Wire private Button addNewMember;
@@ -60,6 +59,7 @@ public class MembersController extends SelectorComposer<Component> {
 
 	private GymImsImpl gymImplObj = GymImsImpl.getGymImsImpl(); 
 	
+	private static MembersController singleInstance;
 	public static MembersController  getMemberControllerImpl() {
 		if (singleInstance == null) {
 			synchronized (GymPlanImpl.class) {
@@ -79,6 +79,21 @@ public class MembersController extends SelectorComposer<Component> {
 		}else{
 			Executions.sendRedirect("/UI/Login.zul");
 		}
+	}
+	
+	/**
+	 * Will be used in the case of restoration of backup task only...
+	 * Dont call it from any other task..
+	 */
+	public void resetController()	{
+		
+		System.out.println(memberList.size());
+		gymImplObj.resetAllMemberData();
+		memberList = gymImplObj.getAllActiveMembers();
+		System.out.println(memberList.size());
+		listModel = new ListModelList<LightWeightMember>(memberList);
+		orig.invalidate();
+		sView.invalidate();
 	}
 
 	@Listen("onCreate = #MemberDetailsPanel")

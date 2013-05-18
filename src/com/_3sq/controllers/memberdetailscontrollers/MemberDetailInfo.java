@@ -18,7 +18,9 @@ import org.zkoss.zul.Tabpanel;
 import org.zkoss.zul.Toolbarbutton;
 import org.zkoss.zul.Window;
 
-import com._3sq.GymImsImpl;
+import com._3sq.controllers.MembersController;
+import com._3sq.daoimpl.GymPlanImpl;
+import com._3sq.daoimpl.MemberImpl;
 
 /**
  * @author VishalB
@@ -26,9 +28,6 @@ import com._3sq.GymImsImpl;
  */
 public class MemberDetailInfo extends SelectorComposer<Component> {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	@Wire Tabbox idMemberDerailedInfo ;
 	@Wire Tab idPersInfo;
@@ -42,6 +41,22 @@ public class MemberDetailInfo extends SelectorComposer<Component> {
 	@Wire Toolbarbutton paymentButton;
 	@Wire Window memberInfo;
 	
+	private static MemberDetailInfo singleInstance;
+	public static MemberDetailInfo  getMemberDetailInfo() {
+		if (singleInstance == null) {
+			synchronized (GymPlanImpl.class) {
+				if (singleInstance == null) {
+					singleInstance = new  MemberDetailInfo();
+				}
+			}
+		}
+		return singleInstance;
+	}
+
+	public MemberDetailInfo() {
+		singleInstance = this;
+	}
+	
 	Date[] allMsrmntDates;
 	final DateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
 	
@@ -49,12 +64,14 @@ public class MemberDetailInfo extends SelectorComposer<Component> {
 	public void onSelectPersonalInfoTab()	{
 		paymentButton.setVisible(true);
 		msrmntButton.setVisible(true);
+		paymentButton.setLabel(" ");
+		msrmntButton.setLabel(" ");
 	}
-	
-	
+
 	@Listen("onSelect = #idPaymentHistory")
 	public void onSelectPaymentHistory()	{
 		paymentButton.setVisible(true);
+		paymentButton.setLabel("Make Payment / Renew Membership");
 		msrmntButton.setVisible(false);
 	}
 	
@@ -62,8 +79,8 @@ public class MemberDetailInfo extends SelectorComposer<Component> {
 	public void onMeasurementTab()	{
 		paymentButton.setVisible(false);
 		msrmntButton.setVisible(true);
+		msrmntButton.setLabel("Update / Add Measurement");
 	}
-	
 	
 	@Listen("onClick = #paymentButton")
 	public void onToolbarButton()	{
@@ -76,5 +93,10 @@ public class MemberDetailInfo extends SelectorComposer<Component> {
 			Window window = (Window)Executions.createComponents("/UI/addMeasurement.zul", null, null);
 			window.doModal();
 	}
-	
+
+	public void refreshMember() {
+		System.out.println("Refreshing...");
+		idMsrmnrDetHistoryPanel.invalidate();
+		idPaymentHistoryPanel.invalidate();
+	}
 }

@@ -1,19 +1,26 @@
 package com._3sq.domainobjects;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class RegistrationPlan {
+public class RegistrationPlan implements Serializable{
 	
+	private static final long serialVersionUID = 7987453650817374324L;
+	
+	int 	m_iMemberId;
 	int 	m_iReceiptId;
 	int   	m_iPlanID;
-	int 	m_iDurationInMonth;
+	
 	Date  	m_dStartDate;
 	Date  	m_dEndDate;
-	int 	m_iFees;
+
 	String 	m_sReason;
-	int 	m_iPaidAmount;
+
+	int 	m_iDurationInMonth;
+	int 	m_iFees;
+
 	Date	m_dPaindAmtDate;
-	
+	int 	m_iPaidAmount;
 	
 	public RegistrationPlan(int receiptId, int planID, int durationInMonth,
 			Date startDate, Date endDate, int fees, String reason,
@@ -87,5 +94,11 @@ public class RegistrationPlan {
 	}
 	public void setPaindAmtDate(Date paindAmtDate) {
 		m_dPaindAmtDate = paindAmtDate;
+	}
+	public int getMemberId() {
+		return m_iMemberId;
+	}
+	public void setMemberId(int memberId) {
+		this.m_iMemberId = memberId;
 	}
 }

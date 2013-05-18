@@ -3,6 +3,8 @@
  */
 package com._3sq.domainobjects;
 
+import java.io.Serializable;
+
 /**
  * @author Vishal B
  * Domain object for Storing the Gym Plans 
@@ -11,7 +13,14 @@ package com._3sq.domainobjects;
  * @author shani
  *
  */
-public class GymPlan {
+public class GymPlan  implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7856650569426800699L;
+	
+	
 	private int				m_iPlanID;
 	private String 			m_sPlanName;
 	private int				m_iFees;

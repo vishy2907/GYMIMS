@@ -1,3 +1,4 @@
+
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit"?>
 <?page title="ProFitness GYM"?>
 <zk xmlns:h="http://www.w3.org/1999/xhtml" >
@@ -18,6 +19,9 @@
 					<tab id="reports" 				label="Reports" />
 					<tab id="inactiveMemberMgmt"	label="Inactive Member Mgmt."/>
 				</tabs>
+				<toolbar>
+					<toolbarbutton id="backupManager" label="Backup Manager"  visible="true" >  </toolbarbutton>
+				</toolbar>
 				<tabpanels>
 					<!-- 		//Member Ship management Tab -->
 					<tabpanel>
@@ -59,7 +63,7 @@
 								</scrollview>
 								</center>
 								<south height="4%">
-								<button id="addNewMember" label="Add New Member"  visible="true" image="/UI/images/new.jpg" hflex="1" vflex="1" mold="trendy"></button>
+								<button id="addNewMember" label="Add New Member"  visible="true" image="/UI/images/new12.gif" hflex="1" vflex="1" mold="trendy"></button>
 								</south>
 								</borderlayout>
 									
@@ -73,7 +77,9 @@
 						</borderlayout>
 					</tabpanel>
 
-					<tabpanel></tabpanel>
+					<tabpanel>
+						<include src="/UI/Reports/ReportsHome.zul" mode="defer"></include>
+					</tabpanel>
 					<tabpanel>
 						<include src="/UI/InactiveMemberManagement/InactiveMemberManagement.zul" mode="defer"></include>
 					</tabpanel>

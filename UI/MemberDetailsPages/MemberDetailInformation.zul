@@ -1,6 +1,6 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window id="memberInfo" title="Member Details" border="normal"  hflex="1" width="100%" height="100%" apply="com._3sq.controllers.memberdetailscontrollers.MemberDetailInfo" closable="true">
+<window id="memberInfo" title="Member Details" border="normal"  hflex="1" width="100%" height="100%" apply="com._3sq.controllers.memberdetailscontrollers.MemberDetailInfo" closable="true" maximizable="true">
 <tabbox id="idMemberDerailedInfo" width="100%" height="100%" >
 	<tabs >
 		<tab id="idPersInfo" label="Member Information" height="30px"/>
@@ -8,8 +8,8 @@
 		<tab id="idPaymentHistory" label="Payment History" height="30px"/>
 	</tabs>
 	<toolbar  >
-			<toolbarbutton id="paymentButton" label="Make Payment / Renew Membership"  visible="true" image="/UI/images/money.jpg"> </toolbarbutton>
-			<toolbarbutton id="msrmntButton" label="Update / Add Measurement"  visible="true" image="/UI/images/gym2.jpg"> </toolbarbutton>
+			<toolbarbutton id="paymentButton" label=""  visible="true" image="/UI/images/money.jpg" tooltiptext="Make Payment"> </toolbarbutton>
+			<toolbarbutton id="msrmntButton" label=""  visible="true" image="/UI/images/gym2.jpg" tooltiptext="Add Measurement"> </toolbarbutton>
 	</toolbar>
 	<tabpanels>
 		<tabpanel id="idPersInfoPanel" height="100%">

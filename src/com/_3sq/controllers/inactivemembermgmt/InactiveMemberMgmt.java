@@ -133,8 +133,8 @@ public class InactiveMemberMgmt extends SelectorComposer<Component> {
 	}
 	
 	public void refreshList(LightWeightMember temp){
+		allInactiveMembers.remove(index);
 		listModel.remove(index);
-		allInactiveMembers.remove(temp);
 	}
 
 }

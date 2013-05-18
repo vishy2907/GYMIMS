@@ -1,10 +1,9 @@
 <?page title="(Re)New Membership Information" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="(Re)New GYM Membership" border="normal" position="center,center" closable="true" 
+<window title="(Re)New GYM Membership" border="normal" position="center,center" closable="true" maximizable="true" 
 	action="show: slideDown;hide: slideUp"
 	 width="500px"
 	 apply="com._3sq.controllers.AddRegController"
-	 id= "regWindow"
 >
 
 <grid>
@@ -23,7 +22,7 @@
 			</row>
 			
 			<row>	
-				Fees Paid Date <datebox id="feesPaidDate" constraint="no empty"/>
+				Fees Paid Date <datebox id="feesPaidDate" constraint="no empty" format="dd-MMM-yyyy"/>
 			</row>	
 			<row>	
 				Registration Type  <radiogroup><radio id="oldR" label="Renew Registration"/><radio id="newR" label="New Registration" /></radiogroup>
@@ -34,7 +33,7 @@
 			</row>	
 		
 			<row>	
-				Amount <intbox id="fees" readonly="true" width="60%"/>
+				Amount <intbox id="fees" width="60%"/>
 			</row>	
 		
 			<row>	

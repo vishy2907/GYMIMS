@@ -10,6 +10,8 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import com._3sq.GymImsImpl;
+import com._3sq.util._3sqBackupHandler;
+import com._3sq.util._3sqInitialDBGenerator;
  
 public class LoginController extends SelectorComposer<Window> {
  
@@ -43,11 +45,21 @@ public class LoginController extends SelectorComposer<Window> {
     	else	{
     		errorLabel.setValue("");
     		//Temp. I am assuming UID and PASSWORDS are
-    		// mahesh mahesh
+    		// admin admin
+    		System.out.println("Checking for user criteria...");
+    		_3sqInitialDBGenerator newDb = new _3sqInitialDBGenerator();
+    		newDb.checkUserAndCreateIfNotExists();
+    		
     		GymImsImpl gym = GymImsImpl.getGymImsImpl();
     		if(gym.validateUser(uId, pass))	{
+    			
+    			
     			System.setProperty("validSession", "true");    
     			Executions.sendRedirect("/UI/homepage.zul");
+    			//Add check for database...
+    			
+    			_3sqBackupHandler backup = new _3sqBackupHandler();
+    			backup.takeBackup();
     		}
     		else	{
     			errorLabel.setValue("Invalid Credentials.");

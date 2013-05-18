@@ -16,13 +16,10 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Tabbox;
-import org.zkoss.zul.Tabpanel;
-import org.zkoss.zul.Tabpanels;
 import org.zkoss.zul.Tabs;
 import org.zkoss.zul.Window;
 
 import com._3sq.GymImsImpl;
-import com._3sq.daoimpl.MeasurementImpl;
 import com._3sq.daoimpl.RegistrationPlanImpl;
 
 /**
@@ -51,7 +48,13 @@ public class PaymentHistoryController extends SelectorComposer<Component> {
 		final GymImsImpl gymApp = GymImsImpl.getGymImsImpl(); 
 		int currMemberId = gymApp.getCurrMember().getMemberID();
 		Vector<Date> allPaymentDates = RegistrationPlanImpl.getRegistrationPlanImpl().getAllDatesOfHistoryPayment(currMemberId);
-
+		
+		System.out.println("all payment date..."+allPaymentDates);
+		if(allPaymentDates==null)
+			return;
+		for(Date d : allPaymentDates)	{
+			System.out.println(d);
+		}
 		if(allPaymentDates!=null)	{
 			gymApp.setCurrSelectedDate(allPaymentDates.get(0));
 			inc1= new Include();
@@ -77,11 +80,6 @@ public class PaymentHistoryController extends SelectorComposer<Component> {
 				});
 				i++;
 			}
-		}
-		else	{
-			if(include.getFirstChild()!=null)
-				include.getFirstChild().detach();
-			return;
 		}
 	}
 

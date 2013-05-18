@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Vector;
 
@@ -40,13 +41,11 @@ public class MeasurementImpl implements MeasurementDAO {
 	    return singleInstance;
 	  }
 	
-	
-	
 	/**
 	 * @author PRADIP K
 	 * Date- 29/12/2012
 	 */
-		public boolean addBodyMeasurement(int memberId, MeasurementInfo combinedMsrInfo) {
+		public boolean addBodyMeasurement(int memberId, MeasurementInfo combinedMsrInfo) throws Exception{
 		// TODO Auto-generated method stub
 	try {			
 			
@@ -59,7 +58,7 @@ public class MeasurementImpl implements MeasurementDAO {
 			PreparedStatement preStatement = oracleConn.prepareStatement(sql);
 			
 			preStatement.setInt(1, memberId);
-			preStatement.setString(2, "" +  combinedMsrInfo.getMeasurementTakenDate().getTime());
+			preStatement.setDate(2, _3sqDate.utilDateToSqlDate(combinedMsrInfo.getMeasurementTakenDate()));
 			preStatement.setInt(3, combinedMsrInfo.getHeight());
 			preStatement.setFloat(4, combinedMsrInfo.getWeight());
 			preStatement.setFloat(5, combinedMsrInfo.getChest());
@@ -90,15 +89,11 @@ public class MeasurementImpl implements MeasurementDAO {
      			return true;
      		else
      			return false;
-
-			
-		} catch (Exception e) {
-			System.out.println("MeasurementImpl.java: addBodyMeasurement() : ");
-			e.printStackTrace();
+     		
+		} finally {
+			return true;
 		}
      		
-     		
-	return false;
 	}
 
 	
@@ -245,5 +240,109 @@ public class MeasurementImpl implements MeasurementDAO {
 			e.printStackTrace();
 		}
 		return currMsr;
+	}
+
+
+	public Collection<MeasurementInfo>	retrieveAllMsrmntsForSerialization()	{
+		Collection<MeasurementInfo> msrInfos = new ArrayList<MeasurementInfo>();
+		
+		try	{
+			
+			Connection oracleConn = OrclConnection.getOrclConnection();
+			String sql = " SELECT *  from MEASUREMENTDETAILS ";
+
+			PreparedStatement preStatement = oracleConn.prepareStatement(sql);
+			
+			ResultSet rs = preStatement.executeQuery();			
+			
+			while(rs.next())	{
+				MeasurementInfo currMsr = new MeasurementInfo();
+				
+				currMsr.setMemberId(rs.getInt("MEMBERID"));
+				currMsr.setHeight(rs.getInt("HEIGHT"));
+				currMsr.setWeight(rs.getFloat("WEIGHT"));
+				currMsr.setChest(rs.getFloat("CHEST" ));
+				currMsr.setWaist(rs.getFloat("WAIST"	));
+				currMsr.setThig(rs.getFloat("THIGHS"));
+				currMsr.setCalf(rs.getFloat("CALFS"));
+				currMsr.setArms(rs.getFloat("ARMS"));
+				currMsr.setForeamrs(rs.getFloat("FOREARMS"));
+				currMsr.setFatInPer(rs.getInt("FATINPER"));
+				currMsr.setBodyAge(rs.getInt("BODYAGE"));
+				currMsr.setBMI(rs.getInt("BMI"));
+				currMsr.setRM(rs.getInt("RM"));
+				currMsr.setVisceralFat(rs.getFloat("VISCERALFAT" ));	
+				currMsr.setWholeBodySF(rs.getFloat("WHOLEBODYSF" ));
+				currMsr.setWholeBodySM(rs.getFloat("WHOLEBODYSM"));
+				currMsr.setTrunkSF(rs.getFloat("TRUNKSF"));
+				currMsr.setTrunkSM(rs.getFloat("TRUNKSM"));
+				currMsr.setLegSF(rs.getFloat("LEGSF" ));
+				currMsr.setLegSM(rs.getFloat("LEGSM" ));
+				currMsr.setArmSF(rs.getFloat("ARMSF" ));
+				currMsr.setArmSM(rs.getFloat("ARMSM"));
+				
+				msrInfos.add(currMsr);
+			}
+			if(rs!=null)	
+				rs.close();
+			if(preStatement!=null)
+				preStatement.close();
+		} catch (Exception e) {
+			System.out.println("MeasurementImpl.java: retrieveAllMsrmntsForSerialization() : ");
+			e.printStackTrace();
+		}
+		
+		return msrInfos;
+	}
+	
+	public void addAllDeserializedMeasurements(Collection<MeasurementInfo> allMsrmnts){
+		if(allMsrmnts == null || allMsrmnts.size()==0)
+			return;
+		
+		try {			
+
+			Connection oracleConn = OrclConnection.getOrclConnection();
+			String sql = " insert into MEASUREMENTDETAILS (MEMBERID,MEASUREMENTTAKENDATE,HEIGHT,WEIGHT,CHEST,WAIST," +
+					" THIGHS,CALFS,ARMS,FOREARMS,FATINPER,BODYAGE,BMI,RM,VISCERALFAT," +
+					"WHOLEBODYSF,WHOLEBODYSM,TRUNKSF,TRUNKSM,LEGSF,LEGSM,ARMSF,ARMSM) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) " ;
+
+			PreparedStatement preStatement = oracleConn.prepareStatement(sql);
+
+			for(MeasurementInfo info : allMsrmnts){
+
+				preStatement.setInt(1, info.getMemberId());
+				preStatement.setDate(2, _3sqDate.utilDateToSqlDate(info.getMeasurementTakenDate()));
+				preStatement.setInt(3, info.getHeight());
+				preStatement.setFloat(4, info.getWeight());
+				preStatement.setFloat(5, info.getChest());
+				preStatement.setFloat(6, info.getWaist());
+				preStatement.setFloat(7, info.getThig());
+				preStatement.setFloat(8, info.getCalf());
+				preStatement.setFloat(9, info.getArms());
+				preStatement.setFloat(10, info.getForeamrs());
+				preStatement.setInt(11, info.getFatInPer());
+				preStatement.setInt(12, info.getBodyAge());
+				preStatement.setInt(13, info.getBMI());
+				preStatement.setInt(14, info.getRM());
+				preStatement.setFloat(15, info.getVisceralFat());	
+				preStatement.setFloat(16, info.get_WholeBodySF());
+				preStatement.setFloat(17, info.get_WholeBodySM());
+				preStatement.setFloat(18, info.getTrunkSF());
+				preStatement.setFloat(19, info.getTrunkSM());
+				preStatement.setFloat(20, info.getLegSF());
+				preStatement.setFloat(21, info.getLegSM());
+				preStatement.setFloat(22, info.getArmSF());
+				preStatement.setFloat(23, info.getArmSM());
+
+				preStatement.addBatch();
+
+			}
+			preStatement.executeBatch();			
+			preStatement.close();
+
+		} catch (Exception e) {
+			System.out.println("MeasurementImpl.java: addAllDeserializedMeasurements() : ");
+			e.printStackTrace();
+		}
 	}
 }

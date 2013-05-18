@@ -3,6 +3,7 @@
  */
 package com._3sq.domainobjects;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,7 +11,15 @@ import java.util.Date;
  * @version 1.0
  * Use : Main Domain Object class for storing the Measurement details for the member 
  */	
-public class MeasurementInfo {
+public class MeasurementInfo implements Serializable{
+
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6742904221240803682L;
+
+	private int 				m_iMemberId;			// Only to be		
 
 	private Date 				m_DMeasurementTakenDate;
 	private int 				m_iHeight;				//Height in centimeters
@@ -326,6 +335,15 @@ public class MeasurementInfo {
 	
 	public void setVisceralFat(float visceralFat) {
 		m_fVisceralFat = visceralFat;
+	}
+
+
+	public int getMemberId() {
+		return m_iMemberId;
+	}
+
+	public void setMemberId(int memberId) {
+		m_iMemberId = memberId;
 	}
 
 }

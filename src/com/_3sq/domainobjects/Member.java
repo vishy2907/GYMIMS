@@ -3,6 +3,7 @@
  */
 package com._3sq.domainobjects;
 
+import java.io.Serializable;
 import java.util.Date;
 
 //import java.util.Date;
@@ -15,7 +16,12 @@ import java.util.Date;
  * Naming Convention : m_ represents Class member  
  * and characters after _ represents the data type 
  */
-public class Member {
+public class Member implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2006982313219489439L;
 	private int 			m_iMemberID;
 	private String 			m_sMemberName;
 	private String 			m_sMemberAddress;
@@ -27,7 +33,9 @@ public class Member {
 	private String 			m_sGender;		//can be later converted into the enum - Gender
 	private long			m_lEmergencyContactNo;
 	private	Object			m_oImage;
-	private Date			m_dRegistrationDate;			
+	private Date			m_dRegistrationDate;
+	private int				m_isActiveFlag;		// will determine the existance of member.
+	private int				m_iWeight;			//initial weight
 	
 	
 	public Member(		String 			MemberName, 
@@ -291,5 +299,20 @@ public class Member {
 	public void setRegistrationDate(Date RegistrationDate) {
 		this.m_dRegistrationDate = RegistrationDate;
 	}
-	
+
+	public int getActiveFlag() {
+		return m_isActiveFlag;
+	}
+
+	public void setActiveFlag(int ActiveFlag) {
+		this.m_isActiveFlag = ActiveFlag;
+	}
+
+	public int getWeight() {
+		return m_iWeight;
+	}
+
+	public void setWeight(int Weight) {
+		this.m_iWeight = Weight;
+	}
 }

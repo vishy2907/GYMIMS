@@ -18,7 +18,7 @@
 							<h:b>GYM Information Management Solution</h:b>
 						</h:font>
 						</div>
-					</north>
+					</north> 
 					<center border="none">
 						<!-- 	User input Fields  gonna come in center part.. -->
 						<window border="none" apply="com._3sq.controllers.LoginController"> 
@@ -29,12 +29,12 @@
 								</listhead>
 								<listitem>
 								<listcell> <div align="center"> User Name : </div></listcell>
-								<listcell> <div> 	<textbox id="userId"  width="60%"/> </div></listcell>
+								<listcell> <div> 	<textbox id="userId"  width="60%" tabindex="1"/> </div></listcell>
 							</listitem>
 							
 							<listitem>
 								<listcell > <div align="center"> Password : </div></listcell>
-								<listcell > <div > 	<textbox id="pwd" type="password" width="60%"/></div></listcell>
+								<listcell > <div > 	<textbox id="pwd" type="password" width="60%" tabindex="2"/></div></listcell>
 							</listitem>
 							<listitem>
 								<listcell>	</listcell> <listcell><label id="errorLabel"> </label>  </listcell>
@@ -42,8 +42,8 @@
 						</listbox>
 						<listbox>
 							<listitem>
-								<listcell><div align="center"><button id="ok" label="Login" mold="trendy"/> </div> </listcell> 
-								<listcell><div align="left"><button id="cancel" label="Reset" mold="trendy"/> </div> </listcell>
+								<listcell><div align="center"><button id="ok" label="Login" mold="trendy" tabindex="3"/> </div> </listcell> 
+								<listcell><div align="left"><button id="cancel" label="Reset" mold="trendy" tabindex="4"/> </div> </listcell>
 							</listitem>
 						</listbox>
 						</window>

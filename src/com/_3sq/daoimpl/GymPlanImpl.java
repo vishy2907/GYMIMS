@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 import com._3sq.connection.OrclConnection;
@@ -45,7 +45,7 @@ public class GymPlanImpl implements GymPlanDAO {
 	 * @see com._3sq.daos.GymPlanDAO#addGymPlan(com._3sq.domainobjects.GymPlan)
 	 */
 	@Override
-		public boolean addGymPlan(GymPlan gymPlan)  throws Exception{
+		public boolean addGymPlan(GymPlan gymPlan)  {
 		// TODO Auto-generated method stub
 		
 		//physical insertion
@@ -153,8 +153,6 @@ public class GymPlanImpl implements GymPlanDAO {
 			while(rs.next())
 			{
 				int pId = rs.getInt(1);
-				if(pId==-1)
-					continue;
 				
 				String pName = rs.getString(2);
 				int fees = rs.getInt(3);
@@ -182,7 +180,14 @@ public class GymPlanImpl implements GymPlanDAO {
 		return allPlans;
 	}
 	
-	public static void main(String[] ars)	{
-		
+	//For serialization
+	public Collection<GymPlan>	retrieveAllGymPlansForSerialization()	{
+		return getAllGymPlans().values();
+	}
+	
+	public void addAllDeserializedGymPlans(Collection<GymPlan> gymPlan){
+		for(GymPlan gymp : gymPlan){
+			addGymPlan(gymp);
+		}
 	}
 }

@@ -2,6 +2,7 @@ package com._3sq.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import com._3sq.GymImsImpl;
 import com._3sq.daoimpl.GymPlanImpl;
@@ -52,13 +53,17 @@ public class OrclConnection {
 	
 
 	public static Connection getOrclConnection() {
-		if (m_cOrclConnection == null)	{   
-			synchronized (OrclConnection.class) {
-				if (m_cOrclConnection == null) {
-					System.out.println("Returning new oracle connection");
-					m_cOrclConnection = new OrclConnection().CreateNewConnection();
+		try {
+			if (m_cOrclConnection == null || m_cOrclConnection.isClosed())	{   
+				synchronized (OrclConnection.class) {
+					if (m_cOrclConnection == null) {
+						System.out.println("Returning new oracle connection");
+						m_cOrclConnection = new OrclConnection().CreateNewConnection();
+					}
 				}
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return m_cOrclConnection;
 	}
