@@ -1,0 +1,20 @@
+<zk> 
+	<window id="backup" title="System Backup handler" border="normal"
+	apply="com._3sq.controllers.FileUpLoadHandler"
+	position="center,center" closable="true" 
+	action="show: slideDown;hide: slideUp"
+	 width="350px">
+	<grid >
+		<columns>
+			<column label=""/>
+			<column label=""/>
+		</columns>
+		<rows>
+			<row>
+				Select Backup File : 
+				<button id="restoreBackup" label="Restore Backup" upload="true,maxsize=1000" />
+			</row>
+		</rows>
+	</grid>
+	</window>
+</zk>

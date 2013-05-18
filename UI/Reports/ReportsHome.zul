@@ -1,0 +1,31 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window border="none" width="100%" id="reportsHome" height="100%">
+
+		<borderlayout>
+			<north border="none"></north>
+			<west width="15%" border="none">
+				<div>
+					<space></space>
+					<tabbox id="tabboxPayments" orient="vertical">
+						<tabs id="tabs" width="100%">
+							<tab id="reportDueDate" tooltiptext="Due Date Mgmt.">Due Date Mgmt.</tab>
+							<tab id="reportAdmsnHstry" tooltiptext="Admission History">
+								Admission History
+							</tab>
+							<tab id="reportPaymntmgmt" tooltiptext="Payment Management">
+								Payment Management
+							</tab>
+						</tabs>
+					</tabbox>
+				</div>
+			</west>
+			<center flex="true" hflex="1" border="none">
+				<window id="reportsOutput" border="none" hflex="1"
+					vflex="1">
+				</window>
+			</center>
+		</borderlayout>
+
+	</window>
+</zk>
