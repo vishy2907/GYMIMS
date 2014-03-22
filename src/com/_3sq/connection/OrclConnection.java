@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import com._3sq.GymImsImpl;
-import com._3sq.daoimpl.GymPlanImpl;
 
 /**
  * 
@@ -33,7 +32,7 @@ public class OrclConnection {
 
 			GymImsImpl gym = GymImsImpl.getGymImsImpl();
 			
-			String serverName = "@"+gym.getDbmachinename()+":"+gym.getDbport();
+			String serverName = "@"+gym.getDbmachinename()+":"+gym.getDbport()+":xe";
 			
 			String url = "jdbc:oracle:thin://" + serverName;
 

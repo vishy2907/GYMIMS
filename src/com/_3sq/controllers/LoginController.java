@@ -72,7 +72,6 @@ public class LoginController extends SelectorComposer<Window> {
     	}
     }
 
-    
     @Listen("onClick=#cancel")
     public void cancel() {
         pwd.setText("");

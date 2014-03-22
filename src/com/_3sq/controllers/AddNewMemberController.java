@@ -3,7 +3,6 @@ package com._3sq.controllers;
 
 import java.util.Date;
 
-import org.apache.commons.lang.WordUtils;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.MouseEvent;
@@ -69,7 +68,7 @@ public class AddNewMemberController extends SelectorComposer<Component> {
 				newMember.setMemberID(memberId.getValue());
 				
 				String tName = memberName.getValue();
-				tName = WordUtils.capitalize(tName);
+				tName = tName.toUpperCase();
 				newMember.setMemberName(tName);
 
 				String tAddress = memberAddress.getValue();

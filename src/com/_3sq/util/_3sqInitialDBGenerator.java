@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+import com._3sq.connection.OrclConnection;
+
 
 
 
@@ -42,7 +44,7 @@ public class _3sqInitialDBGenerator {
 			String driverName = "oracle.jdbc.driver.OracleDriver";
 			Class.forName(driverName);
 			System.out.println("DB MACHINE : "+dbMachineName);
-			String serverName = "@"+dbMachineName+":"+dbport;
+			String serverName = "@"+dbMachineName+":"+dbport+":xe";
 			System.out.println("Server Name : "+serverName);
 			String url = "jdbc:oracle:thin://" + serverName;
 			//String username = "SYSTEM";
@@ -130,7 +132,7 @@ public class _3sqInitialDBGenerator {
 			
 					
 			/* Read Script*/
-			String ipFileName = "C:/Backup/Final Script.sql";
+			String ipFileName = "C:/Backup/SQL Script.txt";
 			
 			//File f = new File();
 			FileReader fr = new FileReader(ipFileName);
@@ -243,6 +245,7 @@ public class _3sqInitialDBGenerator {
 		if(isUserExist("root") == false )
 		{
 			System.out.println("User Creation Script Started...");
+
 			createUser();
 			try {
 				m_cOrclConnection.close();

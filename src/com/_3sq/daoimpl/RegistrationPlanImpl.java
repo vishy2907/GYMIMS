@@ -153,9 +153,9 @@ public class RegistrationPlanImpl implements RegistrationPlanDAO{
 				regPlan.setStartDate(_3sqDate.sqlDateToUtilDate(rs.getDate("STARTDATE")));
 				regPlan.setEndDate(_3sqDate.sqlDateToUtilDate(rs.getDate("ENDDATE")));
 				
-				regPlan.setReason(rs.getString("REASON"));
-				regPlan.setPaidAmount(rs.getInt("PAIDAMT"));
-				regPlan.setPaindAmtDate(_3sqDate.sqlDateToUtilDate(rs.getDate("PAIDAMTDATE")));
+				//regPlan.setReason(rs.getString("REASON"));
+				//regPlan.setPaidAmount(rs.getInt("PAIDAMT"));
+				//regPlan.setPaindAmtDate(_3sqDate.sqlDateToUtilDate(rs.getDate("PAIDAMTDATE")));
 				
 				allRegsHistoryInfo.add(regPlan);
 			}

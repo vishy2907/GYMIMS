@@ -18,7 +18,6 @@ import com._3sq.daoimpl.MemberImpl;
 import com._3sq.datatransporter.LightWeightMember;
 import com._3sq.domainobjects.GymPlan;
 import com._3sq.domainobjects.Member;
-import com._3sq.messaging.MessageSender;
 
 /**
  * @author VishaB
@@ -78,7 +77,7 @@ public class GymImsImpl {
 	
 
 
-	MessageSender sms = new MessageSender(MessageSender.SYNCHRONOUS);
+	//MessageSender sms = new MessageSender(MessageSender.SYNCHRONOUS);
 	//
 	HashMap<Integer,GymPlan> allPlans;
 
@@ -298,11 +297,11 @@ public class GymImsImpl {
 	
 	public void sendMessgeToSingleUser(String mobNo, String message)	{
 		
-		sms.sendMessage(mobNo,message,this.getComPortNo(),this.getMessageCenterNo());
+		//sms.sendMessage(mobNo,message,this.getComPortNo(),this.getMessageCenterNo());
 	}
 
 	public void sendWelcomeMessage(String contactNumber) {
-		sms.sendMessage(contactNumber,this.getWelcomeMessage(),this.getComPortNo(),this.getMessageCenterNo());
+		//sms.sendMessage(contactNumber,this.getWelcomeMessage(),this.getComPortNo(),this.getMessageCenterNo());
 	}
 	
 

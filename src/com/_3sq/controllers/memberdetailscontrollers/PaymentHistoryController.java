@@ -67,7 +67,8 @@ public class PaymentHistoryController extends SelectorComposer<Component> {
 			int i=0;
 			for(final Date eachDate : allPaymentDates )	{
 				msrTab[i] = new Tab();
-
+				
+				if(eachDate != null)
 				msrTab[i].setLabel(df.format(eachDate));
 
 				tabs.appendChild(msrTab[i]);

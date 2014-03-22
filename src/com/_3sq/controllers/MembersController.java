@@ -15,7 +15,7 @@ import org.zkoss.zk.ui.event.MouseEvent;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
-import org.zkoss.zkmax.zul.Scrollview;
+//import org.zkoss.zkmax.zul.Scrollview;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.ListModelList;
@@ -47,7 +47,7 @@ public class MembersController extends SelectorComposer<Component> {
 	@Wire private Listbox orig;
 	@Wire private Listbox dup;
 	@Wire private Button addNewMember;
-	@Wire private Scrollview sView;
+	//@Wire private Scrollview sView;
 	@Wire private Textbox serachByName;
 	@Wire private Window MemberDetailsPanel;
 	
@@ -93,7 +93,7 @@ public class MembersController extends SelectorComposer<Component> {
 		System.out.println(memberList.size());
 		listModel = new ListModelList<LightWeightMember>(memberList);
 		orig.invalidate();
-		sView.invalidate();
+		//sView.invalidate();
 	}
 
 	@Listen("onCreate = #MemberDetailsPanel")
@@ -108,7 +108,7 @@ public class MembersController extends SelectorComposer<Component> {
 		if(name.equals(""))	{
 			orig.setVisible(true);
 			dup.setVisible(false);
-			sView.invalidate();
+		//	sView.invalidate();
 		}
 	}
 	@Listen("onOK = #serachByName")
@@ -118,7 +118,7 @@ public class MembersController extends SelectorComposer<Component> {
 		if(name.equals(""))	{
 			orig.setVisible(true);
 			dup.setVisible(false);
-			sView.invalidate();
+			//sView.invalidate();
 		}else
 		{
 			orig.setVisible(false);
@@ -130,7 +130,7 @@ public class MembersController extends SelectorComposer<Component> {
 
 			dup.setModel(tempListModel);
 			dup.invalidate();
-			sView.invalidate();
+			//sView.invalidate();
 		}
     }
 

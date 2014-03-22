@@ -39,7 +39,7 @@
 								</div>
 								</north>
 								<center>	
-								<scrollview id="sView" vflex="1">
+								<div>
 									<listbox id="orig">
 										<listhead sizable="true">
 											<listheader width="30%"
@@ -60,7 +60,7 @@
 												label="D.O.B." />
 										</listhead>
 									</listbox>
-								</scrollview>
+								</div>
 								</center>
 								<south height="4%">
 								<button id="addNewMember" label="Add New Member"  visible="true" image="/UI/images/new12.gif" hflex="1" vflex="1" mold="trendy"></button>

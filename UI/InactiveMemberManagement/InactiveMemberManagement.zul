@@ -25,7 +25,6 @@
 	</north>
 	<center><window id="InMemberDetailsPanel" height="100%" border="none" /></center>
 	<west width="25%">
-		<scrollview vflex="1" height="100%">
 			<listbox id="iMemberList" >
 				<listhead sizable="true">
 					<listheader width="30%" align="center"
@@ -34,7 +33,6 @@
 					<listheader width="30%" label="D.O.B." />
 				</listhead>
 			</listbox>
-		</scrollview>
 	</west>
 </borderlayout>
 </zk>
